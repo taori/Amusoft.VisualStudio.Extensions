@@ -1,0 +1,1 @@
+start "-console" "%~dp0WindowsService2.exe" "-console"

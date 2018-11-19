@@ -1,0 +1,19 @@
+﻿<Application x:Class="Company.Desktop.Application.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Company.Desktop.Application"
+             xmlns:controls="clr-namespace:Company.Desktop.ViewModels.Controls;assembly=Company.Desktop.ViewModels"
+             xmlns:controls1="clr-namespace:Company.Desktop.Application.Views.Controls"
+             StartupUri="Views/Windows/Splash.xaml">
+    <Application.Resources>
+		<!-- <ResourceDictionary> -->
+		<!-- 	<ResourceDictionary.MergedDictionaries> -->
+		<!-- 		<ResourceDictionary> -->
+		<!-- 			<DataTemplate DataType="{x:Type controls:SampleDataOverviewViewModel}"> -->
+		<!-- 				<controls1:SampleDataOverview></controls1:SampleDataOverview> -->
+		<!-- 			</DataTemplate> -->
+		<!-- 		</ResourceDictionary> -->
+		<!-- 	</ResourceDictionary.MergedDictionaries> -->
+		<!-- </ResourceDictionary> -->
+    </Application.Resources>
+</Application>

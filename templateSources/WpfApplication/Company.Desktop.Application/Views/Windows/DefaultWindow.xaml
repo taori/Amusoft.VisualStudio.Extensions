@@ -1,0 +1,18 @@
+﻿<Window x:Class="Company.Desktop.Application.Views.Windows.DefaultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
+        xmlns:mvvm="clr-namespace:Company.Desktop.Framework.Mvvm;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:viewModels="clr-namespace:Company.Desktop.Framework.Mvvm.ViewModels;assembly=Company.Desktop.Framework.Mvvm"
+        mc:Ignorable="d"
+		x:Name="Self"
+        d:DataContext="{d:DesignInstance viewModels:WindowViewModel}"
+        Title="{Binding Path=Title}" Height="{Binding Path=Height}" Width="{Binding Path=Width}">
+	<Grid>
+		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" 
+		                  mvvm:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  mvvm:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+    </Grid>
+</Window>

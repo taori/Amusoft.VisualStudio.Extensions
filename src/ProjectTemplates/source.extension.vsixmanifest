@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="ProjectTemplates.b2e02887-4fdd-4af4-935f-d85d112e432c" Version="1.0" Language="de-DE" Publisher="Andreas" />
+        <Identity Id="ProjectTemplates.b2e02887-4fdd-4af4-935f-d85d112e432c" Version="1.0" Language="de-DE" Publisher="Amusoft" />
         <DisplayName>Amusoft Project Templates</DisplayName>
         <Description xml:space="preserve">This extension contains only project templates</Description>
         <License>License.txt</License>
