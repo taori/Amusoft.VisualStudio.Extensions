@@ -89,18 +89,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Resources\Translations.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Translations.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Shell\Configuration\DataTemplate\DataTemplateConfigurationRunner.cs" />
-    <Compile Include="Shell\Configuration\DataTemplate\DefaultConventionMapper.cs" />
-    <Compile Include="Shell\Configuration\DataTemplate\LocalViewModelTypeSource.cs" />
-    <Compile Include="Shell\Configuration\DataTemplate\LocalViewTypeSource.cs" />
-    <Compile Include="Shell\Configuration\DataTemplate\StaticTemplateMapper.cs" />
-    <Compile Include="Shell\Dependencies\DialogService.cs" />
-    <Compile Include="Shell\Dependencies\WindowFactory.cs" />
+    <Compile Include="Dependencies\Configuration\DataTemplate\LocalViewModelTypeSource.cs" />
+    <Compile Include="Dependencies\Configuration\DataTemplate\LocalViewTypeSource.cs" />
+    <Compile Include="Dependencies\Configuration\DataTemplate\StaticTemplateMapper.cs" />
+    <Compile Include="Dependencies\UI\DialogService.cs" />
+    <Compile Include="Dependencies\UI\WindowFactory.cs" />
     <Compile Include="Views\Windows\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
@@ -120,9 +113,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Shell\Dependencies\InjectionAssemblyLoader.cs" />
-    <Compile Include="Shell\DependencyContainer.cs" />
-    <Compile Include="Shell\Registrars\ShellRegistrar.cs" />
+    <Compile Include="Dependencies\Setup\InjectionAssemblyLoader.cs" />
+    <Compile Include="Dependencies\DependencyContainer.cs" />
+    <Compile Include="Dependencies\Registrars\ShellRegistrar.cs" />
     <Compile Include="Views\Controls\SampleDataOverview.xaml.cs">
       <DependentUpon>SampleDataOverview.xaml</DependentUpon>
     </Compile>
@@ -159,11 +152,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Resources\Translations.de.resx" />
-    <EmbeddedResource Include="Resources\Translations.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Translations.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -180,6 +168,10 @@
     <ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj">
       <Project>{8ad183c4-4e16-4719-bf23-c26f7ba947a7}</Project>
       <Name>Company.Desktop.Framework.Mvvm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj">
+      <Project>{07342dd2-ccf3-42d0-8361-d9e22961aedf}</Project>
+      <Name>Company.Desktop.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj">
       <Project>{746ca14f-6f64-4f34-b67c-d7e1106e4509}</Project>

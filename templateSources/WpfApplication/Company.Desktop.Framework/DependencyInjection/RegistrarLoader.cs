@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Composition;
+﻿using System.Collections.Generic;
 using System.Composition.Convention;
 using System.Composition.Hosting;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 

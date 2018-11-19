@@ -1,6 +1,5 @@
-﻿using Company.Desktop.Framework.Mvvm.ViewModels;
+﻿using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.Models.Abstraction.Entities;
-using Company.Desktop.ViewModels.Common;
 
 namespace Company.Desktop.ViewModels.Controls
 {

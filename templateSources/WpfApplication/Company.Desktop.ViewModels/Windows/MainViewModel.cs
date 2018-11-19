@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Company.Desktop.Framework.Mvvm;
-using Company.Desktop.Framework.Mvvm.Navigation;
-using Company.Desktop.Framework.Mvvm.ViewModels;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
+using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.UI;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,7 +63,12 @@ namespace Company.Desktop.ViewModels.Windows
 		private async void OpenWindowExecute(object obj)
 		{
 			var navigation = ServiceProvider.GetRequiredService<INavigationService>();
-			await navigation.OpenWindowAsync(new SecondaryWindowViewModel());
+			var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
+
+			if(await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
+				await navigation.OpenWindowAsync(new SecondaryWindowViewModel(), "secondWindow");
+			else
+				await navigation.OpenWindowAsync(new SecondaryWindowViewModel(), null);
 		}
 
 		/// <inheritdoc />

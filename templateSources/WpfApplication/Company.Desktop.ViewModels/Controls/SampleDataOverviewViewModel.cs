@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Navigation;
-using Company.Desktop.Framework.Mvvm.ViewModels;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.Models.Abstraction.Providers;
 using Microsoft.Extensions.DependencyInjection;
 

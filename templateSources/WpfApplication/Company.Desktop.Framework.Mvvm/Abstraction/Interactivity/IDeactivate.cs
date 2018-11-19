@@ -1,0 +1,11 @@
+﻿using System.Threading.Tasks;
+
+namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity
+{
+	public interface IDeactivate
+	{
+		Task DeactivateAsync(IDeactivationContext context);
+
+		event AsyncEventHandler OnDeactivated;
+	}
+}

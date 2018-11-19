@@ -6,7 +6,6 @@ using System.Reflection;
 using Company.Desktop.Framework.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
-using NLog.LayoutRenderers;
 
 namespace Company.Desktop.Framework.DependencyInjection.Registrars
 {

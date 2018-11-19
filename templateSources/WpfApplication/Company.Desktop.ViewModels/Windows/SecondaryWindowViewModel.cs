@@ -1,9 +1,9 @@
 ﻿
 
+using System;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Navigation;
-using Company.Desktop.Framework.Mvvm.ViewModels;
-using Company.Desktop.ViewModels.Common;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 
 namespace Company.Desktop.ViewModels.Windows
 {
@@ -12,7 +12,8 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		protected override async Task OnActivateAsync(IActivationContext context)
 		{
-			
+			await Task.Delay(3000);
+			Title = $"Title updated: {DateTime.Now.ToString("F")}";
 		}
 
 		/// <inheritdoc />

@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
         xmlns:mvvm="clr-namespace:Company.Desktop.Framework.Mvvm;assembly=Company.Desktop.Framework.Mvvm"
-        xmlns:viewModels="clr-namespace:Company.Desktop.Framework.Mvvm.ViewModels;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:viewModel="clr-namespace:Company.Desktop.Framework.Mvvm.ViewModel;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:sort="clr-namespace:Company.Desktop.Framework.Mvvm._sort;assembly=Company.Desktop.Framework.Mvvm"
         mc:Ignorable="d"
 		x:Name="Self"
-        d:DataContext="{d:DesignInstance viewModels:WindowViewModel}"
+        d:DataContext="{d:DesignInstance viewModel:WindowViewModel}"
         Title="{Binding Path=Title}" Height="{Binding Path=Height}" Width="{Binding Path=Width}">
 	<Grid>
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" 
-		                  mvvm:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
-		                  mvvm:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+		                  sort:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  sort:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
     </Grid>
 </Window>

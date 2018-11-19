@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Security.AccessControl;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Threading;
-using Company.Desktop.Application.Shell;
+using Company.Desktop.Application.Dependencies;
 using Company.Desktop.Framework.Extensibility;
 using Company.Desktop.Framework.Extensions;
-using Company.Desktop.Framework.Logging;
-using Company.Desktop.Framework.Mvvm.Navigation;
+using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.ViewModels.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -54,7 +47,7 @@ namespace Company.Desktop.Application
 				}
 
 				var navigationService = DependencyContainer.ServiceProvider.GetService<INavigationService>();
-				navigationService.OpenWindowAsync(new MainViewModel());
+				navigationService.OpenWindowAsync(new MainViewModel(), nameof(MainViewModel));
 				
 				base.OnStartup(e);
 			}
