@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Company.Desktop.Framework.Mvvm._sort;
 
-namespace Company.Desktop.Framework.Mvvm.ViewModel.Mapping
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class DefaultConventionMapper : IDataTemplateMapper
 	{

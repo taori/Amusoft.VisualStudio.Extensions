@@ -8,6 +8,7 @@
         xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
         xmlns:mvvm="clr-namespace:Company.Desktop.Framework.Mvvm;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:sort="clr-namespace:Company.Desktop.Framework.Mvvm._sort;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:integration="clr-namespace:Company.Desktop.Framework.Mvvm.Integration;assembly=Company.Desktop.Framework.Mvvm"
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance windows:MainViewModel}"
@@ -25,10 +26,10 @@
 			<Button Command="{Binding Path=UpdateBottomAreaCommand}" Content="Update Bottom Area"></Button>
 		</StackPanel>
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
-		                  sort:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
-		                  sort:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+		                  integration:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  integration:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
-		                  sort:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
-		                  sort:RegionManager.RegionName="{x:Static common:RegionNames.BottomArea}" />
+		                  integration:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  integration:RegionManager.RegionName="{x:Static common:RegionNames.BottomArea}" />
     </Grid>
 </Window>

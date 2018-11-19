@@ -1,7 +1,7 @@
 ﻿using System;
 using Company.Desktop.Framework.DependencyInjection;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	[InheritedExport(typeof(ViewModelInitializerContext), LifeTime = LifeTime.PerRequest)]
 	public class ViewModelInitializerContext

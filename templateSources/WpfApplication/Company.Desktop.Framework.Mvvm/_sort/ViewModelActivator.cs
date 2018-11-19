@@ -5,7 +5,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm.ViewModel.Mapping
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class ViewModelActivator : IViewModelActivator
 	{

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Company.Desktop.Framework.Mvvm.Abstraction.UI
+namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration
 {
 	public interface IRegionManager
 	{

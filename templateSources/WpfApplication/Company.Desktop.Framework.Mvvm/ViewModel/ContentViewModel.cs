@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Extensibility;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;

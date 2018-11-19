@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm._sort
+namespace Company.Desktop.Framework.Mvvm.Integration
 {
 	public class RegionManager : IRegionManager
 	{

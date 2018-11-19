@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm.Integration
 {
 	public class WindowManager : IWindowManager
 	{

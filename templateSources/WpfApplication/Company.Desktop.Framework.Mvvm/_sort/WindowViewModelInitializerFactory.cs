@@ -2,11 +2,11 @@
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
-using Company.Desktop.Framework.Mvvm.Navigation;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm.ViewModel.Mapping
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class WindowViewModelInitializerFactory : IViewModelInitializerFactory
 	{

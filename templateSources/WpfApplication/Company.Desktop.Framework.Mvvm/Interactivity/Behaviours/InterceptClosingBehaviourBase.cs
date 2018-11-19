@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {

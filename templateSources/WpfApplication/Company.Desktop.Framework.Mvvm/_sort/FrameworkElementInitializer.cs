@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class FrameworkElementInitializer<TViewModel> : ViewModelInitializerBase<TViewModel, FrameworkElement>
 		where TViewModel : ContentViewModel

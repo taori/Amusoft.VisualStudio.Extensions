@@ -7,13 +7,14 @@
         xmlns:mvvm="clr-namespace:Company.Desktop.Framework.Mvvm;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:viewModel="clr-namespace:Company.Desktop.Framework.Mvvm.ViewModel;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:sort="clr-namespace:Company.Desktop.Framework.Mvvm._sort;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:integration="clr-namespace:Company.Desktop.Framework.Mvvm.Integration;assembly=Company.Desktop.Framework.Mvvm"
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance viewModel:WindowViewModel}"
         Title="{Binding Path=Title}" Height="{Binding Path=Height}" Width="{Binding Path=Width}">
 	<Grid>
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" 
-		                  sort:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
-		                  sort:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+		                  integration:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  integration:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
     </Grid>
 </Window>

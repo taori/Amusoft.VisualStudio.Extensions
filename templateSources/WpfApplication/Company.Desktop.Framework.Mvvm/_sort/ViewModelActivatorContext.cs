@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Company.Desktop.Framework.Mvvm.ViewModel.Mapping
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public interface IViewModelActivatorContext : IServiceContext
 	{

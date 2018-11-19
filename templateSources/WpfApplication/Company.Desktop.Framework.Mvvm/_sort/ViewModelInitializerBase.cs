@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Extensibility;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using NLog;
 using ActivationContext = Company.Desktop.Framework.Mvvm.Interactivity.ActivationContext;
 using Expression = System.Linq.Expressions.Expression;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public abstract class ViewModelInitializerBase<TViewModel, TControl> : IViewModelInitializer
 		where TViewModel : IActivateable

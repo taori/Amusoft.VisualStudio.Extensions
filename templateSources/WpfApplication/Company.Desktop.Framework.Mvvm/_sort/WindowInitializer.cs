@@ -3,10 +3,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.Window;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class WindowInitializer<TViewModel> : ViewModelInitializerBase<TViewModel, Window>
 		where TViewModel : WindowViewModel

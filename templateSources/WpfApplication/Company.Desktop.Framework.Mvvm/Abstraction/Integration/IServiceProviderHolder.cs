@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Company.Desktop.Framework.Extensibility
+namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration
 {
 	public interface IServiceProviderHolder
 	{

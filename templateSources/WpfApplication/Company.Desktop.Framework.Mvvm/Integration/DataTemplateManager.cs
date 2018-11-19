@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Company.Desktop.Framework.Mvvm._sort
+namespace Company.Desktop.Framework.Mvvm.Integration
 {
 	public class DataTemplateManager
 	{

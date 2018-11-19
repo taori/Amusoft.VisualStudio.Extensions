@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
-using Company.Desktop.Framework.Mvvm.Navigation;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 
-namespace Company.Desktop.Framework.Mvvm.ViewModel.Mapping
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class FrameworkElementInitializerFactory : IViewModelInitializerFactory
 	{

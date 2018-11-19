@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
-using Company.Desktop.Framework.Mvvm._sort;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm._sort
 {
 	public class ViewModelVisualizerFactory : IViewModelVisualizerFactory
 	{

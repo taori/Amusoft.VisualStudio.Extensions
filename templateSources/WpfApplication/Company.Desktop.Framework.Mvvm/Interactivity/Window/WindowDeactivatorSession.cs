@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Extensions;
-using Company.Desktop.Framework.Mvvm.Interactivity;
 
-namespace Company.Desktop.Framework.Mvvm.Navigation
+namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {
 	public class WindowDeactivatorSession
 	{
