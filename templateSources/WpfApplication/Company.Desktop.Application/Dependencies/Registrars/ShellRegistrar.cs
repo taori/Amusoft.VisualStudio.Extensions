@@ -2,12 +2,15 @@
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
 using Company.Desktop.Framework.Mvvm.Integration;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Navigation;
-using Company.Desktop.Framework.Mvvm._sort;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Application.Dependencies.Registrars
@@ -22,10 +25,10 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			services.AddSingleton<IInjectionAssemblyLoader, InjectionAssemblyLoader>();
 			services.AddSingleton<IRegionManager, RegionManager>();
 			services.AddSingleton<IWindowManager, WindowManager>();
-			services.AddSingleton<IViewModelVisualizerFactory, ViewModelVisualizerFactory>();
+			services.AddSingleton<IDisplayCoordinatorFactory, DisplayCoordinatorFactory>();
 
 			services.AddTransient<IServiceContext, ServiceContext>();
-			services.AddTransient<IViewModelActivatorContext, ViewModelActivatorContext>();
+			services.AddTransient<IViewModelWindowFactory, WindowFactory>();
 		}
 	}
 }

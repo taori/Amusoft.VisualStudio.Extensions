@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
-using Company.Desktop.Framework.Mvvm._sort;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class WindowViewModel : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel
+	public abstract class WindowViewModel : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IBehaviourProvider
 	{
 		protected static readonly ILogger Log = LogManager.GetLogger(nameof(WindowViewModel));
 
@@ -119,13 +122,19 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		{
 			using (LoadingState.Session())
 			{
-				var visualizerFactory = ServiceProvider.GetRequiredService<IViewModelVisualizerFactory>();
+				var visualizerFactory = ServiceProvider.GetRequiredService<IDisplayCoordinatorFactory>();
 				var visualizer = visualizerFactory.Create(content);
-				await visualizer.VisualizeAsync(content, new RegionArguments(this, regionName));
+				await visualizer.DisplayAsync(content, new RegionArguments(this, regionName));
 			}
 		}
 
 		/// <inheritdoc />
 		public IServiceProvider ServiceProvider { get; set; }
+
+		/// <inheritdoc />
+		public IEnumerable<IBehaviour> GetBehaviours()
+		{
+			yield return new RequestClosePermissionBehaviour();
+		}
 	}
 }

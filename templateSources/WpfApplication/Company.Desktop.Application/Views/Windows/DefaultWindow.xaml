@@ -3,18 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
-        xmlns:mvvm="clr-namespace:Company.Desktop.Framework.Mvvm;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:viewModel="clr-namespace:Company.Desktop.Framework.Mvvm.ViewModel;assembly=Company.Desktop.Framework.Mvvm"
-        xmlns:sort="clr-namespace:Company.Desktop.Framework.Mvvm._sort;assembly=Company.Desktop.Framework.Mvvm"
-        xmlns:integration="clr-namespace:Company.Desktop.Framework.Mvvm.Integration;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:viewMapping="clr-namespace:Company.Desktop.Framework.Mvvm.Integration.ViewMapping;assembly=Company.Desktop.Framework.Mvvm"
+        xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
+        xmlns:framework="http://schemas.localcontrols.com/winfx/2006/xaml/presentation"
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance viewModel:WindowViewModel}"
         Title="{Binding Path=Title}" Height="{Binding Path=Height}" Width="{Binding Path=Width}">
 	<Grid>
+		<framework:OverlayPanel IsOverlayVisible="{Binding Path=LoadingState.IsBusy}">
+			<framework:OverlayPanel.Overlay>
+				<TextBlock Text="Loading ..." Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+			</framework:OverlayPanel.Overlay>
+		</framework:OverlayPanel>
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" 
-		                  integration:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
-		                  integration:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
     </Grid>
 </Window>

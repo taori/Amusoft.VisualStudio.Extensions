@@ -7,8 +7,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity
 {
 	public class BusyState : INotifyPropertyChanged
 	{
-
-		private int _counter = 0;
+		private int _counter;
 
 		public bool IsBusy
 		{

@@ -1,32 +1,28 @@
 ﻿using System;
 using System.Windows;
 using Company.Desktop.Application.Views.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.ViewModels.Windows;
-using NLog;
 
 namespace Company.Desktop.Application.Dependencies.UI
 {
 	public class WindowFactory : IViewModelWindowFactory
 	{
-		private static readonly ILogger Log = LogManager.GetLogger(nameof(WindowFactory));
-
 		/// <inheritdoc />
-		public bool CanCreateWindow(IActivateable activateable)
+		public bool CanCreateWindow(object dataContext)
 		{
-			if (activateable == null)
+			if (dataContext == null)
 			{
-				throw new ArgumentNullException(nameof(activateable), nameof(activateable));
+				throw new ArgumentNullException(nameof(dataContext), nameof(dataContext));
 			}
 
 			return true;
 		}
 
 		/// <inheritdoc />
-		public Window CreateWindow(IActivateable activateable)
+		public Window CreateWindow(object dataContext)
 		{
-			if(activateable is MainViewModel)
+			if(dataContext is MainViewModel)
 				return new MainWindow();
 
 			return new DefaultWindow();

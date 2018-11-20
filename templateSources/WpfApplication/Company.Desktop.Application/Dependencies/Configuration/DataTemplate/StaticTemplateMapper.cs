@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Company.Desktop.Application.Views.Controls;
-using Company.Desktop.Framework.Mvvm._sort;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.ViewModels.Controls;
 
 namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate

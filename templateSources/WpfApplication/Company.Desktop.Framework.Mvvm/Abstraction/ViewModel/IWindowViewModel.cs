@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
@@ -12,6 +13,8 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		IContentViewModel Content { get; set; }
 		
 		bool ClaimMainWindowOnOpen { get; }
+
+		ResizeMode ResizeMode { get; set; }
 
 		void RequestFocus();
 

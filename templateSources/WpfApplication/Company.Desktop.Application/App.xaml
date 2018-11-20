@@ -6,14 +6,10 @@
              xmlns:controls1="clr-namespace:Company.Desktop.Application.Views.Controls"
              StartupUri="Views/Windows/Splash.xaml">
     <Application.Resources>
-		<!-- <ResourceDictionary> -->
-		<!-- 	<ResourceDictionary.MergedDictionaries> -->
-		<!-- 		<ResourceDictionary> -->
-		<!-- 			<DataTemplate DataType="{x:Type controls:SampleDataOverviewViewModel}"> -->
-		<!-- 				<controls1:SampleDataOverview></controls1:SampleDataOverview> -->
-		<!-- 			</DataTemplate> -->
-		<!-- 		</ResourceDictionary> -->
-		<!-- 	</ResourceDictionary.MergedDictionaries> -->
-		<!-- </ResourceDictionary> -->
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="Resources/Resources.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
     </Application.Resources>
 </Application>

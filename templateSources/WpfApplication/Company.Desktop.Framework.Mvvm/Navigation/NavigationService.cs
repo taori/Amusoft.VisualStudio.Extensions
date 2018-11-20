@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel.Mapping;
-using Company.Desktop.Framework.Mvvm._sort;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Navigation
 {
 	public class NavigationService : INavigationService
 	{
-		public IViewModelVisualizerFactory VisualizerFactory { get; }
+		public IDisplayCoordinatorFactory CoordinatorFactory { get; }
 
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(NavigationService));
 
-		public NavigationService(IViewModelVisualizerFactory visualizerFactory)
+		public NavigationService(IDisplayCoordinatorFactory coordinatorFactory)
 		{
-			VisualizerFactory = visualizerFactory;
+			CoordinatorFactory = coordinatorFactory;
 		}
 
 		/// <inheritdoc />
 		public async Task<bool> OpenWindowAsync(IWindowViewModel viewModel, string windowId)
 		{
-			var visualizer = VisualizerFactory.Create(viewModel);
+			var coordinator = CoordinatorFactory.Create(viewModel);
 			Log.Debug($"Opening window {viewModel.GetType().FullName}");
-			return await visualizer.VisualizeAsync(viewModel, new WindowArguments(windowId ?? Guid.NewGuid().ToString()));
+			return await coordinator.DisplayAsync(viewModel, new WindowArguments(windowId ?? Guid.NewGuid().ToString()));
 		}
 	}
 }
