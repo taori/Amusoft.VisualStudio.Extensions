@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Resources\Translations.Designer.cs">
       <DependentUpon>Translations.resx</DependentUpon>
       <DesignTime>True</DesignTime>

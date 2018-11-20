@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Company.Desktop.Framework.Mvvm.Properties;
+using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
