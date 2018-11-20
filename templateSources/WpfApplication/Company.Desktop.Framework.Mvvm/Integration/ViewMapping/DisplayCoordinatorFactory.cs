@@ -30,7 +30,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 				return null;
 			}
 
-			Log.Error($"{coordinator.GetType().FullName} is used to render {dataContext.GetType().FullName}.");
+			Log.Debug($"{coordinator.GetType().FullName} is used to render {dataContext.GetType().FullName}.");
 			return coordinator;
 		}
 	}

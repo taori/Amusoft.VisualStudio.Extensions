@@ -103,7 +103,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\SampleDataOverview.xaml">
+    <Page Include="Views\Controls\SampleDataOverviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,8 +122,8 @@
     <Compile Include="Dependencies\Setup\InjectionAssemblyLoader.cs" />
     <Compile Include="Dependencies\DependencyContainer.cs" />
     <Compile Include="Dependencies\Registrars\ShellRegistrar.cs" />
-    <Compile Include="Views\Controls\SampleDataOverview.xaml.cs">
-      <DependentUpon>SampleDataOverview.xaml</DependentUpon>
+    <Compile Include="Views\Controls\SampleDataOverviewView.xaml.cs">
+      <DependentUpon>SampleDataOverviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\DefaultWindow.xaml.cs">
       <DependentUpon>DefaultWindow.xaml</DependentUpon>

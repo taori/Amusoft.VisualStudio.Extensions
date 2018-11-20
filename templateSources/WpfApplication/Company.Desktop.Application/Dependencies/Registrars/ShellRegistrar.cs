@@ -1,4 +1,7 @@
-﻿using Company.Desktop.Application.Dependencies.Setup;
+﻿using System;
+using System.Text.RegularExpressions;
+using Company.Desktop.Application.Dependencies.Configuration.DataTemplate;
+using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
@@ -29,6 +32,16 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 
 			services.AddTransient<IServiceContext, ServiceContext>();
 			services.AddTransient<IViewModelWindowFactory, WindowFactory>();
+			services.AddTransient<IRegexDataTemplatePatternProvider>(provider => CreateDefaultConventionPattern(provider));
+		}
+
+		private static InlineMvvmPattern CreateDefaultConventionPattern(IServiceProvider provider)
+		{
+			// TODO: change the contents of this regex to match your namespace
+			return new InlineMvvmPattern(
+				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>ViewModels\\.)(?<ns2>.+)(?<class>\\.[^.]+)(?=ViewModel)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30)), 
+				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>Application\\.Views\\.)(?<ns2>.+)(?<class>\\.[^.]+)(?=View|Page|Control|Window)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30))
+			);
 		}
 	}
 }

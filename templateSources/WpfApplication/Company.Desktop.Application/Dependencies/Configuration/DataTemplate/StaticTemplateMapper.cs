@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Company.Desktop.Application.Views.Controls;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
-using Company.Desktop.ViewModels.Controls;
 
 namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate
 {
@@ -12,7 +9,8 @@ namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate
 		/// <inheritdoc />
 		public IEnumerable<(Type viewModelType, Type viewType)> GetMappings(IEnumerable<Type> viewModelTypes, IEnumerable<Type> viewTypes)
 		{
-			yield return (typeof(SampleDataOverviewViewModel), typeof(SampleDataOverview));
+			// TODO: if you don't like conventional mapping you can statically map it here... but why would you do that? don't be a php coder.
+			yield break;
 		}
 	}
 }

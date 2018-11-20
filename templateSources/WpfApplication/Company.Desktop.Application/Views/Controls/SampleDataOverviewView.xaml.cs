@@ -5,9 +5,9 @@ namespace Company.Desktop.Application.Views.Controls
 	/// <summary>
 	/// Interaktionslogik für SampleDataOverview.xaml
 	/// </summary>
-	public partial class SampleDataOverview : UserControl
+	public partial class SampleDataOverviewView : UserControl
 	{
-		public SampleDataOverview()
+		public SampleDataOverviewView()
 		{
 			InitializeComponent();
 		}
