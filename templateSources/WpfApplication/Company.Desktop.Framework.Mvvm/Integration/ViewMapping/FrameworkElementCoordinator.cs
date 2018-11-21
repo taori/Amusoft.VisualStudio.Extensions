@@ -5,7 +5,6 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
-using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
@@ -30,7 +29,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		}
 
 		/// <inheritdoc />
-		public int FactoryOrder { get; }
+		public int Priority => 0;
 
 		/// <inheritdoc />
 		public bool CanProcess(object dataContext)

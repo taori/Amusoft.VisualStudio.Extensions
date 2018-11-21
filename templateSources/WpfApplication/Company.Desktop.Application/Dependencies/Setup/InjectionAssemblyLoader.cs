@@ -2,7 +2,6 @@
 using System.Reflection;
 using Company.Desktop.Framework.DataAccess;
 using Company.Desktop.Framework.DependencyInjection;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Models.Abstraction.Providers;
 using Company.Desktop.Models.Providers;

@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Navigation;
 using Company.Desktop.Application.Dependencies;
 using Company.Desktop.Framework.Extensions;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.ViewModels.Windows;

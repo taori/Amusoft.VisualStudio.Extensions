@@ -4,7 +4,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 {
-	public interface IWindowViewModel : IActivateable
+	public interface IWindowViewModel : IActivateable, IDisposable
 	{
 		string Title { get; set; }
 		double Width { get; set; }
@@ -16,8 +16,16 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 
 		ResizeMode ResizeMode { get; set; }
 
-		void RequestFocus();
+		void Focus();
+		void Normalize();
+		void Maximize();
+		void Minimize();
+		void Close();
 
-		event EventHandler FocusRequested;
+		IObservable<object> FocusRequested { get; }
+		IObservable<object> CloseRequested { get; }
+		IObservable<object> NormalizeRequested { get; }
+		IObservable<object> MinimizeRequested { get; }
+		IObservable<object> MaximizeRequested { get; }
 	}
 }

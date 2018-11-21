@@ -32,7 +32,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		}
 
 		/// <inheritdoc />
-		public int FactoryOrder { get; }
+		public int Priority => 1;
 
 		/// <inheritdoc />
 		public bool CanProcess(object dataContext)

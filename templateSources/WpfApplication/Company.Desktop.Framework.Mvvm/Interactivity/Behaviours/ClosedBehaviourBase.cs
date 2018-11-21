@@ -3,24 +3,22 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public abstract class InterceptClosingBehaviourBase : BehaviourBase, IWindowClosingBehaviour
+	public abstract class ClosedBehaviourBase : BehaviourBase, IWindowClosedBehaviour
 	{
-		protected abstract Task<bool> ShouldCancelAsync();
-		
 		/// <inheritdoc />
-		public IWindowClosingBehaviourContext Context { get; private set; }
+		public IWindowClosedBehaviourContext Context { get; private set; }
 
 		/// <inheritdoc />
 		public async Task ExecuteAsync()
 		{
-			if (await ShouldCancelAsync())
-				Context.Cancel();
-
+			await OnExecuteAsync();
 			RaiseExecuted();
 		}
 
+		protected abstract Task OnExecuteAsync();
+
 		/// <inheritdoc />
-		public void SetContext(IWindowClosingBehaviourContext context)
+		public void SetContext(IWindowClosedBehaviourContext context)
 		{
 			Context = context;
 		}

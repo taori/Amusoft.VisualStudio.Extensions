@@ -10,7 +10,10 @@
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance viewModel:WindowViewModel}"
-        Title="{Binding Path=Title}" Height="{Binding Path=Height}" Width="{Binding Path=Width}">
+        Title="{Binding Path=Title}" 
+		ResizeMode="{Binding Path=ResizeMode}"
+        Height="{Binding Path=Height}" 
+        Width="{Binding Path=Width}">
 	<Grid>
 		<framework:OverlayPanel IsOverlayVisible="{Binding Path=LoadingState.IsBusy}">
 			<framework:OverlayPanel.Overlay>

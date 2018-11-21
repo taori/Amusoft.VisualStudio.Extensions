@@ -53,8 +53,8 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 			if (interactive == null)
 				return false;
 
-			var closeContext = new WindowCloseContext(interactive, serviceProvider);
-			await interactive.ExecuteBehavioursAsync<IWindowCloseBehaviour, IWindowCloseBehaviourContext>(closeContext);
+			var closeContext = new WindowClosingContext(interactive, serviceProvider);
+			await interactive.ExecuteBehavioursAsync<IWindowClosingBehaviour, IWindowClosingBehaviourContext>(closeContext);
 
 			if (closeContext.Cancelled)
 			{

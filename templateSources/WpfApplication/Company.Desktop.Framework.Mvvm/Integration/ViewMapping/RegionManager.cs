@@ -75,7 +75,26 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			if (regionName != null)
 			{
 				Log.Debug($"Registering control [{control.GetType().FullName}] as region [{regionName}] for viewmodel {newViewModel.GetType().FullName}");
+				control.Unloaded += ControlOnUnloaded;
 				regionControlDictionary.Add(regionName, control);
+			}
+		}
+
+		private static void ControlOnUnloaded(object sender, RoutedEventArgs e)
+		{
+			// countermeasure for memory leaks
+			if (sender is FrameworkElement frameworkElement)
+			{
+				frameworkElement.Unloaded -= ControlOnUnloaded;
+				var viewModel = GetViewModel(frameworkElement);
+				var regionName = GetRegionName(frameworkElement);
+
+				if (Register.TryGetValue(viewModel, out var register))
+				{
+					register.Remove(regionName);
+					if (register.Count == 0)
+						Register.Remove(viewModel);
+				}
 			}
 		}
 

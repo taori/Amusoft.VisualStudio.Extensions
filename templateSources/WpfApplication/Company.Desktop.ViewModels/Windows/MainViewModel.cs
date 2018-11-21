@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
@@ -14,61 +15,62 @@ namespace Company.Desktop.ViewModels.Windows
 {
 	public class MainViewModel : WindowViewModel
 	{
-		private ICommand _openWindowCommand;
+		private ObservableCollection<TestCommand> _commands = new ObservableCollection<TestCommand>();
 
-		public ICommand OpenWindowCommand
+		public ObservableCollection<TestCommand> Commands
 		{
-			get => _openWindowCommand;
-			set => SetValue(ref _openWindowCommand, value, nameof(OpenWindowCommand));
+			get => _commands;
+			set => SetValue(ref _commands, value, nameof(Commands));
 		}
 
-		private ICommand _updateBottomAreaCommand;
-
-		public ICommand UpdateBottomAreaCommand
+		public class TestCommand
 		{
-			get => _updateBottomAreaCommand;
-			set => SetValue(ref _updateBottomAreaCommand, value, nameof(UpdateBottomAreaCommand));
+			public string Text { get; set; }
+
+			public ICommand Command { get; set; }
+
+			/// <inheritdoc />
+			public TestCommand(string text, ICommand command)
+			{
+				Text = text;
+				Command = command;
+			}
 		}
-
-		private ICommand _updateTopAreaCommand;
-
-		public ICommand UpdateTopAreaCommand
-		{
-			get => _updateTopAreaCommand;
-			set => SetValue(ref _updateTopAreaCommand, value, nameof(UpdateTopAreaCommand));
-		}
-
+		
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
-			OpenWindowCommand = new RelayCommand(OpenWindowExecute);
-			UpdateBottomAreaCommand = new RelayCommand(UpdateBottomAreaExecute);
-			UpdateTopAreaCommand = new RelayCommand(UpdateTopAreaExecute);
+			Commands.Add(new TestCommand("Open Window", new RelayCommand(async (o) =>
+			{
+				var navigation = ServiceProvider.GetRequiredService<INavigationService>();
+				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
 
+				var viewModel = new SecondaryWindowViewModel();
+
+				if (await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
+					await navigation.OpenWindowAsync(viewModel, "secondWindow");
+				else
+					await navigation.OpenWindowAsync(viewModel, null);
+			})));
+
+			Commands.Add(new TestCommand("Update top area", new RelayCommand(async (o) =>
+			{
+				var r = new Random();
+				var opened = await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.TopArea);
+			})));
+
+			Commands.Add(new TestCommand("Update bottom area", new RelayCommand(async (o) =>
+			{
+				var r = new Random();
+				var opened = await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.BottomArea);
+			})));
+
+			Commands.Add(new TestCommand("Run GC", new RelayCommand((o) =>
+			{
+				GC.Collect();
+			})));
+			
 			return Task.CompletedTask;
-		}
-
-		private async void UpdateTopAreaExecute(object obj)
-		{
-			var r = new Random();
-			await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.TopArea);
-		}
-
-		private async void UpdateBottomAreaExecute(object obj)
-		{
-			var r = new Random();
-			await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.BottomArea);
-		}
-
-		private async void OpenWindowExecute(object obj)
-		{
-			var navigation = ServiceProvider.GetRequiredService<INavigationService>();
-			var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
-
-			if(await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
-				await navigation.OpenWindowAsync(new SecondaryWindowViewModel(), "secondWindow");
-			else
-				await navigation.OpenWindowAsync(new SecondaryWindowViewModel(), null);
 		}
 
 		/// <inheritdoc />

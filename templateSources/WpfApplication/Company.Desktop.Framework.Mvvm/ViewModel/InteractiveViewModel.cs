@@ -22,6 +22,27 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		public List<IBehaviour> Behaviours { get; } = new List<IBehaviour>();
 
 		/// <inheritdoc />
-		public BusyState LoadingState { get; } = new BusyState();
+		public BusyState LoadingState { get; } = new BusyState(); private bool _disposed = false;
+
+		protected virtual void Dispose(bool managedDispose)
+		{
+			if (!_disposed)
+			{
+				if (managedDispose)
+				{
+					foreach (var behaviour in Behaviours)
+					{
+						behaviour.Dispose();
+					}
+				}
+
+				_disposed = true;
+			}
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+		}
 	}
 }

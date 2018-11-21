@@ -6,18 +6,12 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public class ActivationBehaviour : IActivationBehaviour
+	public class ActivationBehaviour : BehaviourBase, IActivationBehaviour
 	{
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(ActivationBehaviour));
-
+		
 		/// <inheritdoc />
-		public int ExecutionOrder { get; }
-
-		/// <inheritdoc />
-		public event EventHandler Executed;
-
-		/// <inheritdoc />
-		public IActivationBehaviourContext Context { get; set; }
+		public IActivationBehaviourContext Context { get; private set; }
 
 		/// <inheritdoc />
 		public async Task ExecuteAsync()
@@ -46,8 +40,14 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 			}
 			finally
 			{
-				Executed?.Invoke(this, EventArgs.Empty);
+				RaiseExecuted();
 			}
+		}
+
+		/// <inheritdoc />
+		public void SetContext(IActivationBehaviourContext context)
+		{
+			Context = context;
 		}
 	}
 }

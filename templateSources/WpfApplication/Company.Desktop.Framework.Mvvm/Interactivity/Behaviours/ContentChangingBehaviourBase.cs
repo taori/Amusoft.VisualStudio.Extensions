@@ -6,18 +6,12 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public abstract class ContentChangingBehaviourBase : IContentChangingBehaviour
+	public abstract class ContentChangingBehaviourBase : BehaviourBase, IContentChangingBehaviour
 	{
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(ContentChangingBehaviourBase));
-
+		
 		/// <inheritdoc />
-		public int ExecutionOrder { get; }
-
-		/// <inheritdoc />
-		public event EventHandler Executed;
-
-		/// <inheritdoc />
-		public IContentChangingBehaviourContext Context { get; set; }
+		public IContentChangingBehaviourContext Context { get; private set; }
 
 		/// <inheritdoc />
 		public async Task ExecuteAsync()
@@ -25,7 +19,6 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 			try
 			{
 				await OnExecuteAsync();
-				Executed?.Invoke(this, EventArgs.Empty);
 			}
 			catch (Exception e)
 			{
@@ -34,10 +27,16 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 			}
 			finally
 			{
-				Executed?.Invoke(this, EventArgs.Empty);
+				RaiseExecuted();
 			}
 		}
 
 		protected abstract Task OnExecuteAsync();
+
+		/// <inheritdoc />
+		public void SetContext(IContentChangingBehaviourContext context)
+		{
+			Context = context;
+		}
 	}
 }

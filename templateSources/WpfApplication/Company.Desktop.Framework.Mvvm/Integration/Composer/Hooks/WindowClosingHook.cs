@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
@@ -22,6 +23,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 		{
 			if (control is Window window)
 			{
+				EventHandler windowOnClosed = null;
 				CancelEventHandler windowOnClosing = null;
 				windowOnClosing = async delegate (object sender, CancelEventArgs args)
 				{
@@ -44,6 +46,14 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 						(sender as Window)?.Close();
 					}
 				};
+
+				windowOnClosed = delegate(object sender, EventArgs args)
+				{
+					window.Closed -= windowOnClosed;
+					window.Closing -= windowOnClosing;
+				};
+
+				window.Closed += windowOnClosed;
 				window.Closing += windowOnClosing;
 			}
 		}

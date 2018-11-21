@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using Company.Desktop.Application.Dependencies.Configuration.DataTemplate;
 using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
-using Company.Desktop.Framework.Mvvm.Integration;
 using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Navigation;

@@ -12,7 +12,10 @@
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance windows:MainViewModel}"
-        Title="{Binding Path=Title}" Height="{Binding Path=Height, Mode=TwoWay}" Width="{Binding Path=Width, Mode=TwoWay}">
+        ResizeMode="{Binding Path=ResizeMode}"
+        Title="{Binding Path=Title}" 
+        Height="{Binding Path=Height, Mode=TwoWay}" 
+        Width="{Binding Path=Width, Mode=TwoWay}">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -21,9 +24,13 @@
 		</Grid.RowDefinitions>
 		<StackPanel>
 			<CheckBox IsChecked="{Binding Path=LoadingState.IsBusy}"/>
-			<Button Command="{Binding Path=OpenWindowCommand}" Content="Open Window"></Button>
-			<Button Command="{Binding Path=UpdateTopAreaCommand}" Content="Update Top Area"></Button>
-			<Button Command="{Binding Path=UpdateBottomAreaCommand}" Content="Update Bottom Area"></Button>
+			<ItemsControl ItemsSource="{Binding Path=Commands}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type windows:MainViewModel+TestCommand}">
+						<Button Command="{Binding Path=Command}" Content="{Binding Path=Text}"></Button>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 		</StackPanel>
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
 		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 

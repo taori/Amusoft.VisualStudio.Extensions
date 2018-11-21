@@ -1,6 +1,4 @@
-﻿using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-
-namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping
+﻿namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping
 {
 	public interface IDisplayCoordinatorFactory
 	{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
@@ -94,14 +95,60 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		public virtual bool ClaimMainWindowOnOpen => false;
 
 		/// <inheritdoc />
-		public void RequestFocus()
+		public void Focus()
 		{
-			FocusRequested?.Invoke(this, EventArgs.Empty);
+			Log.Debug($"{nameof(Focus)} requested.");
+			_focusRequested?.OnNext(null);
 		}
 
 		/// <inheritdoc />
-		public event EventHandler FocusRequested;
+		public void Normalize()
+		{
+			Log.Debug($"{nameof(Normalize)} requested.");
+			_normalizeRequested?.OnNext(null);
+		}
 
+		/// <inheritdoc />
+		public void Maximize()
+		{
+			Log.Debug($"{nameof(Maximize)} requested.");
+			_maximizeRequested?.OnNext(null);
+		}
+
+		/// <inheritdoc />
+		public void Minimize()
+		{
+			Log.Debug($"{nameof(Minimize)} requested.");
+			_minimizeRequested?.OnNext(null);
+		}
+
+		/// <inheritdoc />
+		public void Close()
+		{
+			Log.Debug($"{nameof(Close)} requested.");
+			_closeRequested?.OnNext(null);
+		}
+
+		private Subject<object> _focusRequested = new Subject<object>();
+		/// <inheritdoc />
+		public IObservable<object> FocusRequested => _focusRequested;
+
+		private Subject<object> _closeRequested = new Subject<object>();
+		/// <inheritdoc />
+		public IObservable<object> CloseRequested => _closeRequested;
+
+		private Subject<object> _normalizeRequested = new Subject<object>();
+		/// <inheritdoc />
+		public IObservable<object> NormalizeRequested => _normalizeRequested;
+
+		private Subject<object> _minimizeRequested = new Subject<object>();
+		/// <inheritdoc />
+		public IObservable<object> MinimizeRequested => _minimizeRequested;
+
+		private Subject<object> _maximizeRequested = new Subject<object>();
+		/// <inheritdoc />
+		public IObservable<object> MaximizeRequested => _maximizeRequested;
+		
 		/// <inheritdoc />
 		public async Task ActivateAsync(IActivationContext context)
 		{
@@ -118,13 +165,14 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		protected abstract string GetWindowTitle();
 
-		protected async Task UpdateRegionAsync(IContentViewModel content, string regionName)
+		protected async Task<bool> UpdateRegionAsync(IContentViewModel content, string regionName)
 		{
+			Log.Debug($"Updating region [{regionName}] with [{content}]");
 			using (LoadingState.Session())
 			{
 				var visualizerFactory = ServiceProvider.GetRequiredService<IDisplayCoordinatorFactory>();
 				var visualizer = visualizerFactory.Create(content);
-				await visualizer.DisplayAsync(content, new RegionArguments(this, regionName));
+				return await visualizer.DisplayAsync(content, new RegionArguments(this, regionName));
 			}
 		}
 
@@ -135,6 +183,21 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		public IEnumerable<IBehaviour> GetBehaviours()
 		{
 			yield return new RequestClosePermissionBehaviour();
+		}
+
+		/// <inheritdoc />
+		protected override void Dispose(bool managedDispose)
+		{
+			if (managedDispose)
+			{
+				_focusRequested.Dispose();
+				_maximizeRequested.Dispose();
+				_minimizeRequested.Dispose();
+				_closeRequested.Dispose();
+				_normalizeRequested.Dispose();
+			}
+
+			base.Dispose(managedDispose);
 		}
 	}
 }

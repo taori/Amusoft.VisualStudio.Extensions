@@ -9,7 +9,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping
 		/// <summary>
 		/// Order in which the VisualizerFactory will be attempt to construct a Visualizer
 		/// </summary>
-		int FactoryOrder { get; }
+		int Priority { get; }
 
 		bool CanProcess(object dataContext);
 

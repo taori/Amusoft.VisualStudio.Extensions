@@ -3,16 +3,19 @@ using System.Threading.Tasks;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 {
-	public interface IBehaviour
+	public interface IBehaviour : IDisposable
 	{
-		int ExecutionOrder { get; }
+		/// <summary>
+		/// Order in which a behaviour will be executed
+		/// </summary>
+		int Priority { get; }
 
-		event EventHandler Executed;
+		IObservable<object> Executed { get; }
 	}
 
 	public interface IContextSettable<TContext>
 	{
-		TContext Context { set; }
+		void SetContext(TContext context);
 	}
 
 	public interface IAsyncBehaviour : IBehaviour

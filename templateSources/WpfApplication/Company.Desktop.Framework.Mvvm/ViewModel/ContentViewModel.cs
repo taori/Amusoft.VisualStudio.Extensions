@@ -35,13 +35,13 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		protected abstract Task OnActivateAsync(IActivationContext context);
 
-		protected async Task UpdateRegionAsync(IContentViewModel content, string regionName)
+		protected async Task<bool> UpdateRegionAsync(IContentViewModel content, string regionName)
 		{
 			using (LoadingState.Session())
 			{
 				var visualizerFactory = ServiceProvider.GetRequiredService<IDisplayCoordinatorFactory>();
 				var visualizer = visualizerFactory.Create(content);
-				await visualizer.DisplayAsync(content, new RegionArguments(this, regionName));
+				return await visualizer.DisplayAsync(content, new RegionArguments(this, regionName));
 			}
 		}
 

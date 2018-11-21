@@ -31,6 +31,11 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		}
 
 		/// <inheritdoc />
+		protected override void Configure(IViewCompositionContext context)
+		{
+		}
+
+		/// <inheritdoc />
 		public override bool CanHandle(FrameworkElement control)
 		{
 			if (control is FrameworkElement && !(control is Window))

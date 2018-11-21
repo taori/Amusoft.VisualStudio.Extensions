@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
@@ -23,7 +22,8 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		{
 			if (dataContext == null) throw new ArgumentNullException(nameof(dataContext));
 
-			var coordinator = Coordinators.OrderByDescending(d => d.FactoryOrder).FirstOrDefault(d => d.CanProcess(dataContext));
+			Log.Debug($"Creating coordinator, sorted by descending {nameof(IDisplayCoordinator.Priority)}.");
+			var coordinator = Coordinators.OrderByDescending(d => d.Priority).FirstOrDefault(d => d.CanProcess(dataContext));
 			if (coordinator == null)
 			{
 				Log.Error($"No implementation of {typeof(IDisplayCoordinator).FullName} can process {dataContext.GetType().FullName}.");

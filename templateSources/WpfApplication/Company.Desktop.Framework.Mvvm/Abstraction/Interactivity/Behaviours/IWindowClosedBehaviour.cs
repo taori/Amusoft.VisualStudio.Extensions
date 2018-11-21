@@ -1,6 +1,6 @@
 ﻿namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 {
-	public interface IWindowCloseBehaviour : IAsyncBehaviour<IWindowCloseBehaviourContext>
+	public interface IWindowClosedBehaviour : IAsyncBehaviour<IWindowClosedBehaviourContext>
 	{
 	}
 }

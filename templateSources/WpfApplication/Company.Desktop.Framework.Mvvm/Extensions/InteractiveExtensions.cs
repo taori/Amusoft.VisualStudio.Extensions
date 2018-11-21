@@ -1,18 +1,31 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Extensions
 {
 	public static class InteractiveExtensions
 	{
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(InteractiveExtensions));
+
+		private static void AddLog(Type behaviourType, Type contextType)
+		{
+			if(contextType == null)
+				Log.Debug($"Executing behaviour [{behaviourType}].");
+			else
+				Log.Debug($"Executing behaviour [{behaviourType}] with context [{contextType}].");
+		}
+
 		public static void ExecuteBehaviours<TBehaviour>(this IInteractive source) where TBehaviour : ISyncBehaviour
 		{
 			if (source == null)
 				return;
 
-			foreach (var behavior in source.Behaviours.OrderBy(d => d.ExecutionOrder))
+			AddLog(typeof(TBehaviour), null);
+			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
 				if (behavior is ISyncBehaviour behaviourCasted)
 					behaviourCasted.Execute();
@@ -24,12 +37,12 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			if (source == null)
 				return;
 
-			foreach (var behavior in source.Behaviours.OrderBy(d => d.ExecutionOrder))
+			AddLog(typeof(TBehaviour), typeof(TContext));
+			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
 				if (behavior is ISyncBehaviour<TContext> behaviourCasted)
 				{
-					if (behavior is IContextSettable<TContext> settable)
-						settable.Context = context;
+					(behavior as IContextSettable<TContext>)?.SetContext(context);
 					behaviourCasted.Execute();
 				}
 			}
@@ -40,7 +53,8 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			if (source == null)
 				return;
 
-			foreach (var behavior in source.Behaviours.OrderBy(d => d.ExecutionOrder))
+			AddLog(typeof(TBehaviour), null);
+			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
 				if (behavior is IAsyncBehaviour casted)
 					await casted.ExecuteAsync();
@@ -52,12 +66,12 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			if (source == null)
 				return;
 
-			foreach (var behavior in source.Behaviours.OrderBy(d => d.ExecutionOrder))
+			AddLog(typeof(TBehaviour), typeof(TContext));
+			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
 				if (behavior is IAsyncBehaviour<TContext> casted)
 				{
-					if (behavior is IContextSettable<TContext> settable)
-						settable.Context = context;
+					(behavior as IContextSettable<TContext>)?.SetContext(context);
 					await casted.ExecuteAsync();
 				}
 			}
