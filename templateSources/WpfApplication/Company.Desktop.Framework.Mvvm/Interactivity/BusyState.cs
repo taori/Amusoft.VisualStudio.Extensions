@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
@@ -27,6 +28,30 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity
 			OnPropertyChanged(nameof(IsBusy));
 		}
 
+		public IDisposable Session()
+		{
+			return new BusyStateSession(this);
+		}
+
+		public IObservable<PropertyChangedEventArgs> WhenPropertyChanged => Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+			add => _propertyChanged += add,
+			remove => _propertyChanged -= remove
+			).Select(d => d.EventArgs);
+
+		private event PropertyChangedEventHandler _propertyChanged;
+
+		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+		{
+			add { this._propertyChanged += value; }
+			remove { this._propertyChanged -= value; }
+		}
+
+		[NotifyPropertyChangedInvocator]
+		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			_propertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+
 		private class BusyStateSession : IDisposable
 		{
 			public BusyState State { get; }
@@ -42,19 +67,6 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity
 			{
 				State.Decrement();
 			}
-		}
-
-		public IDisposable Session()
-		{
-			return new BusyStateSession(this);
-		}
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		[NotifyPropertyChangedInvocator]
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows;
@@ -88,79 +89,83 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			get => _content;
 			set => SetValue(ref _content, value, nameof(Content));
 		}
-
-		/// <inheritdoc />
-		public bool Activated { get; private set; }
-
+		
 		public virtual bool ClaimMainWindowOnOpen => false;
 
 		/// <inheritdoc />
 		public void Focus()
 		{
 			Log.Debug($"{nameof(Focus)} requested.");
-			_focusRequested?.OnNext(null);
+			_whenFocusRequested?.OnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Normalize()
 		{
 			Log.Debug($"{nameof(Normalize)} requested.");
-			_normalizeRequested?.OnNext(null);
+			_whenNormalizeRequested?.OnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Maximize()
 		{
 			Log.Debug($"{nameof(Maximize)} requested.");
-			_maximizeRequested?.OnNext(null);
+			_whenMaximizeRequested?.OnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Minimize()
 		{
 			Log.Debug($"{nameof(Minimize)} requested.");
-			_minimizeRequested?.OnNext(null);
+			_whenMinimizeRequested?.OnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Close()
 		{
 			Log.Debug($"{nameof(Close)} requested.");
-			_closeRequested?.OnNext(null);
+			_whenClosingRequested?.OnNext(null);
 		}
 
-		private Subject<object> _focusRequested = new Subject<object>();
+		private Subject<object> _whenFocusRequested = new Subject<object>();
 		/// <inheritdoc />
-		public IObservable<object> FocusRequested => _focusRequested;
+		public IObservable<object> WhenFocusRequested => _whenFocusRequested;
 
-		private Subject<object> _closeRequested = new Subject<object>();
+		private Subject<object> _whenClosingRequested = new Subject<object>();
 		/// <inheritdoc />
-		public IObservable<object> CloseRequested => _closeRequested;
+		public IObservable<object> WhenClosingRequested => _whenClosingRequested;
 
-		private Subject<object> _normalizeRequested = new Subject<object>();
+		private Subject<object> _whenNormalizeRequested = new Subject<object>();
 		/// <inheritdoc />
-		public IObservable<object> NormalizeRequested => _normalizeRequested;
+		public IObservable<object> WhenNormalizeRequested => _whenNormalizeRequested;
 
-		private Subject<object> _minimizeRequested = new Subject<object>();
+		private Subject<object> _whenMinimizeRequested = new Subject<object>();
 		/// <inheritdoc />
-		public IObservable<object> MinimizeRequested => _minimizeRequested;
+		public IObservable<object> WhenMinimizeRequested => _whenMinimizeRequested;
 
-		private Subject<object> _maximizeRequested = new Subject<object>();
+		private Subject<object> _whenMaximizeRequested = new Subject<object>();
 		/// <inheritdoc />
-		public IObservable<object> MaximizeRequested => _maximizeRequested;
+		public IObservable<object> WhenMaximizeRequested => _whenMaximizeRequested;
+
+		private Subject<object> _whenClosed = new Subject<object>();
+		public IObservable<object> WhenClosed => _whenClosed;
+
+		private Subject<CancelEventArgs> _whenClosing = new Subject<CancelEventArgs>();
+		public IObservable<CancelEventArgs> WhenClosing => _whenClosing;
+
+		private Subject<IActivationContext> _whenActivated = new Subject<IActivationContext>();
+		public IObservable<IActivationContext> WhenActivated => _whenActivated;
+
+		private Subject<WindowState> _whenStateChanged = new Subject<WindowState>();
+		public IObservable<WindowState> WhenStateChanged => _whenStateChanged;
 		
 		/// <inheritdoc />
 		public async Task ActivateAsync(IActivationContext context)
 		{
 			await OnActivateAsync(context);
-			Activated = !context.Cancelled;
-			if (OnActivated != null)
-				await OnActivated?.Invoke(this, EventArgs.Empty);
+			_whenActivated.OnNext(context);
 		}
-
-		/// <inheritdoc />
-		public event AsyncEventHandler OnActivated;
-
+		
 		protected abstract Task OnActivateAsync(IActivationContext context);
 
 		protected abstract string GetWindowTitle();
@@ -182,7 +187,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		/// <inheritdoc />
 		public IEnumerable<IBehaviour> GetBehaviours()
 		{
-			yield return new RequestClosePermissionBehaviour();
+			yield break;
 		}
 
 		/// <inheritdoc />
@@ -190,14 +195,36 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		{
 			if (managedDispose)
 			{
-				_focusRequested.Dispose();
-				_maximizeRequested.Dispose();
-				_minimizeRequested.Dispose();
-				_closeRequested.Dispose();
-				_normalizeRequested.Dispose();
+				_whenFocusRequested.Dispose();
+				_whenMaximizeRequested.Dispose();
+				_whenMinimizeRequested.Dispose();
+				_whenClosingRequested.Dispose();
+				_whenNormalizeRequested.Dispose();
+				_whenClosed.Dispose();
 			}
 
 			base.Dispose(managedDispose);
+		}
+
+		/// <inheritdoc />
+		public void NotifyClosed()
+		{
+			Log.Debug(nameof(NotifyClosed));
+			_whenClosed.OnNext(null);
+		}
+
+		/// <inheritdoc />
+		public void NotifyClosing(CancelEventArgs args)
+		{
+			Log.Debug(nameof(NotifyClosing));
+			_whenClosing.OnNext(args);
+		}
+
+		/// <inheritdoc />
+		public void NotifyWindowStateChange(WindowState args)
+		{
+			Log.Debug(nameof(NotifyWindowStateChange));
+			_whenStateChanged.OnNext(args);
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Subjects;
 using System.Windows.Input;
 
 namespace Company.Desktop.Framework.Mvvm.UI
@@ -16,10 +17,16 @@ namespace Company.Desktop.Framework.Mvvm.UI
 		}
 	}
 
-	public class RelayCommand<T> : ICommand
+	public class RelayCommand<T> : ICommand, IDisposable
 	{
 		readonly Action<T> _execute = null;
 		readonly Predicate<T> _canExecute = null;
+
+		private Subject<T> _whenExecuted = new Subject<T>();
+		public IObservable<T> WhenExecuted => _whenExecuted;
+
+		private Subject<T> _whenExecuting = new Subject<T>();
+		public IObservable<T> WhenExecuting => _whenExecuting;
 
 		public RelayCommand(Action<T> execute)
 			: this(execute, (Predicate<T>)null)
@@ -48,7 +55,16 @@ namespace Company.Desktop.Framework.Mvvm.UI
 
 		public void Execute(object parameter)
 		{
+			_whenExecuting.OnNext((T)parameter);
 			_execute((T)parameter);
+			_whenExecuted.OnNext((T)parameter);
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			_whenExecuted?.Dispose();
+			_whenExecuting?.Dispose();
 		}
 	}
 }

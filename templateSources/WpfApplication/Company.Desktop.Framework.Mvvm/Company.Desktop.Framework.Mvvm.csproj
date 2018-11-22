@@ -100,6 +100,7 @@
     <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosedBehaviour.cs" />
     <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosedBehaviourContext.cs" />
     <Compile Include="Abstraction\Interactivity\IBehaviourProvider.cs" />
+    <Compile Include="Abstraction\UI\IWindowListener.cs" />
     <Compile Include="Extensions\ActivationContextExtensions.cs" />
     <Compile Include="Integration\Composer\Hooks\DataContextLoadedHook.cs" />
     <Compile Include="Integration\Composer\Hooks\WindowClosingHook.cs" />

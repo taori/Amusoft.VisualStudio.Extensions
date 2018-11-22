@@ -27,7 +27,7 @@
 			<ItemsControl ItemsSource="{Binding Path=Commands}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate DataType="{x:Type windows:MainViewModel+TestCommand}">
-						<Button Command="{Binding Path=Command}" Content="{Binding Path=Text}"></Button>
+						<Button Command="{Binding Path=Command}" Content="{Binding Path=Text}" Margin="5,5,5,0"></Button>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>

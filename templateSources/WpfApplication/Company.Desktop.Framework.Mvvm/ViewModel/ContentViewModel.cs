@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
@@ -16,23 +17,17 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 	public abstract class ContentViewModel : InteractiveViewModel, IServiceProviderHolder, IContentViewModel, IBehaviourProvider
 	{
 		protected static readonly ILogger Log = LogManager.GetLogger(nameof(ContentViewModel));
-
-		/// <inheritdoc />
-		public bool Activated { get; private set; }
-
+		
 		/// <inheritdoc />
 		public async Task ActivateAsync(IActivationContext context)
 		{
 			await OnActivateAsync(context);
-
-			Activated = true;
-			if (OnActivated != null)
-				await OnActivated?.Invoke(this, EventArgs.Empty);
+			_whenActivated.OnNext(context);
 		}
 
-		/// <inheritdoc />
-		public event AsyncEventHandler OnActivated;
-
+		private Subject<IActivationContext> _whenActivated = new Subject<IActivationContext>();
+		public IObservable<IActivationContext> WhenActivated => _whenActivated;
+		
 		protected abstract Task OnActivateAsync(IActivationContext context);
 
 		protected async Task<bool> UpdateRegionAsync(IContentViewModel content, string regionName)

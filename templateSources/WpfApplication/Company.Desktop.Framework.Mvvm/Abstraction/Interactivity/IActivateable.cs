@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity
 {
-	public interface IActivateable
+	public interface IActivateable : IDisposable
 	{
-		bool Activated { get; }
-
 		Task ActivateAsync(IActivationContext context);
 
-		event AsyncEventHandler OnActivated;
+		IObservable<IActivationContext> WhenActivated { get; }
 	}
 }

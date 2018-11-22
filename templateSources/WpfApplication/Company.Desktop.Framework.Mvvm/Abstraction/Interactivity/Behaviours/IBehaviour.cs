@@ -10,7 +10,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 		/// </summary>
 		int Priority { get; }
 
-		IObservable<object> Executed { get; }
+		IObservable<object> WhenExecuted { get; }
 	}
 
 	public interface IContextSettable<TContext>

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 {
-	public interface IWindowViewModel : IActivateable, IDisposable
+	public interface IWindowViewModel : IActivateable, IDisposable, IWindowListener
 	{
 		string Title { get; set; }
 		double Width { get; set; }
@@ -22,10 +23,10 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		void Minimize();
 		void Close();
 
-		IObservable<object> FocusRequested { get; }
-		IObservable<object> CloseRequested { get; }
-		IObservable<object> NormalizeRequested { get; }
-		IObservable<object> MinimizeRequested { get; }
-		IObservable<object> MaximizeRequested { get; }
+		IObservable<object> WhenFocusRequested { get; }
+		IObservable<object> WhenClosingRequested { get; }
+		IObservable<object> WhenNormalizeRequested { get; }
+		IObservable<object> WhenMinimizeRequested { get; }
+		IObservable<object> WhenMaximizeRequested { get; }
 	}
 }

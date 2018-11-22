@@ -14,9 +14,9 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 		private static void AddLog(Type behaviourType, Type contextType)
 		{
 			if(contextType == null)
-				Log.Debug($"Executing behaviour [{behaviourType}].");
+				Log.Debug($"Executing behaviours [{behaviourType}].");
 			else
-				Log.Debug($"Executing behaviour [{behaviourType}] with context [{contextType}].");
+				Log.Debug($"Executing behaviours [{behaviourType}] with context [{contextType}].");
 		}
 
 		public static void ExecuteBehaviours<TBehaviour>(this IInteractive source) where TBehaviour : ISyncBehaviour
@@ -27,6 +27,7 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			AddLog(typeof(TBehaviour), null);
 			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
+				Log.Debug($"Executing behaviour {behavior.GetType()}");
 				if (behavior is ISyncBehaviour behaviourCasted)
 					behaviourCasted.Execute();
 			}
@@ -40,6 +41,7 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			AddLog(typeof(TBehaviour), typeof(TContext));
 			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
+				Log.Debug($"Executing behaviour {behavior.GetType()}");
 				if (behavior is ISyncBehaviour<TContext> behaviourCasted)
 				{
 					(behavior as IContextSettable<TContext>)?.SetContext(context);
@@ -56,6 +58,7 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			AddLog(typeof(TBehaviour), null);
 			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
+				Log.Debug($"Executing behaviour {behavior.GetType()}");
 				if (behavior is IAsyncBehaviour casted)
 					await casted.ExecuteAsync();
 			}
@@ -69,6 +72,7 @@ namespace Company.Desktop.Framework.Mvvm.Extensions
 			AddLog(typeof(TBehaviour), typeof(TContext));
 			foreach (var behavior in source.Behaviours.OrderByDescending(d => d.Priority))
 			{
+				Log.Debug($"Executing behaviour {behavior.GetType()}");
 				if (behavior is IAsyncBehaviour<TContext> casted)
 				{
 					(behavior as IContextSettable<TContext>)?.SetContext(context);

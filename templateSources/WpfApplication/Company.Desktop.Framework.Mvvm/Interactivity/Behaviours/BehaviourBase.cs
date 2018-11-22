@@ -9,18 +9,18 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 		/// <inheritdoc />
 		public int Priority { get; }
 
-		private Subject<object> _executed = new Subject<object>();
-		public IObservable<object> Executed => _executed;
+		private Subject<object> _whenExecuted = new Subject<object>();
+		public IObservable<object> WhenExecuted => _whenExecuted;
 
 		protected void RaiseExecuted()
 		{
-			if (!_executed.IsDisposed)
-				_executed.OnNext(null);
+			if (!_whenExecuted.IsDisposed)
+				_whenExecuted.OnNext(null);
 		}
 
 		public void Dispose()
 		{
-			_executed.Dispose();
+			_whenExecuted.Dispose();
 		}
 	}
 }

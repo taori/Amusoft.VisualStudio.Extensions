@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
@@ -46,6 +47,12 @@ namespace Company.Desktop.ViewModels.Windows
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
 
 				var viewModel = new SecondaryWindowViewModel();
+				viewModel.Behaviours.Add(new RequestClosePermissionBehaviour());
+				viewModel.WhenClosed.Subscribe(d =>
+				{
+					Log.Info($"Window has been closed");
+					viewModel.Dispose();
+				});
 
 				if (await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
 					await navigation.OpenWindowAsync(viewModel, "secondWindow");
