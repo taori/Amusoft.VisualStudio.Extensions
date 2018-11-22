@@ -4,7 +4,7 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public class ClosingTracingBehaviour : BehaviourBase, IWindowClosingBehaviour
+	public class ClosingTracingBehaviour : AsyncBehaviourBase<IWindowClosingBehaviourContext>
 	{
 		/// <inheritdoc />
 		public ClosingTracingBehaviour(string message)
@@ -17,21 +17,11 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 		public string Message { get; set; }
 
 		/// <inheritdoc />
-		public IWindowClosingBehaviourContext Context { get; private set; }
-
-		/// <inheritdoc />
-		public Task ExecuteAsync()
+		protected override Task OnExecuteAsync(IWindowClosingBehaviourContext context)
 		{
 			if (!string.IsNullOrEmpty(Message))
 				Log.Info(Message);
-			RaiseExecuted();
 			return Task.CompletedTask;
-		}
-
-		/// <inheritdoc />
-		public void SetContext(IWindowClosingBehaviourContext context)
-		{
-			Context = context;
 		}
 	}
 }

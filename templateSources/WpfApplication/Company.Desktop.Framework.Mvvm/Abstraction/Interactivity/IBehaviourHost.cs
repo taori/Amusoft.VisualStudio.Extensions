@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity
 {
-	public interface IBehaviourProvider
+	public interface IBehaviourHost : IDisposable
 	{
-		IEnumerable<IBehaviour> GetBehaviours();
+		List<IBehaviour> Behaviours { get; }
 	}
 }

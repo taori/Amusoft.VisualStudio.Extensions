@@ -10,6 +10,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using JetBrains.Annotations;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
@@ -22,13 +23,15 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		public IEnumerable<IViewModelWindowFactory> WindowFactories { get; }
 		public IViewComposerFactory ComposerFactory { get; }
 		public IServiceContext ServiceContext { get; }
+		public IBehaviourRunner BehaviourRunner { get; }
 
-		public WindowCoordinator(IWindowManager windowManager, IEnumerable<IViewModelWindowFactory> windowFactories, IViewComposerFactory composerFactory, IServiceContext serviceContext)
+		public WindowCoordinator(IWindowManager windowManager, IEnumerable<IViewModelWindowFactory> windowFactories, IViewComposerFactory composerFactory, IServiceContext serviceContext, [NotNull] IBehaviourRunner behaviourRunner)
 		{
 			WindowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
 			WindowFactories = windowFactories ?? throw new ArgumentNullException(nameof(windowFactories));
 			ComposerFactory = composerFactory ?? throw new ArgumentNullException(nameof(composerFactory));
 			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
+			BehaviourRunner = behaviourRunner ?? throw new ArgumentNullException(nameof(behaviourRunner));
 		}
 
 		/// <inheritdoc />
@@ -71,10 +74,10 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 				if (composer == null)
 					return false;
 
-				if (window.DataContext is IInteractive interactive)
+				if (window.DataContext is IBehaviourHost interactive)
 				{
 					var context = new ContentChangingBehaviourContext(ServiceContext.ServiceProvider, window.DataContext, dataContext);
-					await interactive.ExecuteBehavioursAsync<IContentChangingBehaviour, IContentChangingBehaviourContext>(context);
+					await BehaviourRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{
 						Log.Error($"Change prevented by {nameof(IContentChangingBehaviour)}.");

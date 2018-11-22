@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
@@ -8,6 +10,8 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.Window;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer
@@ -18,15 +22,17 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 		public IServiceContext ServiceContext { get; }
 		public IEnumerable<IViewComposerHook> ComposerHooks { get; }
+		public IBehaviourRunner BehaviourRunner { get; }
 
-		protected ViewComposerBase(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks)
+		protected ViewComposerBase(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviourRunner behaviourRunner)
 		{
 			ServiceContext = serviceContext;
 			ComposerHooks = composerHooks;
+			BehaviourRunner = behaviourRunner;
 		}
 
 		/// <inheritdoc />
-		public int FactoryPriority { get; }
+		public int Priority { get; }
 
 		protected abstract Task FinalizeCompositionAsync(IViewCompositionContext context);
 
@@ -34,26 +40,30 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			if (sender is FrameworkElement element)
 			{
+				Log.Debug($"DataContext has changed.");
 				element.DataContextChanged -= DataContextChanged;
 				if (element.DataContext is IServiceProviderHolder holder)
 				{
+					Log.Debug($"ServiceProvider set through {nameof(IServiceProviderHolder)}.");
 					holder.ServiceProvider = ServiceContext.ServiceProvider;
 				}
 				
-				if (element.DataContext is IBehaviourProvider behaviourProvider && element.DataContext is IInteractive interactiveBehaviour)
+				if (element.DataContext is IDefaultBehaviourProvider behaviourProvider && element.DataContext is IBehaviourHost interactiveBehaviour)
 				{
-					interactiveBehaviour.Behaviours.AddRange(behaviourProvider.GetBehaviours());
+					var behaviours = behaviourProvider.GetDefaultBehaviours().ToArray();
+					if (behaviours.Length > 0)
+						Log.Debug($"Binding {behaviours.Length} behaviours through {nameof(IDefaultBehaviourProvider)} [{string.Join(".", behaviours.Select(s => s.GetType().ToString()))}].");
+					
+					interactiveBehaviour.Behaviours.AddRange(behaviours);
 				}
 
 				foreach (var hook in ComposerHooks)
 				{
+					Log.Debug($"Executing [{nameof(IViewComposerHook)}] -> [{hook.GetType().ToString()}]");
 					hook.Execute(element, element.DataContext);
 				}
-				
-				if (element.DataContext is IInteractive interactive)
-				{
-					await interactive.ExecuteBehavioursAsync<IActivationBehaviour, IActivationBehaviourContext>(new ActivationBehaviourContext(interactive, ServiceContext.ServiceProvider));
-				}
+
+				await BehaviourRunner.ExecuteAsync(element.DataContext as IBehaviourHost, new ActivationBehaviourContext(element.DataContext, ServiceContext.ServiceProvider));
 
 				if (element.DataContext is ICompositionListener listener)
 					listener.Execute(new ViewCompositionContext(element, element.DataContext));
@@ -69,14 +79,17 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			try
 			{
+				Log.Debug($"Composition is being configured.");
 				Configure(context);
 
+				Log.Debug($"Attaching DataContextChanged and Unload events.");
 				context.Control.DataContextChanged -= DataContextChanged;
 				context.Control.DataContextChanged += DataContextChanged;
 
 				// memory leak countermeasure
 				context.Control.Unloaded += ControlOnUnloaded;
 
+				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
 				return true;
 			}

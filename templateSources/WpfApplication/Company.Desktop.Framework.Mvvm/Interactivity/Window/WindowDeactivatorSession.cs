@@ -5,6 +5,7 @@ using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {
@@ -48,13 +49,14 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 			return false;
 		}
 
-		public async Task<bool> IsCancelledAsync(IInteractive interactive, IServiceProvider serviceProvider)
+		public async Task<bool> IsCancelledAsync(IBehaviourHost behaviourHost, IServiceProvider serviceProvider)
 		{
-			if (interactive == null)
+			if (behaviourHost == null)
 				return false;
 
-			var closeContext = new WindowClosingContext(interactive, serviceProvider);
-			await interactive.ExecuteBehavioursAsync<IWindowClosingBehaviour, IWindowClosingBehaviourContext>(closeContext);
+			var closeContext = new WindowClosingContext(behaviourHost, serviceProvider);
+			var behaviourRunner = serviceProvider.GetRequiredService<IBehaviourRunner>();
+			await behaviourRunner.ExecuteAsync(behaviourHost, closeContext);
 
 			if (closeContext.Cancelled)
 			{

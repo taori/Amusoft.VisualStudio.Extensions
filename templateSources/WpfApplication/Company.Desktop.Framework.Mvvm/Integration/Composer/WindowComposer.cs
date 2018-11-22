@@ -21,7 +21,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(WindowComposer));
 
 		/// <inheritdoc />
-		public WindowComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks) : base(serviceContext, composerHooks)
+		public WindowComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviourRunner behaviourRunner) : base(serviceContext, composerHooks, behaviourRunner)
 		{
 		}
 
@@ -61,27 +61,20 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 					windowClosing.Subscribe(args =>
 					{
-						Log.Debug($"Window closing.");
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosing(args);
 					});
 					windowStateChanged.Subscribe(args =>
 					{
-						Log.Debug($"State changed.");
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyWindowStateChange(args);;
 					});
 					windowClosed.Subscribe(async (args) =>
 					{
-						Log.Debug($"Window closed.");
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosed();
 
-						if (windowViewModel is IInteractive interactive)
-						{
-							var closeContext = new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider);
-							await interactive.ExecuteBehavioursAsync<IWindowClosedBehaviour, IWindowClosedBehaviourContext>(closeContext);
-						}
+						await BehaviourRunner.ExecuteAsync(windowViewModel as IBehaviourHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider));
 					});
 				}
 			}

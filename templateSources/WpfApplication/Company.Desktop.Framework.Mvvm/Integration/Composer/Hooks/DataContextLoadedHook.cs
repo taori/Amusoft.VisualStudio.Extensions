@@ -11,7 +11,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 		/// <inheritdoc />
 		public void Execute(FrameworkElement control, object dataContext)
 		{
-			if (dataContext is IInteractive activateable)
+			if (dataContext is IBehaviourHost activateable)
 			{
 				activateable.Behaviours.Add(new ActivationBehaviour());
 

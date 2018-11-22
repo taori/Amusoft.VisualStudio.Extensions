@@ -10,13 +10,12 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class WindowViewModel : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IBehaviourProvider
+	public abstract class WindowViewModel : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IDefaultBehaviourProvider
 	{
 		protected static readonly ILogger Log = LogManager.GetLogger(nameof(WindowViewModel));
 
@@ -183,13 +182,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		/// <inheritdoc />
 		public IServiceProvider ServiceProvider { get; set; }
-
-		/// <inheritdoc />
-		public IEnumerable<IBehaviour> GetBehaviours()
-		{
-			yield break;
-		}
-
+		
 		/// <inheritdoc />
 		protected override void Dispose(bool managedDispose)
 		{
@@ -226,5 +219,8 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			Log.Debug(nameof(NotifyWindowStateChange));
 			_whenStateChanged.OnNext(args);
 		}
+
+		/// <inheritdoc />
+		public abstract IEnumerable<IBehaviour> GetDefaultBehaviours();
 	}
 }

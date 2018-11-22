@@ -5,6 +5,7 @@ using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Interactivity.Window;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
@@ -36,7 +37,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 						var deactivationSession = new WindowDeactivatorSession(args);
 						if (await deactivationSession.IsCancelledAsync(dataContext as IDeactivate, ServiceContext.ServiceProvider))
 							return;
-						if (await deactivationSession.IsCancelledAsync(dataContext as IInteractive, ServiceContext.ServiceProvider))
+						if (await deactivationSession.IsCancelledAsync(dataContext as IBehaviourHost, ServiceContext.ServiceProvider))
 							return;
 
 						WindowDeactivatorSession.SetCloseChecksPassed(sender as DependencyObject, true);

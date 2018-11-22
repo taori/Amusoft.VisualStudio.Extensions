@@ -2,7 +2,7 @@
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 {
-	public interface IWindowClosingBehaviourContext
+	public interface IWindowClosingBehaviourContext : IBehaviourArgument
 	{
 		object ViewModel { get; }
 		bool Cancelled { get; }

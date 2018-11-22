@@ -23,7 +23,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			if (control == null) throw new ArgumentNullException(nameof(control));
 
-			foreach (var composer in Composers.OrderByDescending(d => d.FactoryPriority))
+			foreach (var composer in Composers.OrderByDescending(d => d.Priority))
 			{
 				if (composer.CanHandle(control))
 					return composer;

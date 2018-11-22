@@ -10,7 +10,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer
 		/// <summary>
 		/// Order in which the Composer is prioritized for a specific dataContext
 		/// </summary>
-		int FactoryPriority { get; }
+		int Priority { get; }
 
 		Task<bool> ComposeAsync(IViewCompositionContext context);
 

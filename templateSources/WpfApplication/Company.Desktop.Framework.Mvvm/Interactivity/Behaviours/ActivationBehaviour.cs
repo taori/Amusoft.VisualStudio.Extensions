@@ -6,48 +6,35 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public class ActivationBehaviour : BehaviourBase, IActivationBehaviour
+	public class ActivationBehaviour : AsyncBehaviourBase<IActivationBehaviourContext>
 	{
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(ActivationBehaviour));
 		
 		/// <inheritdoc />
-		public IActivationBehaviourContext Context { get; private set; }
-
-		/// <inheritdoc />
-		public async Task ExecuteAsync()
+		protected override async Task OnExecuteAsync(IActivationBehaviourContext context)
 		{
 			try
 			{
-				if (Context.ViewModel is IActivateable activateable)
+				if (context.ViewModel is IActivateable activateable)
 				{
-					if (Context.ViewModel is IBusyStateHolder holder)
+					if (context.ViewModel is IBusyStateHolder holder)
 					{
 						using (holder.LoadingState.Session())
 						{
-							await activateable.ActivateAsync(new ActivationContext(Context.ServiceProvider));
+							await activateable.ActivateAsync(new ActivationContext(context.ServiceProvider));
 						}
 					}
 					else
 					{
-						await activateable.ActivateAsync(new ActivationContext(Context.ServiceProvider));
+						await activateable.ActivateAsync(new ActivationContext(context.ServiceProvider));
 					}
 				}
 			}
 			catch (Exception e)
 			{
 				Log.Error(e);
-				Context.Cancel();
+				context.Cancel();
 			}
-			finally
-			{
-				RaiseExecuted();
-			}
-		}
-
-		/// <inheritdoc />
-		public void SetContext(IActivationBehaviourContext context)
-		{
-			Context = context;
 		}
 	}
 }

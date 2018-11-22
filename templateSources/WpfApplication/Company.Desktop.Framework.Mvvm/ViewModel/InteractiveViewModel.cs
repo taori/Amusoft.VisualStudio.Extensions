@@ -5,20 +5,8 @@ using Company.Desktop.Framework.Mvvm.Interactivity;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class InteractiveViewModel : ViewModelBase, IInteractive, IBusyStateHolder
+	public abstract class InteractiveViewModel : ViewModelBase, IBehaviourHost, IBusyStateHolder
 	{
-		protected InteractiveViewModel()
-		{
-			Initialize();
-		}
-
-		private void Initialize()
-		{
-			InitializeBehaviours();
-		}
-
-		protected abstract void InitializeBehaviours();
-
 		public List<IBehaviour> Behaviours { get; } = new List<IBehaviour>();
 
 		/// <inheritdoc />

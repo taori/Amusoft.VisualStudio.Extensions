@@ -8,13 +8,12 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class ContentViewModel : InteractiveViewModel, IServiceProviderHolder, IContentViewModel, IBehaviourProvider
+	public abstract class ContentViewModel : InteractiveViewModel, IServiceProviderHolder, IContentViewModel, IDefaultBehaviourProvider
 	{
 		protected static readonly ILogger Log = LogManager.GetLogger(nameof(ContentViewModel));
 		
@@ -44,9 +43,6 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		public IServiceProvider ServiceProvider { get; set; }
 
 		/// <inheritdoc />
-		public IEnumerable<IBehaviour> GetBehaviours()
-		{
-			yield return new ConfirmContentChangingBehaviour();
-		}
+		public abstract IEnumerable<IBehaviour> GetDefaultBehaviours();
 	}
 }

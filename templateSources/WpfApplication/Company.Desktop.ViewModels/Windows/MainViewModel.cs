@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
@@ -47,7 +49,6 @@ namespace Company.Desktop.ViewModels.Windows
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
 
 				var viewModel = new SecondaryWindowViewModel();
-				viewModel.Behaviours.Add(new RequestClosePermissionBehaviour());
 				viewModel.WhenClosed.Subscribe(d =>
 				{
 					Log.Info($"Window has been closed");
@@ -63,13 +64,16 @@ namespace Company.Desktop.ViewModels.Windows
 			Commands.Add(new TestCommand("Update top area", new RelayCommand(async (o) =>
 			{
 				var r = new Random();
-				var opened = await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.TopArea);
+				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
+				vm.Behaviours.Add(new ConfirmContentChangingBehaviour());
+				var opened = await UpdateRegionAsync(vm, RegionNames.TopArea);
 			})));
 
 			Commands.Add(new TestCommand("Update bottom area", new RelayCommand(async (o) =>
 			{
 				var r = new Random();
-				var opened = await UpdateRegionAsync(new SampleDataOverviewViewModel(r.Next(10, 30)), RegionNames.BottomArea);
+				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
+				var opened = await UpdateRegionAsync(vm, RegionNames.BottomArea);
 			})));
 
 			Commands.Add(new TestCommand("Run GC", new RelayCommand((o) =>
@@ -87,12 +91,12 @@ namespace Company.Desktop.ViewModels.Windows
 		}
 
 		/// <inheritdoc />
-		public override bool ClaimMainWindowOnOpen => true;
+		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		{
+			yield break;
+		}
 
 		/// <inheritdoc />
-		protected override void InitializeBehaviours()
-		{
-			
-		}
+		public override bool ClaimMainWindowOnOpen => true;
 	}
 }

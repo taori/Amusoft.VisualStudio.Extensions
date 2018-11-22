@@ -6,10 +6,12 @@ using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,10 +28,11 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			services.AddSingleton<IRegionManager, RegionManager>();
 			services.AddSingleton<IWindowManager, WindowManager>();
 			services.AddSingleton<IDisplayCoordinatorFactory, DisplayCoordinatorFactory>();
+			services.AddSingleton<IBehaviourRunner, BehaviourRunner>();
 
 			services.AddTransient<IServiceContext, ServiceContext>();
 			services.AddTransient<IViewModelWindowFactory, WindowFactory>();
-			services.AddTransient<IRegexDataTemplatePatternProvider>(provider => CreateDefaultConventionPattern(provider));
+			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
 		}
 
 		private static InlineMvvmPattern CreateDefaultConventionPattern(IServiceProvider provider)

@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 {
+	public interface IBehaviourArgument
+	{
+
+	}
+
 	public interface IBehaviour : IDisposable
 	{
 		/// <summary>
@@ -13,32 +19,21 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
 		IObservable<object> WhenExecuted { get; }
 	}
 
-	public interface IContextSettable<TContext>
+	public interface IBehaviour<in TArgument> : IBehaviour
+		where TArgument : IBehaviourArgument
 	{
-		void SetContext(TContext context);
+		void Execute(TArgument context);
 	}
 
-	public interface IAsyncBehaviour : IBehaviour
+	public interface IAsyncBehaviour<in TArgument> : IBehaviour
+		where TArgument : IBehaviourArgument
 	{
-		Task ExecuteAsync();
+		Task ExecuteAsync(TArgument context);
 	}
 
-	public interface IAsyncBehaviour<TContext> : IBehaviour, IContextSettable<TContext>
+	public interface IBehaviourRunner
 	{
-		TContext Context { get; }
-
-		Task ExecuteAsync();
-	}
-
-	public interface ISyncBehaviour : IBehaviour
-	{
-		void Execute();
-	}
-
-	public interface ISyncBehaviour<TContext> : IBehaviour, IContextSettable<TContext>
-	{
-		TContext Context { get; }
-
-		void Execute();
+		void Execute<TArgument>(IBehaviourHost host, TArgument argument) where TArgument : IBehaviourArgument;
+		Task ExecuteAsync<TArgument>(IBehaviourHost host, TArgument argument) where TArgument : IBehaviourArgument;
 	}
 }
