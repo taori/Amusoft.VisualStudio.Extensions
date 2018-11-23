@@ -25,7 +25,8 @@ namespace Company.Desktop.Application.Dependencies.UI
 			if(dataContext is MainViewModel)
 				return new MainWindow();
 
-			return new DefaultWindow();
+			var defaultWindow = new DefaultWindow();
+			return defaultWindow;
 		}
 	}
 }

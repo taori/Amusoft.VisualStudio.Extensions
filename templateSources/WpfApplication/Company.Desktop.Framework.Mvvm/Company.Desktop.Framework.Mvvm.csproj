@@ -99,6 +99,7 @@
     <Compile Include="Abstraction\Interactivity\IDefaultBehaviourProvider.cs" />
     <Compile Include="Abstraction\UI\IWindowListener.cs" />
     <Compile Include="Extensions\ActivationContextExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Integration\Composer\Hooks\DataContextLoadedHook.cs" />
     <Compile Include="Integration\Composer\Hooks\WindowClosingHook.cs" />
     <Compile Include="Integration\ViewMapping\InlineMvvmPattern.cs" />

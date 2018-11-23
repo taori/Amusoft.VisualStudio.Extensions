@@ -41,7 +41,6 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 			return Task.CompletedTask;
 		}
-
 		/// <inheritdoc />
 		protected override void Configure(IViewCompositionContext context)
 		{
@@ -55,21 +54,19 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 					windowViewModel.WhenMaximizeRequested.Subscribe(o => window.WindowState = WindowState.Maximized);
 					windowViewModel.WhenNormalizeRequested.Subscribe(o => window.WindowState = WindowState.Normal);
 
-					var windowClosed = Observable.FromEventPattern<EventHandler, EventArgs>(d => window.Closed += d, d => window.Closed -= d).Select(s => s.EventArgs);
-					var windowClosing = Observable.FromEventPattern<CancelEventHandler, CancelEventArgs>(d => window.Closing += d, d => window.Closing -= d).Select(s => s.EventArgs);
-					var windowStateChanged = Observable.FromEventPattern<EventHandler, EventArgs>(d => window.StateChanged += d, d => window.StateChanged -= d).Select(s => window.WindowState);
-
-					windowClosing.Subscribe(args =>
+					window.WhenClosing().Subscribe(args =>
 					{
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosing(args);
 					});
-					windowStateChanged.Subscribe(args =>
+
+					window.WhenStateChanged().Subscribe(args =>
 					{
 						if (windowViewModel is IWindowListener listener)
-							listener.NotifyWindowStateChange(args);;
+							listener.NotifyWindowStateChange(args);
 					});
-					windowClosed.Subscribe(async (args) =>
+
+					window.WhenClosed().Subscribe(async(args) =>
 					{
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosed();
