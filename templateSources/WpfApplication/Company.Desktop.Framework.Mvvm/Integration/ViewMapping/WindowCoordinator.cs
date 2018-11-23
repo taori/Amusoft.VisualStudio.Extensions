@@ -7,7 +7,6 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using JetBrains.Annotations;

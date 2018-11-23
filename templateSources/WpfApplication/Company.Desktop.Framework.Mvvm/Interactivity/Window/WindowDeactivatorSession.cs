@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
-using Company.Desktop.Framework.Mvvm.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window

@@ -49,11 +49,6 @@ namespace Company.Desktop.ViewModels.Windows
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
 
 				var viewModel = new SecondaryWindowViewModel();
-				viewModel.WhenClosed.Subscribe(d =>
-				{
-					Log.Info($"Window has been closed");
-					viewModel.Dispose();
-				});
 
 				if (await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
 					await navigation.OpenWindowAsync(viewModel, "secondWindow");
@@ -93,7 +88,7 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
 		{
-			yield break;
+			yield return new RequestClosingPermissionBehaviour();
 		}
 
 		/// <inheritdoc />

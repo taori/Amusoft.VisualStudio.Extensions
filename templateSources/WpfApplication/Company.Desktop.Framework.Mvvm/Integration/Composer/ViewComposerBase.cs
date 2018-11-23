@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
-using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
-using Company.Desktop.Framework.Mvvm.Interactivity.Window;
-using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer

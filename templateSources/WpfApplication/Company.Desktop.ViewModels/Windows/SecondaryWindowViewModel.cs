@@ -13,7 +13,7 @@ namespace Company.Desktop.ViewModels.Windows
 	public class SecondaryWindowViewModel : WindowViewModel
 	{
 		private byte[] _someMemory;
-
+		
 		/// <inheritdoc />
 		protected override async Task OnActivateAsync(IActivationContext context)
 		{

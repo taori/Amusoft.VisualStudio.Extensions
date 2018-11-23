@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
@@ -59,11 +57,23 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosing(args);
 					});
-
+					
 					window.WhenStateChanged().Subscribe(args =>
 					{
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyWindowStateChange(args);
+					});
+
+					window.WhenLocationChanged().Subscribe(args =>
+					{
+						if (windowViewModel is IWindowListener listener)
+							listener.NotifyLocationChanged(args);
+					});
+
+					window.WhenSizeChanged().Subscribe(args =>
+					{
+						if (windowViewModel is IWindowListener listener)
+							listener.NotifySizeChanged(args);
 					});
 
 					window.WhenClosed().Subscribe(async(args) =>

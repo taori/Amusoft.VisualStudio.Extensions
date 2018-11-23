@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows;
+using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
@@ -94,36 +95,36 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		/// <inheritdoc />
 		public void Focus()
 		{
-			Log.Debug($"{nameof(Focus)} requested.");
-			_whenFocusRequested?.OnNext(null);
+			Log.Trace($"{nameof(Focus)} requested.");
+			_whenFocusRequested?.TryOnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Normalize()
 		{
-			Log.Debug($"{nameof(Normalize)} requested.");
-			_whenNormalizeRequested?.OnNext(null);
+			Log.Trace($"{nameof(Normalize)} requested.");
+			_whenNormalizeRequested?.TryOnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Maximize()
 		{
-			Log.Debug($"{nameof(Maximize)} requested.");
-			_whenMaximizeRequested?.OnNext(null);
+			Log.Trace($"{nameof(Maximize)} requested.");
+			_whenMaximizeRequested?.TryOnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Minimize()
 		{
-			Log.Debug($"{nameof(Minimize)} requested.");
-			_whenMinimizeRequested?.OnNext(null);
+			Log.Trace($"{nameof(Minimize)} requested.");
+			_whenMinimizeRequested?.TryOnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void Close()
 		{
-			Log.Debug($"{nameof(Close)} requested.");
-			_whenClosingRequested?.OnNext(null);
+			Log.Trace($"{nameof(Close)} requested.");
+			_whenClosingRequested?.TryOnNext(null);
 		}
 
 		private Subject<object> _whenFocusRequested = new Subject<object>();
@@ -157,12 +158,18 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		private Subject<WindowState> _whenStateChanged = new Subject<WindowState>();
 		public IObservable<WindowState> WhenStateChanged => _whenStateChanged;
+
+		private Subject<Point> _whenLocationChanged = new Subject<Point>();
+		public IObservable<Point> WhenLocationChanged => _whenLocationChanged;
+
+		private Subject<SizeChangedEventArgs> _whenSizeChanged = new Subject<SizeChangedEventArgs>();
+		public IObservable<SizeChangedEventArgs> WhenSizeChanged => _whenSizeChanged;
 		
 		/// <inheritdoc />
 		public async Task ActivateAsync(IActivationContext context)
 		{
 			await OnActivateAsync(context);
-			_whenActivated.OnNext(context);
+			_whenActivated.TryOnNext(context);
 		}
 		
 		protected abstract Task OnActivateAsync(IActivationContext context);
@@ -193,7 +200,13 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 				_whenMinimizeRequested.Dispose();
 				_whenClosingRequested.Dispose();
 				_whenNormalizeRequested.Dispose();
+
 				_whenClosed.Dispose();
+				_whenClosing.Dispose();
+				_whenActivated.Dispose();
+				_whenSizeChanged.Dispose();
+				_whenStateChanged.Dispose();
+				_whenLocationChanged.Dispose();
 			}
 
 			base.Dispose(managedDispose);
@@ -202,22 +215,36 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		/// <inheritdoc />
 		public void NotifyClosed()
 		{
-			Log.Debug(nameof(NotifyClosed));
-			_whenClosed.OnNext(null);
+			Log.Trace(nameof(NotifyClosed));
+			_whenClosed.TryOnNext(null);
 		}
 
 		/// <inheritdoc />
 		public void NotifyClosing(CancelEventArgs args)
 		{
-			Log.Debug(nameof(NotifyClosing));
-			_whenClosing.OnNext(args);
+			Log.Trace(nameof(NotifyClosing));
+			_whenClosing.TryOnNext(args);
 		}
 
 		/// <inheritdoc />
 		public void NotifyWindowStateChange(WindowState args)
 		{
-			Log.Debug(nameof(NotifyWindowStateChange));
-			_whenStateChanged.OnNext(args);
+			Log.Trace(nameof(NotifyWindowStateChange));
+			_whenStateChanged.TryOnNext(args);
+		}
+
+		/// <inheritdoc />
+		public void NotifyLocationChanged(Point args)
+		{
+			Log.Trace(nameof(NotifyWindowStateChange));
+			_whenLocationChanged.TryOnNext(args);
+		}
+
+		/// <inheritdoc />
+		public void NotifySizeChanged(SizeChangedEventArgs args)
+		{
+			Log.Trace(nameof(NotifyWindowStateChange));
+			_whenSizeChanged.TryOnNext(args);
 		}
 
 		/// <inheritdoc />
