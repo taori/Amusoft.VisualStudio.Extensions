@@ -83,13 +83,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		private static void ControlOnUnloaded(object sender, RoutedEventArgs e)
 		{
 			// countermeasure for memory leaks
-			if (sender is FrameworkElement frameworkElement)
+			if (sender != null && sender is FrameworkElement frameworkElement)
 			{
 				frameworkElement.Unloaded -= ControlOnUnloaded;
 				var viewModel = GetViewModel(frameworkElement);
 				var regionName = GetRegionName(frameworkElement);
 
-				if (Register.TryGetValue(viewModel, out var register))
+				if (viewModel != null && Register.TryGetValue(viewModel, out var register))
 				{
 					register.Remove(regionName);
 					if (register.Count == 0)

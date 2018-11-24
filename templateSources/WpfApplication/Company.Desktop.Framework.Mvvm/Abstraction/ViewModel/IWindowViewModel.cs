@@ -9,7 +9,11 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 	{
 		string Title { get; set; }
 		double Width { get; set; }
+		double MinWidth { get; set; }
+		double MaxWidth { get; set; }
 		double Height { get; set; }
+		double MinHeight { get; set; }
+		double MaxHeight { get; set; }
 
 		IContentViewModel Content { get; set; }
 		

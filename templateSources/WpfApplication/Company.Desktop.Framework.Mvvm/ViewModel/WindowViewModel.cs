@@ -36,12 +36,44 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			set => SetValue(ref _width, value, nameof(Width));
 		}
 
+		private double _minWidth = 100;
+
+		public double MinWidth
+		{
+			get => _minWidth;
+			set => SetValue(ref _minWidth, value, nameof(MinWidth));
+		}
+
+		private double _maxWidth = int.MaxValue;
+
+		public double MaxWidth
+		{
+			get => _maxWidth;
+			set => SetValue(ref _maxWidth, value, nameof(MaxWidth));
+		}
+
 		private double _height = 450;
 
 		public double Height
 		{
 			get => _height;
 			set => SetValue(ref _height, value, nameof(Height));
+		}
+
+		private double _minHeight = 100;
+
+		public double MinHeight
+		{
+			get => _minHeight;
+			set => SetValue(ref _minHeight, value, nameof(MinHeight));
+		}
+
+		private double _maxHeight = int.MaxValue;
+
+		public double MaxHeight
+		{
+			get => _maxHeight;
+			set => SetValue(ref _maxHeight, value, nameof(MaxHeight));
 		}
 
 		private bool _resizeable = true;
@@ -229,21 +261,21 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		/// <inheritdoc />
 		public void NotifyWindowStateChange(WindowState args)
 		{
-			Log.Trace(nameof(NotifyWindowStateChange));
+			Log.Trace($"{nameof(NotifyWindowStateChange)} {args}");
 			_whenStateChanged.TryOnNext(args);
 		}
 
 		/// <inheritdoc />
 		public void NotifyLocationChanged(Point args)
 		{
-			Log.Trace(nameof(NotifyWindowStateChange));
+			Log.Trace($"{nameof(NotifyLocationChanged)} {args}");
 			_whenLocationChanged.TryOnNext(args);
 		}
 
 		/// <inheritdoc />
 		public void NotifySizeChanged(SizeChangedEventArgs args)
 		{
-			Log.Trace(nameof(NotifyWindowStateChange));
+			Log.Trace($"{nameof(NotifySizeChanged)} {args.NewSize}");
 			_whenSizeChanged.TryOnNext(args);
 		}
 
