@@ -24,7 +24,10 @@ namespace Company.Desktop.ViewModels.Controls
 		public SampleDataOverviewViewModel(int count)
 		{
 			Count = count;
+			Bytes = new byte[20000000];
 		}
+
+		public byte[] Bytes { get; set; }
 
 		/// <inheritdoc />
 		protected override async Task OnActivateAsync(IActivationContext context)

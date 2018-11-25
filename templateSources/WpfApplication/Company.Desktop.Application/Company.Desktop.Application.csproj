@@ -118,12 +118,18 @@
     <Compile Include="Dependencies\Configuration\DataTemplate\LocalViewModelTypeSource.cs" />
     <Compile Include="Dependencies\Configuration\DataTemplate\LocalViewTypeSource.cs" />
     <Compile Include="Dependencies\Configuration\DataTemplate\StaticTemplateMapper.cs" />
-    <Compile Include="Dependencies\UI\DialogService.cs" />
+    <Compile Include="Dependencies\UI\MetroDialogService.cs" />
+    <Compile Include="Dependencies\UI\MetroProgressController.cs" />
+    <Compile Include="Dependencies\UI\SystemDialogService.cs" />
     <Compile Include="Dependencies\UI\WindowFactory.cs" />
     <Compile Include="Views\Windows\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,8 +230,6 @@
       <Name>Company.Desktop.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

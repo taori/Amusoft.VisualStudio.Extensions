@@ -12,7 +12,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 		protected override async Task<bool> ShouldCancelAsync(IWindowClosingBehaviourContext argument)
 		{
 			var dialogService = argument.ServiceProvider.GetRequiredService<IDialogService>();
-			if (await dialogService.ConfirmAsync($"Should the window of type {argument.ViewModel.ToString()} be closed?"))
+			if (await dialogService.YesNoAsync(argument.ViewModel, $"Should the window of type {argument.ViewModel.ToString()} be closed?"))
 			{
 				return false;
 			}

@@ -10,6 +10,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Extensions;
+using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Interactivity.Window;
 using NLog;
 
@@ -40,6 +41,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 			return Task.CompletedTask;
 		}
+
 		/// <inheritdoc />
 		protected override void Configure(IViewCompositionContext context)
 		{
@@ -47,6 +49,9 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 			{
 				if (context.DataContext is IWindowViewModel windowViewModel)
 				{
+					window.SizeToContent = windowViewModel.SizeToContent;
+					window.ShowInTaskbar = windowViewModel.ShowInTaskbar;
+
 					windowViewModel.WhenFocusRequested.Subscribe(o => window.Focus());
 					windowViewModel.WhenClosingRequested.Subscribe(o => window.Close());
 					windowViewModel.WhenMinimizeRequested.Subscribe(o => window.WindowState = WindowState.Minimized);
@@ -82,7 +87,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosed();
 
-						await BehaviourRunner.ExecuteAsync(windowViewModel as IBehaviourHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider));
+						await BehaviourRunner.ExecuteAsync(windowViewModel as IBehaviourHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider, context));
 					});
 				}
 			}

@@ -12,6 +12,11 @@ namespace Company.Desktop.ViewModels.Windows
 {
 	public class SecondaryWindowViewModel : WindowViewModel
 	{
+		public SecondaryWindowViewModel()
+		{
+			ShowInTaskbar = false;
+		}
+
 		private byte[] _someMemory;
 		
 		/// <inheritdoc />

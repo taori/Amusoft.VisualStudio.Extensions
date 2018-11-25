@@ -19,8 +19,6 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		
 		bool ClaimMainWindowOnOpen { get; }
 
-		ResizeMode ResizeMode { get; set; }
-
 		void Focus();
 		void Normalize();
 		void Maximize();
@@ -32,5 +30,9 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		IObservable<object> WhenNormalizeRequested { get; }
 		IObservable<object> WhenMinimizeRequested { get; }
 		IObservable<object> WhenMaximizeRequested { get; }
+
+		SizeToContent SizeToContent { get; }
+		ResizeMode ResizeMode { get; set; }
+		bool ShowInTaskbar { get; }
 	}
 }

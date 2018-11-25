@@ -52,7 +52,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 					await BehaviourRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{
-						Log.Error($"Change prevented by {nameof(IContentChangingBehaviour)}.");
+						Log.Error($"Change prevented by {nameof(ContentChangingBehaviourContext)}.");
 						return false;
 					}
 				}
@@ -61,7 +61,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 				if (composer == null)
 					return false;
 
-				return await composer.ComposeAsync(new ViewCompositionContext(control, dataContext));
+				return await composer.ComposeAsync(new ViewCompositionContext(control, dataContext, coordinationArguments));
 			}
 
 			return false;

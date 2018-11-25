@@ -9,16 +9,10 @@
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/colors.xaml" />
-				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/red.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/cobalt.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/baselight.xaml" />
 				<ResourceDictionary Source="Resources/Resources.xaml"/>
-				<ResourceDictionary>
-
-					<Style TargetType="{x:Type mah:MetroWindow}" x:Key="DefaultWindowStyle">
-						<Setter Property="GlowBrush" Value="{DynamicResource AccentColorBrush}" />
-						<Setter Property="TitleCharacterCasing" Value="Normal" />
-					</Style>
-				</ResourceDictionary>
+				<ResourceDictionary Source="Resources/Styles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 
 		</ResourceDictionary>

@@ -121,6 +121,22 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			get => _content;
 			set => SetValue(ref _content, value, nameof(Content));
 		}
+
+		private SizeToContent _sizeToContent = SizeToContent.Manual;
+
+		public SizeToContent SizeToContent
+		{
+			get => _sizeToContent;
+			set => SetValue(ref _sizeToContent, value, nameof(SizeToContent));
+		}
+
+		private bool _showInTaskbar = true;
+
+		public bool ShowInTaskbar
+		{
+			get => _showInTaskbar;
+			set => SetValue(ref _showInTaskbar, value, nameof(ShowInTaskbar));
+		}
 		
 		public virtual bool ClaimMainWindowOnOpen => false;
 

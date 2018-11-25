@@ -79,12 +79,12 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 					await BehaviourRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{
-						Log.Error($"Change prevented by {nameof(IContentChangingBehaviour)}.");
+						Log.Error($"Change prevented by {nameof(ContentChangingBehaviourContext)}.");
 						return false;
 					}
 				}
 
-				return await composer.ComposeAsync(new ViewCompositionContext(window, dataContext));
+				return await composer.ComposeAsync(new ViewCompositionContext(window, dataContext, coordinationArguments));
 			}
 
 			Log.Error($"Unable to visualize {dataContext} because {nameof(arguments)} is not of type {typeof(WindowArguments).FullName}");

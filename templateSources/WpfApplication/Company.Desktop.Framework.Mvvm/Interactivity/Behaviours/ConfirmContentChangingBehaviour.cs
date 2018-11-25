@@ -10,7 +10,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 		/// <inheritdoc />
 		protected override async Task OnExecuteAsync(IContentChangingBehaviourContext context)
 		{
-			if (!await context.ServiceProvider.GetRequiredService<IDialogService>().ConfirmAsync("Change content?"))
+			if (!await context.ServiceProvider.GetRequiredService<IDialogService>().YesNoAsync(context.OldViewModel, "Change content?"))
 				context.Cancel();
 		}
 	}

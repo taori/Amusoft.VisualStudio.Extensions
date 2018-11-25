@@ -17,7 +17,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		{
 			return (string) element.GetValue(WindowManagerIdProperty);
 		}
-
+		
 		/// <inheritdoc />
 		public void RegisterWindow(Window window, string id)
 		{

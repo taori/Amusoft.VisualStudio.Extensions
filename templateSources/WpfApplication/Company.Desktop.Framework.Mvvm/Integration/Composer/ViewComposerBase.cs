@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
@@ -14,6 +15,19 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 {
 	public abstract class ViewComposerBase : IViewComposer
 	{
+		public static readonly DependencyProperty CoordinationArgumentsProperty = DependencyProperty.RegisterAttached(
+			"CoordinationArguments", typeof(ICoordinationArguments), typeof(ViewComposerBase), new PropertyMetadata(default(ICoordinationArguments)));
+
+		public static void SetCoordinationArguments(DependencyObject element, ICoordinationArguments value)
+		{
+			element.SetValue(CoordinationArgumentsProperty, value);
+		}
+
+		public static ICoordinationArguments GetCoordinationArguments(DependencyObject element)
+		{
+			return (ICoordinationArguments) element.GetValue(CoordinationArgumentsProperty);
+		}
+
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(ViewComposerBase));
 
 		public IServiceContext ServiceContext { get; }
@@ -60,11 +74,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 				}
 
 				await BehaviourRunner.ExecuteAsync(element.DataContext as IBehaviourHost, new ActivationBehaviourContext(element.DataContext, ServiceContext.ServiceProvider));
+				
+				var coordinationArguments = GetCoordinationArguments(element);
 
 				if (element.DataContext is ICompositionListener listener)
-					listener.Execute(new ViewCompositionContext(element, element.DataContext));
+					listener.Execute(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
 
-				DataContextLoaded(new ViewCompositionContext(element, element.DataContext));
+				DataContextLoaded(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
 			}
 		}
 
@@ -75,6 +91,8 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			try
 			{
+				SetCoordinationArguments(context.Control, context.CoordinationArguments);
+
 				Log.Debug($"Composition is being configured.");
 				Configure(context);
 
@@ -87,6 +105,8 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
+				await BehaviourRunner.ExecuteAsync(context.DataContext as IBehaviourHost, new CompositionBehaviourContext(context, ServiceContext));
+
 				return true;
 			}
 			catch (Exception e)

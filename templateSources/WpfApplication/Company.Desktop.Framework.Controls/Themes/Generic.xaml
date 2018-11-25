@@ -8,7 +8,7 @@
 	<Style TargetType="{x:Type local:OverlayPanel}">
 		<Setter Property="OverlayBackground">
 			<Setter.Value>
-				<SolidColorBrush Color="#88000000"></SolidColorBrush>
+				<SolidColorBrush Color="#88888888" />
 			</Setter.Value>
 		</Setter>
 		<Setter Property="Template">

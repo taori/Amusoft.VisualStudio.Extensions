@@ -61,11 +61,47 @@ namespace Company.Desktop.Shared.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
+        /// </summary>
+        public static string shared_Cancel {
+            get {
+                return ResourceManager.GetString("shared_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die No ähnelt.
+        /// </summary>
+        public static string shared_No {
+            get {
+                return ResourceManager.GetString("shared_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die OK ähnelt.
+        /// </summary>
+        public static string shared_OK {
+            get {
+                return ResourceManager.GetString("shared_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
         /// </summary>
         public static string shared_Question {
             get {
                 return ResourceManager.GetString("shared_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Yes ähnelt.
+        /// </summary>
+        public static string shared_Yes {
+            get {
+                return ResourceManager.GetString("shared_Yes", resourceCulture);
             }
         }
     }

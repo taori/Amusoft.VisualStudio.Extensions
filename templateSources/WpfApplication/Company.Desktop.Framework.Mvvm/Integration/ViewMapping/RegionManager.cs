@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Extensions;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
@@ -124,6 +126,25 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			}
 
 			return currentView;
+		}
+
+		/// <inheritdoc />
+		public FrameworkElement GetHostingWindow(object viewModel)
+		{
+			foreach (var pair in Register)
+			{
+				foreach (var frameworkElementPair in pair.Value)
+				{
+					if (object.ReferenceEquals(frameworkElementPair.Value.DataContext, viewModel))
+					{
+						var window = frameworkElementPair.Value.GetParentOfType<Window>();
+						if (window != null)
+							return window;
+					}
+				}
+			}
+
+			return null;
 		}
 	}
 }

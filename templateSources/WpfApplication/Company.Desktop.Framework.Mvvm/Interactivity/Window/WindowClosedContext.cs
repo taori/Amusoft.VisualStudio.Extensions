@@ -1,15 +1,18 @@
 ﻿using System;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {
 	public class WindowClosedContext : IWindowClosedBehaviourContext
 	{
 		/// <inheritdoc />
-		public WindowClosedContext(object viewModel, IServiceProvider serviceProvider)
+		public WindowClosedContext([NotNull] object viewModel, [NotNull] IServiceProvider serviceProvider, [NotNull] IViewCompositionContext context)
 		{
-			ViewModel = viewModel;
-			ServiceProvider = serviceProvider;
+			ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+			ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+			Context = context ?? throw new ArgumentNullException(nameof(context));
 		}
 
 		/// <inheritdoc />
@@ -17,5 +20,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 
 		/// <inheritdoc />
 		public IServiceProvider ServiceProvider { get; }
+
+		public IViewCompositionContext Context { get; }
 	}
 }

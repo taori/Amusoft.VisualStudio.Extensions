@@ -39,7 +39,7 @@ namespace Company.Desktop.ViewModels.Windows
 				Command = command;
 			}
 		}
-		
+
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
@@ -50,10 +50,36 @@ namespace Company.Desktop.ViewModels.Windows
 
 				var viewModel = new SecondaryWindowViewModel();
 
-				if (await dialogService.ConfirmAsync("Should this window be opened with an ID?"))
+				if (await dialogService.YesNoAsync(this, "Should this window be opened with an ID?"))
 					await navigation.OpenWindowAsync(viewModel, "secondWindow");
 				else
 					await navigation.OpenWindowAsync(viewModel, null);
+			})));
+
+			Commands.Add(new TestCommand("Open Dialog", new RelayCommand(async (o) =>
+			{
+				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
+//				await dialogService.DisplayMessageAsync(this, "title", "message");
+//				await dialogService.YesNoAsync(this, "YesNo");
+//				await dialogService.YesNoCancelAsync(this, "YesNoCancel");
+//				await dialogService.GetTextAsync(this, "GetText", "GetTextTitle");
+				var controller = await dialogService.ShowProgressAsync(this, "GetText", "GetTextTitle", true, async(progressController) =>
+				{
+					await progressController.CloseAsync();
+					await dialogService.DisplayMessageAsync(this, "", "aborted");
+				});
+				controller.Minimum = 0;
+				controller.Maximum = 100;
+				await Task.Run(async () =>
+				{
+					for (int i = 0; i < 100; i++)
+					{
+						if (controller.IsCanceled)
+							return;
+						controller.SetProgress(i);
+						await Task.Delay(20);
+					}
+				});
 			})));
 
 			Commands.Add(new TestCommand("Update top area", new RelayCommand(async (o) =>

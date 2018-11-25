@@ -14,6 +14,7 @@
         Title="{Binding Path=Title}" 
 		ResizeMode="{Binding Path=ResizeMode}"
         Style="{StaticResource DefaultWindowStyle}"
+		ShowInTaskbar="{Binding Path=ShowInTaskbar}" SizeToContent="{Binding Path=SizeToContent}"
 		MinWidth="{Binding Path=MinWidth}" MinHeight="{Binding Path=MinHeight}"
 		MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}"
         Height="{Binding Path=Height}" 

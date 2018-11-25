@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer
 {
@@ -7,5 +8,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer
 		FrameworkElement Control { get; }
 
 		object DataContext { get; }
+
+		ICoordinationArguments CoordinationArguments { get; }
 	}
 }

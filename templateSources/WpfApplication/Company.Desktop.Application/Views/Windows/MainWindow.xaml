@@ -16,6 +16,7 @@
         ResizeMode="{Binding Path=ResizeMode}"
         Title="{Binding Path=Title}" 
         Style="{StaticResource DefaultWindowStyle}"
+        ShowInTaskbar="{Binding Path=ShowInTaskbar}" SizeToContent="{Binding Path=SizeToContent}"
         MinWidth="{Binding Path=MinWidth}" MinHeight="{Binding Path=MinHeight}"
         MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}"
         Height="{Binding Path=Height, Mode=TwoWay}" 
@@ -27,7 +28,7 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		<StackPanel>
-			<ItemsControl ItemsSource="{Binding Path=Commands}">
+			<ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0,0,0,5">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate DataType="{x:Type windows:MainViewModel+TestCommand}">
 						<Button Command="{Binding Path=Command}" Content="{Binding Path=Text}" Margin="5,5,5,0"></Button>
@@ -38,8 +39,9 @@
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
 		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
+	
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
-		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}"
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.BottomArea}" />
     </Grid>
 </mah:MetroWindow>

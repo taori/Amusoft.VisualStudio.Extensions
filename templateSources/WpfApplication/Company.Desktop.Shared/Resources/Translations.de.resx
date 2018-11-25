@@ -120,4 +120,16 @@
   <data name="shared_Question" xml:space="preserve">
     <value>Frage</value>
   </data>
+  <data name="shared_Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="shared_No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="shared_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="shared_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

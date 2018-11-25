@@ -14,25 +14,39 @@ using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Navigation;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
 
 namespace Company.Desktop.Application.Dependencies.Registrars
 {
 	public class ShellRegistrar : IServiceRegistrar
 	{
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(ShellRegistrar));
+
 		/// <inheritdoc />
 		public void Register(IServiceCollection services)
 		{
-			services.AddSingleton<IDialogService, DialogService>();
-			services.AddSingleton<INavigationService, NavigationService>();
-			services.AddSingleton<IInjectionAssemblyLoader, InjectionAssemblyLoader>();
-			services.AddSingleton<IRegionManager, RegionManager>();
-			services.AddSingleton<IWindowManager, WindowManager>();
-			services.AddSingleton<IDisplayCoordinatorFactory, DisplayCoordinatorFactory>();
-			services.AddSingleton<IBehaviourRunner, BehaviourRunner>();
+			Singleton<IDialogService, MetroDialogService>(services);
+			Singleton<INavigationService, NavigationService>(services);
+			Singleton<IInjectionAssemblyLoader, InjectionAssemblyLoader>(services);
+			Singleton<IRegionManager, RegionManager>(services);
+			Singleton<IWindowManager, WindowManager>(services);
+			Singleton<IDisplayCoordinatorFactory, DisplayCoordinatorFactory>(services);
+			Singleton<IBehaviourRunner, BehaviourRunner>(services);
 
-			services.AddTransient<IServiceContext, ServiceContext>();
-			services.AddTransient<IViewModelWindowFactory, WindowFactory>();
+			Transient<IServiceContext, ServiceContext>(services);
+			Transient<IViewModelWindowFactory, WindowFactory>(services);
 			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
+		}
+
+		private void Singleton<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
+		{
+			Log.Debug($"Registering [Singleton] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
+			services.AddSingleton<TService, TImplementation>();
+		}
+		private void Transient<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
+		{
+			Log.Debug($"Registering [Transient] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
+			services.AddTransient<TService, TImplementation>();
 		}
 
 		private static InlineMvvmPattern CreateDefaultConventionPattern(IServiceProvider provider)

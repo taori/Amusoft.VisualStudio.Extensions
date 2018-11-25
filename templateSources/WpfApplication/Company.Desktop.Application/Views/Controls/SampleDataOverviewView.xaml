@@ -17,7 +17,7 @@
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
-			<ListView ItemsSource="{Binding Path=Items}" Grid.Row="1" Background="Orange">
+			<ListView ItemsSource="{Binding Path=Items}">
 				<ListView.ItemTemplate>
 					<DataTemplate DataType="{x:Type controls:SampleDataViewModel}">
 						<StackPanel Orientation="Horizontal">
