@@ -6,12 +6,12 @@ using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 {
-	public class CompositionBehaviourContext : ICompositionBehaviourContext
+	public class ViewComposedBehaviourContext : IViewComposedBehaviourContext
 	{
 		public IViewCompositionContext CompositionContext { get; }
 		public IServiceContext ServiceContext { get; }
 
-		public CompositionBehaviourContext([NotNull] IViewCompositionContext compositionContext, [NotNull] IServiceContext serviceContext)
+		public ViewComposedBehaviourContext([NotNull] IViewCompositionContext compositionContext, [NotNull] IServiceContext serviceContext)
 		{
 			CompositionContext = compositionContext ?? throw new ArgumentNullException(nameof(compositionContext));
 			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));

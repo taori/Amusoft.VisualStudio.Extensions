@@ -34,5 +34,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		SizeToContent SizeToContent { get; }
 		ResizeMode ResizeMode { get; set; }
 		bool ShowInTaskbar { get; }
+		double Top { get; set; }
+		double Left { get; set; }
 	}
 }

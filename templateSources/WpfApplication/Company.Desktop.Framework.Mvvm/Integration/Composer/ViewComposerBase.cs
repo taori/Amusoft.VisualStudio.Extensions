@@ -105,7 +105,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
-				await BehaviourRunner.ExecuteAsync(context.DataContext as IBehaviourHost, new CompositionBehaviourContext(context, ServiceContext));
+				await BehaviourRunner.ExecuteAsync(context.DataContext as IBehaviourHost, new ViewComposedBehaviourContext(context, ServiceContext));
 
 				return true;
 			}

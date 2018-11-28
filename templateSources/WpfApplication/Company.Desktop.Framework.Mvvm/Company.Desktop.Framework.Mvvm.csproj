@@ -85,6 +85,7 @@
     <Compile Include="Abstraction\Integration\Composer\ICompositionListener.cs" />
     <Compile Include="Abstraction\Integration\Composer\IViewModelWindowFactory.cs" />
     <Compile Include="Abstraction\Integration\Environment\IConfigurationRunner.cs" />
+    <Compile Include="Abstraction\Integration\Environment\ISettingsStorage.cs" />
     <Compile Include="Abstraction\Integration\ViewMapping\ICoordinationArguments.cs" />
     <Compile Include="Abstraction\Integration\ViewMapping\IDataTemplateMapper.cs" />
     <Compile Include="Abstraction\Integration\Environment\IServiceContext.cs" />
@@ -94,12 +95,13 @@
     <Compile Include="Abstraction\Integration\Composer\IViewCompositionContext.cs" />
     <Compile Include="Abstraction\Integration\ViewMapping\IRegexDataTemplatePatternProvider.cs" />
     <Compile Include="Abstraction\Interactivity\Behaviours\IActivationBehaviourContext.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\ICompositionBehaviourContext.cs" />
+    <Compile Include="Abstraction\Interactivity\Behaviours\IViewComposedBehaviourContext.cs" />
     <Compile Include="Abstraction\Interactivity\Behaviours\IContentChangingBehaviour.cs" />
     <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosedBehaviourContext.cs" />
     <Compile Include="Abstraction\Interactivity\IDefaultBehaviourProvider.cs" />
     <Compile Include="Abstraction\UI\IProgressController.cs" />
     <Compile Include="Abstraction\UI\IWindowListener.cs" />
+    <Compile Include="Data\WindowAttributes.cs" />
     <Compile Include="Extensions\ActivationContextExtensions.cs" />
     <Compile Include="Extensions\FrameworkElementExtensions.cs" />
     <Compile Include="Extensions\WindowExtensions.cs" />
@@ -125,7 +127,8 @@
     <Compile Include="Interactivity\Behaviours\BehaviourBase.cs" />
     <Compile Include="Interactivity\Behaviours\BehaviourRunner.cs" />
     <Compile Include="Interactivity\Behaviours\ClosingTracingBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\CompositionBehaviourContext.cs" />
+    <Compile Include="Interactivity\Behaviours\RestoreWindowDimensionsBehaviour.cs" />
+    <Compile Include="Interactivity\Behaviours\ViewComposedBehaviourContext.cs" />
     <Compile Include="Interactivity\Behaviours\ConfirmContentChangingBehaviour.cs" />
     <Compile Include="Interactivity\Behaviours\ContentChangingBehaviourContext.cs" />
     <Compile Include="Interactivity\Behaviours\DisposeOnCloseBehaviour.cs" />

@@ -36,6 +36,7 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
 		{
+			yield return new RestoreWindowDimensionsBehaviour();
 			yield return new DisposeOnCloseBehaviour();
 		}
 	}

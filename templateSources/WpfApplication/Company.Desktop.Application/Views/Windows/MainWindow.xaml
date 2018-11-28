@@ -19,6 +19,8 @@
         ShowInTaskbar="{Binding Path=ShowInTaskbar}" SizeToContent="{Binding Path=SizeToContent}"
         MinWidth="{Binding Path=MinWidth}" MinHeight="{Binding Path=MinHeight}"
         MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}"
+        Top="{Binding Path=Top, UpdateSourceTrigger=PropertyChanged}" Left="{Binding Path=Left, UpdateSourceTrigger=PropertyChanged}"
+		WindowStartupLocation="Manual"
         Height="{Binding Path=Height, Mode=TwoWay}" 
         Width="{Binding Path=Width, Mode=TwoWay}">
 	<Grid>

@@ -76,6 +76,22 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			set => SetValue(ref _maxHeight, value, nameof(MaxHeight));
 		}
 
+		private double _top;
+
+		public double Top
+		{
+			get => _top;
+			set => SetValue(ref _top, value, nameof(Top));
+		}
+
+		private double _left;
+
+		public double Left
+		{
+			get => _left;
+			set => SetValue(ref _left, value, nameof(Left));
+		}
+
 		private bool _resizeable = true;
 
 		public bool Resizeable

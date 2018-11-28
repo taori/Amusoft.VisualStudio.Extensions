@@ -115,6 +115,7 @@ namespace Company.Desktop.ViewModels.Windows
 		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
 		{
 			yield return new RequestClosingPermissionBehaviour();
+			yield return new RestoreWindowDimensionsBehaviour();
 		}
 
 		/// <inheritdoc />
