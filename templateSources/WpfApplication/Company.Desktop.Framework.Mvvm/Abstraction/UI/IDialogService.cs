@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.UI;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.UI
 {

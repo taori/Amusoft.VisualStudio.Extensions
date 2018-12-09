@@ -4,9 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 {

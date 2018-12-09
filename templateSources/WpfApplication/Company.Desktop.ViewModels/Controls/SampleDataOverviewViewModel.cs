@@ -24,7 +24,7 @@ namespace Company.Desktop.ViewModels.Controls
 		public SampleDataOverviewViewModel(int count)
 		{
 			Count = count;
-			Bytes = new byte[20000000];
+			Bytes = new byte[200000000];
 		}
 
 		public byte[] Bytes { get; set; }

@@ -23,7 +23,7 @@ namespace Company.Desktop.Application
 
 		/// <inheritdoc />
 		protected override void OnStartup(StartupEventArgs e)
-		{
+		{ 
 			Log.System($"{nameof(App)} - {nameof(OnStartup)}.", LogLevel.Trace);
 			try
 			{
@@ -64,6 +64,7 @@ namespace Company.Desktop.Application
 			Log.System($"{nameof(App)} - {nameof(OnExit)}.", LogLevel.Trace);
 			try
 			{
+				Log.Debug($"Disposing {nameof(ApplicationMutex)}.");
 				ApplicationMutex?.Dispose();
 				base.OnExit(e);
 			}
@@ -136,12 +137,15 @@ namespace Company.Desktop.Application
 
 		private void AttachAllExceptionHandlers()
 		{
+			Log.Debug("Registering exception handler for AppDomain.CurrentDomain.UnhandledException.");
 			AppDomain.CurrentDomain.UnhandledException += (s, e) =>
 				LogUnhandledException((Exception)e.ExceptionObject, "AppDomain.CurrentDomain.UnhandledException");
 
+			Log.Debug("Registering exception handler for DispatcherUnhandledException.");
 			DispatcherUnhandledException += (s, e) =>
 				LogUnhandledException(e.Exception, "Application.Current.DispatcherUnhandledException");
 
+			Log.Debug("Registering exception handler for TaskScheduler.UnobservedTaskException.");
 			TaskScheduler.UnobservedTaskException += (s, e) =>
 				LogUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
 		}

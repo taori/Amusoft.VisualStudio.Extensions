@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
-using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Shared.Resources;
 
 namespace Company.Desktop.Application.Dependencies.UI

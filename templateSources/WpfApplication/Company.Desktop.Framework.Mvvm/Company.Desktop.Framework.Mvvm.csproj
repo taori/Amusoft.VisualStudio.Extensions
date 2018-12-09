@@ -1,189 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8AD183C4-4E16-4719-BF23-C26F7BA947A7}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Company.Desktop.Framework.Mvvm</RootNamespace>
-    <AssemblyName>Company.Desktop.Framework.Mvvm</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.1.1\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.4.1.2\lib\net46\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-      <Private>True</Private>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Abstraction\Integration\Composer\IViewComposer.cs" />
-    <Compile Include="Abstraction\Integration\Composer\ICompositionListener.cs" />
-    <Compile Include="Abstraction\Integration\Composer\IViewModelWindowFactory.cs" />
-    <Compile Include="Abstraction\Integration\Environment\IConfigurationRunner.cs" />
-    <Compile Include="Abstraction\Integration\Environment\ISettingsStorage.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\ICoordinationArguments.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IDataTemplateMapper.cs" />
-    <Compile Include="Abstraction\Integration\Environment\IServiceContext.cs" />
-    <Compile Include="Abstraction\Integration\Environment\IServiceProviderHolder.cs" />
-    <Compile Include="Abstraction\Integration\Composer\IViewComposerFactory.cs" />
-    <Compile Include="Abstraction\Integration\Composer\IViewComposerHook.cs" />
-    <Compile Include="Abstraction\Integration\Composer\IViewCompositionContext.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IRegexDataTemplatePatternProvider.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IActivationBehaviourContext.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IViewComposedBehaviourContext.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IContentChangingBehaviour.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosedBehaviourContext.cs" />
-    <Compile Include="Abstraction\Interactivity\IDefaultBehaviourProvider.cs" />
-    <Compile Include="Abstraction\UI\IProgressController.cs" />
-    <Compile Include="Abstraction\UI\IWindowListener.cs" />
-    <Compile Include="Data\WindowAttributes.cs" />
-    <Compile Include="Extensions\ActivationContextExtensions.cs" />
-    <Compile Include="Extensions\FrameworkElementExtensions.cs" />
-    <Compile Include="Extensions\WindowExtensions.cs" />
-    <Compile Include="Integration\Composer\Hooks\DataContextLoadedHook.cs" />
-    <Compile Include="Integration\Composer\Hooks\WindowClosingHook.cs" />
-    <Compile Include="Integration\ViewMapping\InlineMvvmPattern.cs" />
-    <Compile Include="Integration\ViewMapping\DefaultRegexTemplateMapper.cs" />
-    <Compile Include="Integration\ViewMapping\FrameworkElementCoordinator.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IDisplayCoordinator.cs" />
-    <Compile Include="Integration\ViewMapping\RegionArguments.cs" />
-    <Compile Include="Integration\Environment\ServiceContext.cs" />
-    <Compile Include="Integration\Composer\ViewCompositionContext.cs" />
-    <Compile Include="Integration\ViewMapping\DisplayCoordinatorFactory.cs" />
-    <Compile Include="Integration\Composer\FrameworkElementComposer.cs" />
-    <Compile Include="Integration\Composer\ViewComposerBase.cs" />
-    <Compile Include="Integration\Composer\ViewComposerFactory.cs" />
-    <Compile Include="Integration\Composer\WindowComposer.cs" />
-    <Compile Include="Integration\ViewMapping\WindowArguments.cs" />
-    <Compile Include="Integration\ViewMapping\WindowCoordinator.cs" />
-    <Compile Include="Interactivity\Behaviours\ActivationBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\ActivationBehaviourContext.cs" />
-    <Compile Include="Interactivity\Behaviours\AsyncBehaviourBase.cs" />
-    <Compile Include="Interactivity\Behaviours\BehaviourBase.cs" />
-    <Compile Include="Interactivity\Behaviours\BehaviourRunner.cs" />
-    <Compile Include="Interactivity\Behaviours\ClosingTracingBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\RestoreWindowDimensionsBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\ViewComposedBehaviourContext.cs" />
-    <Compile Include="Interactivity\Behaviours\ConfirmContentChangingBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\ContentChangingBehaviourContext.cs" />
-    <Compile Include="Interactivity\Behaviours\DisposeOnCloseBehaviour.cs" />
-    <Compile Include="Interactivity\Behaviours\InterceptClosingBehaviourBase.cs" />
-    <Compile Include="Interactivity\Behaviours\RequestClosingPermissionBehaviour.cs" />
-    <Compile Include="Integration\Environment\DataTemplateConfigurationRunner.cs" />
-    <Compile Include="Integration\ViewMapping\DataTemplateManager.cs" />
-    <Compile Include="Interactivity\BusyState.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IBehaviour.cs" />
-    <Compile Include="Abstraction\Interactivity\IBehaviourHost.cs" />
-    <Compile Include="Abstraction\Integration\Environment\IViewModelTypeSource.cs" />
-    <Compile Include="Abstraction\Integration\Environment\IViewTypeSource.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosingBehaviour.cs" />
-    <Compile Include="Abstraction\Interactivity\Behaviours\IWindowClosingBehaviourContext.cs" />
-    <Compile Include="Interactivity\ActivationContext.cs" />
-    <Compile Include="Interactivity\DeactivationContext.cs" />
-    <Compile Include="Abstraction\Interactivity\IActivateable.cs" />
-    <Compile Include="Abstraction\Interactivity\IActivationContext.cs" />
-    <Compile Include="Abstraction\Interactivity\IDeactivate.cs" />
-    <Compile Include="Abstraction\Interactivity\IDeactivationContext.cs" />
-    <Compile Include="Abstraction\Navigation\INavigationService.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IRegionManager.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IDisplayCoordinatorFactory.cs" />
-    <Compile Include="Abstraction\Integration\ViewMapping\IWindowManager.cs" />
-    <Compile Include="Interactivity\Window\WindowClosedContext.cs" />
-    <Compile Include="Navigation\NavigationService.cs" />
-    <Compile Include="Integration\ViewMapping\WindowManager.cs" />
-    <Compile Include="Interactivity\Window\WindowClosingContext.cs" />
-    <Compile Include="Interactivity\Window\WindowDeactivatorSession.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Integration\ViewMapping\RegionManager.cs" />
-    <Compile Include="UI\ProgressController.cs" />
-    <Compile Include="UI\RelayCommand.cs" />
-    <Compile Include="Abstraction\Interactivity\IBusyStateHolder.cs" />
-    <Compile Include="Abstraction\UI\IDialogService.cs" />
-    <Compile Include="ViewModel\ContentViewModel.cs" />
-    <Compile Include="Abstraction\ViewModel\IContentViewModel.cs" />
-    <Compile Include="ViewModel\InteractiveViewModel.cs" />
-    <Compile Include="Abstraction\ViewModel\IWindowViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Compile Include="ViewModel\WindowViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj">
-      <Project>{23f7183d-ffae-4559-aefe-7ad23d930df9}</Project>
-      <Name>Company.Desktop.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj">
-      <Project>{07342dd2-ccf3-42d0-8361-d9e22961aedf}</Project>
-      <Name>Company.Desktop.Shared</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net461</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+		<PackageReference Include="NLog" Version="4.5.11" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="PresentationCore" />
+	  <Reference Include="PresentationFramework" />
+	</ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Threading.Tasks;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.UI
 {

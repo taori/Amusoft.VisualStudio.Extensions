@@ -10,7 +10,6 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Extensions;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Interactivity.Window;
 using NLog;
 

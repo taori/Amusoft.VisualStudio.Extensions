@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Company.Desktop.Application.Views.Windows
+﻿namespace Company.Desktop.Application.Views.Windows
 {
 	/// <summary>
 	/// Interaktionslogik für DefaultWindow.xaml

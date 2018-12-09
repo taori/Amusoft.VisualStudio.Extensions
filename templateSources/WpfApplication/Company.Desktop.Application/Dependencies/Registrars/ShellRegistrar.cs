@@ -54,8 +54,8 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 		{
 			// TODO: change the contents of this regex to match your namespace
 			return new InlineMvvmPattern(
-				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>ViewModels\\.)(?<ns2>.+)(?<class>\\.[^.]+)(?=ViewModel)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30)), 
-				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>Application\\.Views\\.)(?<ns2>.+)(?<class>\\.[^.]+)(?=View|Page|Control|Window)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30))
+				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>ViewModels)(?<ns2>.*?)(?<class>\\.[^.]+)(?=ViewModel$)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30)), 
+				new Regex("(?<ns1>Company\\.Desktop\\.)(?<ignore>Application\\.Views)(?<ns2>.*?)(?<class>\\.[^.]+)(?=View$|Page$|Control$|Window$)", RegexOptions.Compiled, TimeSpan.FromMilliseconds(30))
 			);
 		}
 	}
