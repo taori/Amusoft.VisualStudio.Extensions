@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Themes\Generic.xaml">
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </Page>
   </ItemGroup>
 
 </Project>
