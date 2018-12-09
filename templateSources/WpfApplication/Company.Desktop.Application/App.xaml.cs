@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,7 +33,7 @@ namespace Company.Desktop.Application
 				AttachAllExceptionHandlers();
 
 				DependencyContainer.Configure();
-				this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+				ShutdownMode = ShutdownMode.OnMainWindowClose;
 
 				ApplicationMutex = new Mutex(false, typeof(App).FullName, out var mutexCreated);
 				if (!mutexCreated)
@@ -43,6 +46,7 @@ namespace Company.Desktop.Application
 				var runners = DependencyContainer.ServiceProvider.GetServices<IConfigurationRunner>();
 				foreach (var runner in runners)
 				{
+					Log.Debug($"Executing {nameof(IConfigurationRunner)} \"{runner.GetType().FullName}\".");
 					runner.Execute();
 				}
 

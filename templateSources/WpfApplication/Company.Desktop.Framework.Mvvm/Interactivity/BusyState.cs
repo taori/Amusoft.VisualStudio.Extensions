@@ -42,8 +42,8 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity
 
 		event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
 		{
-			add { this._propertyChanged += value; }
-			remove { this._propertyChanged -= value; }
+			add { _propertyChanged += value; }
+			remove { _propertyChanged -= value; }
 		}
 
 		[NotifyPropertyChangedInvocator]

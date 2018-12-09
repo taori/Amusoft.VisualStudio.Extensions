@@ -10,7 +10,7 @@ namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate
 		/// <inheritdoc />
 		public IEnumerable<Type> GetValues()
 		{
-			return typeof(Company.Desktop.ViewModels.Common.RegionNames).Assembly.ExportedTypes.Where(d => d.FullName.StartsWith("Company.Desktop.ViewModels"));
+			return typeof(ViewModels.Common.RegionNames).Assembly.ExportedTypes.Where(d => d.FullName.StartsWith("Company.Desktop.ViewModels"));
 		}
 	}
 }

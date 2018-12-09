@@ -28,7 +28,7 @@ namespace Company.Desktop.Application.Dependencies
 			var serviceScope = serviceProvider.CreateScope();
 
 			Log.Debug("Assigning service provider.");
-			this.ServiceProvider = serviceScope.ServiceProvider;
+			ServiceProvider = serviceScope.ServiceProvider;
 		}
 
 		private void ManualRegisters(IServiceCollection serviceCollection)

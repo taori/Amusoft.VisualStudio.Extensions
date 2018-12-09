@@ -23,7 +23,7 @@ namespace Company.Desktop.Framework.DependencyInjection
 			ServicesByType = Services.ToLookup(d => d.ServiceType);
 			var sp = new DefaultServiceProviderFactory(new ServiceProviderOptions() { ValidateScopes = true });
 			Log.Debug("Creating ServiceScope for type resolution.");
-			this.ServiceProvider = sp.CreateServiceProvider(services).CreateScope().ServiceProvider;
+			ServiceProvider = sp.CreateServiceProvider(services).CreateScope().ServiceProvider;
 		}
 
 		public override IEnumerable<ExportDescriptorPromise> GetExportDescriptors(

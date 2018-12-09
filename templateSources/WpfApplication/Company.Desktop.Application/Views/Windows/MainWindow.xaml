@@ -10,6 +10,8 @@
         xmlns:integration="clr-namespace:Company.Desktop.Framework.Mvvm.Integration;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:viewMapping="clr-namespace:Company.Desktop.Framework.Mvvm.Integration.ViewMapping;assembly=Company.Desktop.Framework.Mvvm"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:controls="clr-namespace:Company.Desktop.Application.Views.Controls"
+        xmlns:controls1="clr-namespace:Company.Desktop.ViewModels.Controls;assembly=Company.Desktop.ViewModels"
         mc:Ignorable="d"
 		x:Name="Self"
         d:DataContext="{d:DesignInstance windows:MainViewModel}"
@@ -21,7 +23,7 @@
         MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}"
         Top="{Binding Path=Top, UpdateSourceTrigger=PropertyChanged}" Left="{Binding Path=Left, UpdateSourceTrigger=PropertyChanged}"
 		WindowStartupLocation="Manual"
-        Height="{Binding Path=Height, Mode=TwoWay}" 
+        Height="{Binding Path=Height, Mode=TwoWay}"
         Width="{Binding Path=Width, Mode=TwoWay}">
 	<Grid>
 		<Grid.RowDefinitions>
@@ -38,12 +40,12 @@
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</StackPanel>
-		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
-		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
+		<ContentPresenter Grid.Row="1"
+		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext, Mode=OneWay}"
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
 	
-		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
-		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}"
+		<ContentPresenter Grid.Row="2"
+		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext, Mode=OneWay}"
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.BottomArea}" />
     </Grid>
 </mah:MetroWindow>

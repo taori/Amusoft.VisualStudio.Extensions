@@ -31,8 +31,8 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
 						{
 							updateWindow.SetCurrentValue(System.Windows.Window.LeftProperty, value.Left);
 							updateWindow.SetCurrentValue(System.Windows.Window.TopProperty, value.Top);
-							updateWindow.SetCurrentValue(System.Windows.Window.WidthProperty, value.Width);
-							updateWindow.SetCurrentValue(System.Windows.Window.HeightProperty, value.Height);
+							updateWindow.SetCurrentValue(System.Windows.FrameworkElement.WidthProperty, value.Width);
+							updateWindow.SetCurrentValue(System.Windows.FrameworkElement.HeightProperty, value.Height);
 						}
 					}
 				}

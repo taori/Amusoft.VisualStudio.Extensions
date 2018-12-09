@@ -10,15 +10,15 @@ namespace Company.Desktop.Application.Views.Windows
 	{
 		public Splash()
 		{
-			this.Loaded += OnLoaded;
+			Loaded += OnLoaded;
 			InitializeComponent();
 		}
 
 		private async void OnLoaded(object sender, RoutedEventArgs e)
 		{
-			this.Loaded -= OnLoaded;
+			Loaded -= OnLoaded;
 			await Task.Delay(5000);
-			this.Close();
+			Close();
 		}
 	}
 }

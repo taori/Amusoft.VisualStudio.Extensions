@@ -29,5 +29,5 @@
 		<ContentPresenter Content="{Binding Path=Content, UpdateSourceTrigger=PropertyChanged}" 
 		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext}" 
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
-    </Grid>
+	</Grid>
 </mah:MetroWindow>

@@ -9,11 +9,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="800">
 	
-	<framework:OverlayPanel IsOverlayVisible="{Binding Path=LoadingState.IsBusy}">
+	<framework:OverlayPanel IsOverlayVisible="{Binding Path=LoadingState.IsBusy}" Background="Red">
 		<framework:OverlayPanel.Overlay>
 			<TextBlock Text="Loading ..." Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
 		</framework:OverlayPanel.Overlay>
-		<Grid>
+		<Grid Background="Red">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>

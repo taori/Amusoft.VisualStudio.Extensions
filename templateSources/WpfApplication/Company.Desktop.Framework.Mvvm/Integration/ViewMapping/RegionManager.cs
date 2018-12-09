@@ -53,10 +53,12 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			{
 				Log.Debug($"Removing {oldViewModel.GetType().FullName}");
 				Register.Remove(oldViewModel);
+				Log.Debug($"Adding register entry for \"{regionName}\"");
 				AddRegister(newViewModel, regionName, control);
 			}
 			else
 			{
+				Log.Debug($"Adding register entry for \"{regionName}\"");
 				AddRegister(newViewModel, regionName, control);
 			}
 		}
@@ -134,7 +136,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			{
 				foreach (var frameworkElementPair in pair.Value)
 				{
-					if (object.ReferenceEquals(frameworkElementPair.Value.DataContext, viewModel))
+					if (ReferenceEquals(frameworkElementPair.Value.DataContext, viewModel))
 					{
 						var window = frameworkElementPair.Value.GetParentOfType<Window>();
 						if (window != null)

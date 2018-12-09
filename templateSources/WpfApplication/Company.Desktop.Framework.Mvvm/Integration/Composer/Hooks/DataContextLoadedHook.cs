@@ -18,7 +18,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 				if (control is Window window && dataContext is IWindowViewModel windowViewModel)
 				{
 					if(windowViewModel.ClaimMainWindowOnOpen)
-						System.Windows.Application.Current.MainWindow = window;
+						Application.Current.MainWindow = window;
 
 					window.ResizeMode = windowViewModel.ResizeMode;
 				}
