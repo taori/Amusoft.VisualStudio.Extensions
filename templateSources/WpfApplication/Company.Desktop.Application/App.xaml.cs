@@ -10,6 +10,7 @@ using Company.Desktop.Application.Dependencies;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -51,7 +52,7 @@ namespace Company.Desktop.Application
 				}
 
 				var navigationService = DependencyContainer.ServiceProvider.GetService<INavigationService>();
-				navigationService.OpenWindowAsync(new MainViewModel(), nameof(MainViewModel));
+				navigationService.OpenWindowAsync(new DefaultWindowViewModel(new MainViewModel()), nameof(MainViewModel));
 				
 				base.OnStartup(e);
 			}

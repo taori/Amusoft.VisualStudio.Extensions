@@ -5,7 +5,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 {
-	public interface IWindowViewModel : IActivateable, IDisposable, IWindowListener
+	public interface IWindowViewModel : IDisposable, IWindowListener, IActivateable
 	{
 		string Title { get; set; }
 		double Width { get; set; }
@@ -15,9 +15,7 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		double MinHeight { get; set; }
 		double MaxHeight { get; set; }
 
-		IContentViewModel Content { get; set; }
-		
-		bool ClaimMainWindowOnOpen { get; }
+		IWindowContentViewModel Content { get; }
 
 		void Focus();
 		void Normalize();
@@ -31,9 +29,9 @@ namespace Company.Desktop.Framework.Mvvm.Abstraction.ViewModel
 		IObservable<object> WhenMinimizeRequested { get; }
 		IObservable<object> WhenMaximizeRequested { get; }
 
-		SizeToContent SizeToContent { get; }
+		SizeToContent SizeToContent { get; set; }
 		ResizeMode ResizeMode { get; set; }
-		bool ShowInTaskbar { get; }
+		bool ShowInTaskbar { get; set; }
 		double Top { get; set; }
 		double Left { get; set; }
 	}

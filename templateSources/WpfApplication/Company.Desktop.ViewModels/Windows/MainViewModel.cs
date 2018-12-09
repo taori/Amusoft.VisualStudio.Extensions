@@ -7,16 +7,18 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
+using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.ViewModels.Windows
 {
-	public class MainViewModel : WindowViewModel
+	public class MainViewModel : WindowContentViewModelBase
 	{
 		private ObservableCollection<TestCommand> _commands = new ObservableCollection<TestCommand>();
 
@@ -51,9 +53,9 @@ namespace Company.Desktop.ViewModels.Windows
 				var viewModel = new SecondaryWindowViewModel();
 
 				if (await dialogService.YesNoAsync(this, "Should this window be opened with an ID?"))
-					await navigation.OpenWindowAsync(viewModel, "secondWindow");
+					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), "secondWindow");
 				else
-					await navigation.OpenWindowAsync(viewModel, null);
+					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), null);
 			})));
 
 			Commands.Add(new TestCommand("Open Dialog", new RelayCommand(async (o) =>
@@ -106,12 +108,6 @@ namespace Company.Desktop.ViewModels.Windows
 		}
 
 		/// <inheritdoc />
-		protected override string GetWindowTitle()
-		{
-			return "Application name";
-		}
-
-		/// <inheritdoc />
 		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
 		{
 			yield return new RequestClosingPermissionBehaviour();
@@ -119,6 +115,9 @@ namespace Company.Desktop.ViewModels.Windows
 		}
 
 		/// <inheritdoc />
-		public override bool ClaimMainWindowOnOpen => true;
+		public override string GetTitle()
+		{
+			return "Application name";
+		}
 	}
 }

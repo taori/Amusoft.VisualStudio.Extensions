@@ -21,6 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Windows\MainView.xaml" />
+    <None Remove="Views\Windows\SecondaryWindowView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="MahApps.Metro" Version="1.6.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
@@ -34,6 +39,15 @@
     <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
     <ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj" />
     <ProjectReference Include="..\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Windows\MainView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\SecondaryWindowView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -55,7 +69,10 @@
     <Page Update="Views\Windows\DefaultWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Update="Views\Windows\MainWindow.xaml">
+    <Page Update="Views\Windows\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Views\Windows\SecondaryWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="Views\Windows\Splash.xaml">

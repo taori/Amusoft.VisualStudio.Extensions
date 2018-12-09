@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours

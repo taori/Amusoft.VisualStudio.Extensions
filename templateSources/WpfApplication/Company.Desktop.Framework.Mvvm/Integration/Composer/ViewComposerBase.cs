@@ -8,6 +8,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using NLog;
 
@@ -56,6 +57,12 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 				{
 					Log.Debug($"ServiceProvider set through {nameof(IServiceProviderHolder)}.");
 					holder.ServiceProvider = ServiceContext.ServiceProvider;
+				}
+
+				if (element.DataContext is IWindowViewModel windowViewModel)
+				{
+					if (windowViewModel.Content is IServiceProviderHolder subHolder)
+						subHolder.ServiceProvider = ServiceContext.ServiceProvider;
 				}
 				
 				if (element.DataContext is IDefaultBehaviourProvider behaviourProvider && element.DataContext is IBehaviourHost interactiveBehaviour)

@@ -2,6 +2,7 @@
 using System.Windows;
 using Company.Desktop.Application.Views.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Windows;
 
 namespace Company.Desktop.Application.Dependencies.UI
@@ -22,11 +23,15 @@ namespace Company.Desktop.Application.Dependencies.UI
 		/// <inheritdoc />
 		public Window CreateWindow(object dataContext)
 		{
-			if(dataContext is MainViewModel)
-				return new MainWindow();
+			if(dataContext is DefaultWindowViewModel)
+				return new DefaultWindow();
 
-			var defaultWindow = new DefaultWindow();
-			return defaultWindow;
+			return new DefaultWindow();
+//			if(dataContext is MainViewModel)
+//				return new MainWindow();
+//
+//			var defaultWindow = new DefaultWindow();
+//			return defaultWindow;
 		}
 	}
 }

@@ -11,14 +11,58 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class WindowViewModel : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IDefaultBehaviourProvider
+	public class DefaultWindowViewModel : WindowViewModelBase
 	{
-		protected static readonly ILogger Log = LogManager.GetLogger(nameof(WindowViewModel));
+		/// <inheritdoc />
+		public DefaultWindowViewModel([NotNull] IWindowContentViewModel content) : base(content)
+		{
+		}
+	}
+
+	public abstract class WindowContentViewModelBase : ContentViewModel, IWindowContentViewModel, IWindowSetter
+	{
+		private WeakReference<IWindowViewModel> _windowReference;
+		
+		/// <inheritdoc />
+		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		{
+			yield break;
+		}
+
+		/// <inheritdoc />
+		public IWindowViewModel Window => _windowReference.TryGetTarget(out var reference) ? reference : null;
+
+		/// <inheritdoc />
+		public virtual bool ClaimMainWindowOnOpen { get; }
+
+		/// <inheritdoc />
+		public abstract string GetTitle();
+
+		/// <inheritdoc />
+		public void Set(IWindowViewModel window)
+		{
+			_windowReference = new WeakReference<IWindowViewModel>(window);
+		}
+	}
+
+	public abstract class WindowViewModelBase : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IDefaultBehaviourProvider
+	{
+		protected WindowViewModelBase([NotNull] IWindowContentViewModel content)
+		{
+			Content = content ?? throw new ArgumentNullException(nameof(content));
+			if (content is IWindowSetter setter)
+				setter.Set(this);
+			if (content is IConfigureWindow configure)
+				configure.Configure(this);
+		}
+
+		protected static readonly ILogger Log = LogManager.GetLogger(nameof(WindowViewModelBase));
 
 		private string _title;
 
@@ -99,7 +143,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			get => _resizeable;
 			set
 			{
-				if(SetValue(ref _resizeable, value, nameof(Resizeable)))
+				if (SetValue(ref _resizeable, value, nameof(Resizeable)))
 					OnPropertyChanged(nameof(ResizeMode));
 			}
 		}
@@ -111,7 +155,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			get => _minimizable;
 			set
 			{
-				if(SetValue(ref _minimizable, value, nameof(Minimizable)))
+				if (SetValue(ref _minimizable, value, nameof(Minimizable)))
 					OnPropertyChanged(nameof(ResizeMode));
 			}
 		}
@@ -130,9 +174,9 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			set => throw new NotSupportedException();
 		}
 
-		private IContentViewModel _content;
+		private IWindowContentViewModel _content;
 
-		public IContentViewModel Content
+		public IWindowContentViewModel Content
 		{
 			get => _content;
 			set => SetValue(ref _content, value, nameof(Content));
@@ -153,7 +197,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			get => _showInTaskbar;
 			set => SetValue(ref _showInTaskbar, value, nameof(ShowInTaskbar));
 		}
-		
+
 		public virtual bool ClaimMainWindowOnOpen => false;
 
 		/// <inheritdoc />
@@ -228,17 +272,21 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		private Subject<SizeChangedEventArgs> _whenSizeChanged = new Subject<SizeChangedEventArgs>();
 		public IObservable<SizeChangedEventArgs> WhenSizeChanged => _whenSizeChanged;
-		
+
 		/// <inheritdoc />
 		public async Task ActivateAsync(IActivationContext context)
 		{
 			await OnActivateAsync(context);
+			await Content.ActivateAsync(context);
 			_whenActivated.TryOnNext(context);
 		}
-		
-		protected abstract Task OnActivateAsync(IActivationContext context);
 
-		protected abstract string GetWindowTitle();
+		protected virtual Task OnActivateAsync(IActivationContext context) => Task.CompletedTask;
+
+		protected virtual string GetWindowTitle()
+		{
+			return Content.GetTitle();
+		}
 
 		protected async Task<bool> UpdateRegionAsync(IContentViewModel content, string regionName)
 		{
@@ -253,7 +301,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 
 		/// <inheritdoc />
 		public IServiceProvider ServiceProvider { get; set; }
-		
+
 		/// <inheritdoc />
 		protected override void Dispose(bool managedDispose)
 		{
@@ -312,6 +360,9 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		}
 
 		/// <inheritdoc />
-		public abstract IEnumerable<IBehaviour> GetDefaultBehaviours();
+		public IEnumerable<IBehaviour> GetDefaultBehaviours()
+		{
+			return Content.GetDefaultBehaviours();
+		}
 	}
 }

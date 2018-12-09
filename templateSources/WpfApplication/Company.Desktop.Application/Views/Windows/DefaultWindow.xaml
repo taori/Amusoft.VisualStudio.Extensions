@@ -10,7 +10,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
 		x:Name="Self"
-        d:DataContext="{d:DesignInstance viewModel:WindowViewModel}"
+        d:DataContext="{d:DesignInstance viewModel:WindowViewModelBase}"
         Title="{Binding Path=Title}" 
 		ResizeMode="{Binding Path=ResizeMode}"
         Style="{StaticResource DefaultWindowStyle}"

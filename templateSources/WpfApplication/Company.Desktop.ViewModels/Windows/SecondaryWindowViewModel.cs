@@ -5,18 +5,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 
 namespace Company.Desktop.ViewModels.Windows
 {
-	public class SecondaryWindowViewModel : WindowViewModel
+	public class SecondaryWindowViewModel : WindowContentViewModelBase, IConfigureWindow
 	{
-		public SecondaryWindowViewModel()
-		{
-			ShowInTaskbar = false;
-		}
-
 		private byte[] _someMemory;
 		
 		/// <inheritdoc />
@@ -24,13 +20,7 @@ namespace Company.Desktop.ViewModels.Windows
 		{
 			_someMemory = new byte[200000000];
 			await Task.Delay(3000);
-			Title = $"Title updated: {DateTime.Now.ToString("F")} {_someMemory.Length}";
-		}
-
-		/// <inheritdoc />
-		protected override string GetWindowTitle()
-		{
-			return $"This is a secondary window";
+			Window.Title = $"Title updated: {DateTime.Now.ToString("F")} {_someMemory.Length}";
 		}
 
 		/// <inheritdoc />
@@ -38,6 +28,18 @@ namespace Company.Desktop.ViewModels.Windows
 		{
 			yield return new RestoreWindowDimensionsBehaviour();
 			yield return new DisposeOnCloseBehaviour();
+		}
+
+		/// <inheritdoc />
+		public override string GetTitle()
+		{
+			return $"This is a secondary window";
+		}
+
+		/// <inheritdoc />
+		public void Configure(IWindowViewModel window)
+		{
+			window.ShowInTaskbar = false;
 		}
 	}
 }

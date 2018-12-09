@@ -32,7 +32,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 			{
 				context.Control.DataContext = context.DataContext;
 
-				if(context.DataContext is IWindowViewModel windowViewModel && windowViewModel.ClaimMainWindowOnOpen)
+				if(context.DataContext is IWindowViewModel windowViewModel && windowViewModel.Content.ClaimMainWindowOnOpen)
 					Application.Current.MainWindow = window;
 
 				window.Show();

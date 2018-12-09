@@ -17,13 +17,15 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 
 				if (control is Window window && dataContext is IWindowViewModel windowViewModel)
 				{
-					if(windowViewModel.ClaimMainWindowOnOpen)
+					if(windowViewModel.Content.ClaimMainWindowOnOpen)
 						Application.Current.MainWindow = window;
 
 					window.ResizeMode = windowViewModel.ResizeMode;
 				}
-
 			}
+
+			if(dataContext is IWindowViewModel subViewModel)
+				Execute(control, subViewModel.Content);
 		}
 	}
 }
