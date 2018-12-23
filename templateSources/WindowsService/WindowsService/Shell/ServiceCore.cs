@@ -201,7 +201,6 @@ namespace WindowsService.Shell
 		public async Task ExecuteAsync(string[] args)
 		{
 			LocalLogger.Info($"{nameof(ExecuteAsync)}");
-			var tasks = new List<Task>();
 			foreach (var job in Jobs.OrderByDescending(d => d.Priority))
 			{
 				CancellationTokenSource cts = null;
@@ -225,7 +224,7 @@ namespace WindowsService.Shell
 				}
 			}
 
-			await Task.WhenAll(tasks);
+			await Task.WhenAll(TaskDictionary.Values);
 		}
 
 		/// <inheritdoc />
