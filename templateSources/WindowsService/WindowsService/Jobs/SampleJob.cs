@@ -42,11 +42,24 @@ namespace WindowsService.Jobs
 		{
 			try
 			{
-				while (true)
+				while (!cancellationToken.IsCancellationRequested)
 				{
-					Logger.Warn("(Server) still running.");
-					cancellationToken.ThrowIfCancellationRequested();
-					await Task.Delay(60000, cancellationToken);
+					Logger.Warn("(Server) still running - new cycle.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
+					Logger.Warn("(Server) working.");
+					await Task.Delay(5000);
 				}
 			}
 			catch (Exception e)

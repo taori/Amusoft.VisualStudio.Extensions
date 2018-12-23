@@ -182,7 +182,7 @@ namespace WindowsService.Shell
 					cts = CtsDictionary.GetOrAdd(job, d => new CancellationTokenSource());
 					var cancellationToken = cts.Token;
 					LocalLogger.Info($"Executing [{job.GetJobName()}].");
-					Task.Run(() => job.WorkAsync(args, cancellationToken), cancellationToken);
+					TaskDictionary.TryAdd(job, Task.Run(() => job.WorkAsync(args, cancellationToken), cancellationToken));
 				}
 				catch (TaskCanceledException tce)
 				{
@@ -210,7 +210,7 @@ namespace WindowsService.Shell
 					cts = CtsDictionary.GetOrAdd(job, d => new CancellationTokenSource());
 					var cancellationToken = cts.Token;
 					LocalLogger.Info($"Executing [{job.GetJobName()}].");
-					tasks.Add(Task.Run(() => job.WorkAsync(args, cancellationToken), cancellationToken));
+					TaskDictionary.TryAdd(job, Task.Run(() => job.WorkAsync(args, cancellationToken), cancellationToken));
 				}
 				catch (TaskCanceledException tce)
 				{
@@ -233,27 +233,48 @@ namespace WindowsService.Shell
 		{
 			LocalLogger.Info($"{nameof(OnStop)}");
 			base.OnStop();
-			foreach (var job in Jobs.OrderByDescending(d => d.Priority))
+
+			var running = Jobs.OrderByDescending(d => d.Priority).Select(s => new
 			{
+				job = s,
+				task = TaskDictionary.TryGetValue(s, out var task) ? task : null,
+				cts = CtsDictionary.TryGetValue(s, out var cts) ? cts : null
+			});
+
+			foreach (var group in running)
+			{
+				if (group.cts == null)
+					LocalLogger.Warn($"No {nameof(CancellationToken)} available.");
 				try
 				{
-					if(!CtsDictionary.TryGetValue(job, out var cts))
-						LocalLogger.Warn($"No {nameof(CancellationToken)} available.");
-
-					LocalLogger.Info($"Cancelling job [{job.GetJobName()}].");
-					cts?.Cancel();
-
-					if(!TaskDictionary.TryGetValue(job, out var task))
-						LocalLogger.Warn($"No Task available.");
-
-					LocalLogger.Warn($"Waiting for termination of work for [{job.GetJobName()}].");
-					task?.Wait();
+					LocalLogger.Info($"Cancelling job [{group.job.GetJobName()}].");
+					group.cts.Cancel();
 				}
 				catch (Exception e)
 				{
-					LocalLogger.Fatal(e, $"An error occured while stopping [{job.GetJobName()}].");
+					LocalLogger.Fatal(e, $"An error occured while stopping [{group.job.GetJobName()}].");
 				}
 			}
+
+			Task.Run(async () =>
+			{
+				bool anyRunning = true;
+				while (anyRunning)
+				{
+					anyRunning = false;
+					foreach (var runningOne in running.Where(d => !d.task.IsCompleted))
+					{
+						anyRunning = true;
+						LocalLogger.Info($"Waiting for [{runningOne.job.GetJobName()}] to terminate.");
+					}
+
+					LocalLogger.Info($"Waiting for 5 seconds.");
+					await Task.Delay(5000);
+				}
+			});
+
+			Task.WhenAll(running.Select(d => d.task)).GetAwaiter().GetResult();
+			LocalLogger.Info($"All jobs terminated.");
 		}
 	}
 }
