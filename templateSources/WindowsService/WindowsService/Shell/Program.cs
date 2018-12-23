@@ -106,10 +106,10 @@ namespace WindowsService.Shell
 			return Task.CompletedTask;
 		}
 
-		private static Task RunAsConsoleAsync(string[] args)
+		private static async Task RunAsConsoleAsync(string[] args)
 		{
 			var core = new ServiceCore();
-			return core.ExecuteAsync(args);
+			await core.ExecuteAsync(args);
 		}
 	}
 }

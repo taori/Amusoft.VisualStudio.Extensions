@@ -1,2 +1,2 @@
-start "-uninstall" "%~dp0WindowsService2.exe" "-uninstall"
+start "-uninstall" "%~dp0WindowsService.exe" "-uninstall"
 pause

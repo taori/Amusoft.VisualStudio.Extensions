@@ -1,2 +1,2 @@
-start "-install" "%~dp0WindowsService2.exe" "-install"
+start "-install" "%~dp0WindowsService.exe" "-install"
 pause

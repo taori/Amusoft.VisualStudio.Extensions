@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.ServiceProcess;
+using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 
@@ -9,6 +10,9 @@ namespace WindowsService.Shell
 	{
 		private ILogger _logger;
 
+		/// <summary>
+		/// Default Logger
+		/// </summary>
 		protected ILogger Logger => _logger ?? (_logger = CreateLogger());
 
 		private ILogger CreateLogger()
@@ -36,10 +40,8 @@ namespace WindowsService.Shell
 
 		public abstract void OnShutdown();
 
-		public abstract void OnStop();
-
 		public abstract void Dispose(bool disposing);
 
-		public abstract Task WorkAsync(string[] args);
+		public abstract Task WorkAsync(string[] args, CancellationToken cancellationToken);
 	}
 }

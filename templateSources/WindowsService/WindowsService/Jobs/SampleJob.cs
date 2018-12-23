@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using WindowsService.Shell;
 
@@ -32,24 +33,20 @@ namespace WindowsService.Jobs
 		}
 
 		/// <inheritdoc />
-		public override void OnStop()
-		{
-		}
-
-		/// <inheritdoc />
 		public override void Dispose(bool disposing)
 		{
 		}
 
 		/// <inheritdoc />
-		public override async Task WorkAsync(string[] args)
+		public override async Task WorkAsync(string[] args, CancellationToken cancellationToken)
 		{
 			try
 			{
 				while (true)
 				{
-					Logger.Debug("(Server) still running.");
-					await Task.Delay(60000);
+					Logger.Warn("(Server) still running.");
+					cancellationToken.ThrowIfCancellationRequested();
+					await Task.Delay(60000, cancellationToken);
 				}
 			}
 			catch (Exception e)
