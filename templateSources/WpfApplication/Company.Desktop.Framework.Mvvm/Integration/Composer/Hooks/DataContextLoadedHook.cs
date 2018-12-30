@@ -2,7 +2,7 @@
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 {
@@ -11,9 +11,9 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 		/// <inheritdoc />
 		public void Execute(FrameworkElement control, object dataContext)
 		{
-			if (dataContext is IBehaviourHost activateable)
+			if (dataContext is IBehaviorHost activateable)
 			{
-				activateable.Behaviours.Add(new ActivationBehaviour());
+				activateable.Behaviors.Add(new ActivationBehavior());
 
 				if (control is Window window && dataContext is IWindowViewModel windowViewModel)
 				{

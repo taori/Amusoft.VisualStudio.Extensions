@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public class ActivationBehaviour : AsyncBehaviourBase<IActivationBehaviourContext>
+	public class ActivationBehavior : AsyncBehaviorBase<IActivationBehaviorContext>
 	{
-		private static readonly ILogger Log = LogManager.GetLogger(nameof(ActivationBehaviour));
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(ActivationBehavior));
 		
 		/// <inheritdoc />
-		protected override async Task OnExecuteAsync(IActivationBehaviourContext context)
+		protected override async Task OnExecuteAsync(IActivationBehaviorContext context)
 		{
 			try
 			{

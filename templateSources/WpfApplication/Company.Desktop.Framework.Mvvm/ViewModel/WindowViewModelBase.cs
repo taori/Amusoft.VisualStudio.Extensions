@@ -8,7 +8,7 @@ using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using JetBrains.Annotations;
@@ -30,7 +30,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		private WeakReference<IWindowViewModel> _windowReference;
 		
 		/// <inheritdoc />
-		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		public override IEnumerable<IBehavior> GetDefaultBehaviors()
 		{
 			yield break;
 		}
@@ -51,7 +51,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		}
 	}
 
-	public abstract class WindowViewModelBase : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IDefaultBehaviourProvider
+	public abstract class WindowViewModelBase : InteractiveViewModel, IServiceProviderHolder, IWindowViewModel, IDefaultBehaviorProvider
 	{
 		protected WindowViewModelBase([NotNull] IWindowContentViewModel content)
 		{
@@ -360,9 +360,9 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		}
 
 		/// <inheritdoc />
-		public IEnumerable<IBehaviour> GetDefaultBehaviours()
+		public IEnumerable<IBehavior> GetDefaultBehaviors()
 		{
-			return Content.GetDefaultBehaviours();
+			return Content.GetDefaultBehaviors();
 		}
 	}
 }

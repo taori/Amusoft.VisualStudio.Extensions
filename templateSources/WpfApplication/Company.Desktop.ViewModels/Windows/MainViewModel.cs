@@ -4,16 +4,14 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
-using JetBrains.Annotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.ViewModels.Windows
@@ -88,7 +86,7 @@ namespace Company.Desktop.ViewModels.Windows
 			{
 				var r = new Random();
 				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
-				vm.Behaviours.Add(new ConfirmContentChangingBehaviour());
+				vm.Behaviors.Add(new ConfirmContentChangingBehavior());
 				var opened = await UpdateRegionAsync(vm, RegionNames.TopArea);
 			})));
 
@@ -108,10 +106,10 @@ namespace Company.Desktop.ViewModels.Windows
 		}
 
 		/// <inheritdoc />
-		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		public override IEnumerable<IBehavior> GetDefaultBehaviors()
 		{
-			yield return new RequestClosingPermissionBehaviour();
-			yield return new RestoreWindowDimensionsBehaviour();
+			yield return new RequestClosingPermissionBehavior();
+			yield return new RestoreWindowDimensionsBehavior();
 		}
 
 		/// <inheritdoc />

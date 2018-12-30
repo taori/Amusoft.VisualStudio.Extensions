@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Reactive.Disposables;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Interactivity;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class InteractiveViewModel : ViewModelBase, IBehaviourHost, IBusyStateHolder
+	public abstract class InteractiveViewModel : ViewModelBase, IBehaviorHost, IBusyStateHolder
 	{
 		protected readonly CompositeDisposable Disposables = new CompositeDisposable();
 
-		public List<IBehaviour> Behaviours { get; } = new List<IBehaviour>();
+		public List<IBehavior> Behaviors { get; } = new List<IBehavior>();
 		
 		/// <inheritdoc />
 		public BusyState LoadingState { get; } = new BusyState(); private bool _disposed = false;
@@ -21,7 +21,7 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 			{
 				if (managedDispose)
 				{
-					foreach (var behaviour in Behaviours)
+					foreach (var behaviour in Behaviors)
 					{
 						behaviour.Dispose();
 					}

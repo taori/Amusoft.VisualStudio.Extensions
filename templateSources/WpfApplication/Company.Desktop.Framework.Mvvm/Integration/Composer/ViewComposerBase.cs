@@ -7,9 +7,9 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer
@@ -33,13 +33,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 		public IServiceContext ServiceContext { get; }
 		public IEnumerable<IViewComposerHook> ComposerHooks { get; }
-		public IBehaviourRunner BehaviourRunner { get; }
+		public IBehaviorRunner BehaviorRunner { get; }
 
-		protected ViewComposerBase(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviourRunner behaviourRunner)
+		protected ViewComposerBase(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner)
 		{
 			ServiceContext = serviceContext;
 			ComposerHooks = composerHooks;
-			BehaviourRunner = behaviourRunner;
+			BehaviorRunner = behaviorRunner;
 		}
 
 		/// <inheritdoc />
@@ -65,13 +65,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						subHolder.ServiceProvider = ServiceContext.ServiceProvider;
 				}
 				
-				if (element.DataContext is IDefaultBehaviourProvider behaviourProvider && element.DataContext is IBehaviourHost interactiveBehaviour)
+				if (element.DataContext is IDefaultBehaviorProvider behaviourProvider && element.DataContext is IBehaviorHost interactiveBehaviour)
 				{
-					var behaviours = behaviourProvider.GetDefaultBehaviours().ToArray();
+					var behaviours = behaviourProvider.GetDefaultBehaviors().ToArray();
 					if (behaviours.Length > 0)
-						Log.Debug($"Binding {behaviours.Length} behaviours through {nameof(IDefaultBehaviourProvider)} [{string.Join(".", behaviours.Select(s => s.GetType().ToString()))}].");
+						Log.Debug($"Binding {behaviours.Length} behaviours through {nameof(IDefaultBehaviorProvider)} [{string.Join(".", behaviours.Select(s => s.GetType().ToString()))}].");
 					
-					interactiveBehaviour.Behaviours.AddRange(behaviours);
+					interactiveBehaviour.Behaviors.AddRange(behaviours);
 				}
 
 				foreach (var hook in ComposerHooks)
@@ -80,7 +80,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 					hook.Execute(element, element.DataContext);
 				}
 
-				await BehaviourRunner.ExecuteAsync(element.DataContext as IBehaviourHost, new ActivationBehaviourContext(element.DataContext, ServiceContext.ServiceProvider));
+				await BehaviorRunner.ExecuteAsync(element.DataContext as IBehaviorHost, new ActivationBehaviorContext(element.DataContext, ServiceContext.ServiceProvider));
 				
 				var coordinationArguments = GetCoordinationArguments(element);
 
@@ -112,7 +112,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
-				await BehaviourRunner.ExecuteAsync(context.DataContext as IBehaviourHost, new ViewComposedBehaviourContext(context, ServiceContext));
+				await BehaviorRunner.ExecuteAsync(context.DataContext as IBehaviorHost, new ViewComposedBehaviorContext(context, ServiceContext));
 
 				return true;
 			}

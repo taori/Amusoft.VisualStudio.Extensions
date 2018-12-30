@@ -1,9 +1,9 @@
 ﻿using System;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 
-namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors
 {
-	public interface IWindowClosedBehaviourContext : IBehaviourArgument
+	public interface IWindowClosedBehaviorContext : IBehaviorArgument
 	{
 		object ViewModel { get; }
 

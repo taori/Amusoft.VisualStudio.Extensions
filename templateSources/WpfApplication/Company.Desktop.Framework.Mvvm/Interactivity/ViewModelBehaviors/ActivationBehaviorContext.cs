@@ -1,12 +1,12 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public class ActivationBehaviourContext : IActivationBehaviourContext
+	public class ActivationBehaviorContext : IActivationBehaviorContext
 	{
 		/// <inheritdoc />
-		public ActivationBehaviourContext(object viewModel, IServiceProvider serviceProvider)
+		public ActivationBehaviorContext(object viewModel, IServiceProvider serviceProvider)
 		{
 			ViewModel = viewModel;
 			ServiceProvider = serviceProvider;

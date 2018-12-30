@@ -4,10 +4,10 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using JetBrains.Annotations;
 using NLog;
 
@@ -20,14 +20,14 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		public IRegionManager RegionManager { get; }
 		public IViewComposerFactory ComposerFactory { get; }
 		public IServiceContext ServiceContext { get; }
-		public IBehaviourRunner BehaviourRunner { get; }
+		public IBehaviorRunner BehaviorRunner { get; }
 
-		public FrameworkElementCoordinator(IRegionManager regionManager, IViewComposerFactory composerFactory, IServiceContext serviceContext, [NotNull] IBehaviourRunner behaviourRunner)
+		public FrameworkElementCoordinator(IRegionManager regionManager, IViewComposerFactory composerFactory, IServiceContext serviceContext, [NotNull] IBehaviorRunner behaviorRunner)
 		{
 			RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
 			ComposerFactory = composerFactory ?? throw new ArgumentNullException(nameof(composerFactory));
 			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
-			BehaviourRunner = behaviourRunner ?? throw new ArgumentNullException(nameof(behaviourRunner));
+			BehaviorRunner = behaviorRunner ?? throw new ArgumentNullException(nameof(behaviorRunner));
 		}
 
 		/// <inheritdoc />
@@ -46,13 +46,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			{
 				var control = RegionManager.GetControl(arguments.RegionManagerReference, arguments.TargetRegion);
 
-				if (control.DataContext is IBehaviourHost interactive)
+				if (control.DataContext is IBehaviorHost interactive)
 				{
-					var context = new ContentChangingBehaviourContext(ServiceContext.ServiceProvider, control.DataContext, dataContext);
-					await BehaviourRunner.ExecuteAsync(interactive, context);
+					var context = new ContentChangingBehaviorContext(ServiceContext.ServiceProvider, control.DataContext, dataContext);
+					await BehaviorRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{
-						Log.Error($"Change prevented by {nameof(ContentChangingBehaviourContext)}.");
+						Log.Debug($"Change prevented by {nameof(ContentChangingBehaviorContext)}.");
 						return false;
 					}
 				}

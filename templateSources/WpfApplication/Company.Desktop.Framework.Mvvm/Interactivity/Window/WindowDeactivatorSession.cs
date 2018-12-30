@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
@@ -48,14 +48,14 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 			return false;
 		}
 
-		public async Task<bool> IsCancelledAsync(IBehaviourHost behaviourHost, IServiceProvider serviceProvider)
+		public async Task<bool> IsCancelledAsync(IBehaviorHost behaviorHost, IServiceProvider serviceProvider)
 		{
-			if (behaviourHost == null)
+			if (behaviorHost == null)
 				return false;
 
-			var closeContext = new WindowClosingContext(behaviourHost, serviceProvider);
-			var behaviourRunner = serviceProvider.GetRequiredService<IBehaviourRunner>();
-			await behaviourRunner.ExecuteAsync(behaviourHost, closeContext);
+			var closeContext = new WindowClosingContext(behaviorHost, serviceProvider);
+			var behaviourRunner = serviceProvider.GetRequiredService<IBehaviorRunner>();
+			await behaviourRunner.ExecuteAsync(behaviorHost, closeContext);
 
 			if (closeContext.Cancelled)
 			{

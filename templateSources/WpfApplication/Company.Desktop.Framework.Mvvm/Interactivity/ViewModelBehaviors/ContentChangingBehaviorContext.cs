@@ -1,12 +1,12 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public class ContentChangingBehaviourContext : IContentChangingBehaviourContext
+	public class ContentChangingBehaviorContext : IContentChangingBehaviorContext
 	{
 		/// <inheritdoc />
-		public ContentChangingBehaviourContext(IServiceProvider serviceProvider, object oldViewModel, object newViewModel)
+		public ContentChangingBehaviorContext(IServiceProvider serviceProvider, object oldViewModel, object newViewModel)
 		{
 			OldViewModel = oldViewModel;
 			NewViewModel = newViewModel;

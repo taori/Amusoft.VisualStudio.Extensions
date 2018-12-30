@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors
 {
 
-	public interface IContentChangingBehaviourContext : IBehaviourArgument
+	public interface IContentChangingBehaviorContext : IBehaviorArgument
 	{
 		object OldViewModel { get; }
 		object NewViewModel { get; }

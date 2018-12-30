@@ -1,0 +1,48 @@
+[
+  {
+    "Id": "b6b0a9e9-c0f9-4425-b95f-617c37b9c47e",
+    "SolutionPath": "D:\\GitHub\\Amusoft.VisualStudio.Extensions\\templateSources\\WpfApplication\\Company.Desktop.Application.sln",
+    "ConfigurationName": "WPFN1",
+    "IconPackageReference": {
+      "Package": "{b3bae735-386c-4030-8329-ef48eeda4036}",
+      "Id": 4602
+    },
+    "OpenInEditorReferences": [
+      "Company.Desktop.Application/Dependencies/Registrars/ShellRegistrar.cs"
+    ],
+    "OutputFolders": [
+      "D:\\out1",
+      "C:\\Users\\Andreas\\Documents\\Visual Studio 2017\\Templates\\ProjectTemplates\\Visual C#\\MVVM"
+    ],
+    "CreateInPlace": true,
+    "CreateNewFolder": true,
+    "DefaultName": "Company.Desktop",
+    "Description": "MahApps, NLog, basic Inline MVVM framework, control library",
+    "CodeLanguage": "CSharp",
+    "ProvideDefaultName": true,
+    "PrimaryProject": "Company.Desktop.Application",
+    "Name": "WPF with boilerplate"
+  },
+  {
+    "Id": "ca7f0a9c-bc4d-4e4c-8038-7e572771e35a",
+    "SolutionPath": "C:\\Users\\Andreas\\source\\repos\\TestSolutionForScaffolding\\TestSolutionForScaffolding.sln",
+    "ConfigurationName": "Scaffolding test",
+    "IconPackageReference": {
+      "Package": "{b3bae735-386c-4030-8329-ef48eeda4036}",
+      "Id": 4602
+    },
+    "OpenInEditorReferences": [],
+    "OutputFolders": [
+      "D:\\scaffoldingOut",
+      "C:\\Users\\Andreas\\Documents\\Visual Studio 2017\\Templates\\ProjectTemplates\\Visual C#\\Scaffolding"
+    ],
+    "CreateInPlace": true,
+    "CreateNewFolder": true,
+    "DefaultName": "scaffolding.app",
+    "Description": "JustSome test",
+    "CodeLanguage": "CSharp",
+    "ProvideDefaultName": true,
+    "PrimaryProject": null,
+    "Name": "scaffoldingTest"
+  }
+]

@@ -6,7 +6,7 @@ using System.Windows;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Extensions;
@@ -20,7 +20,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(WindowComposer));
 
 		/// <inheritdoc />
-		public WindowComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviourRunner behaviourRunner) : base(serviceContext, composerHooks, behaviourRunner)
+		public WindowComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner) : base(serviceContext, composerHooks, behaviorRunner)
 		{
 		}
 
@@ -86,7 +86,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosed();
 
-						await BehaviourRunner.ExecuteAsync(windowViewModel as IBehaviourHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider, context));
+						await BehaviorRunner.ExecuteAsync(windowViewModel as IBehaviorHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider, context));
 					});
 				}
 			}

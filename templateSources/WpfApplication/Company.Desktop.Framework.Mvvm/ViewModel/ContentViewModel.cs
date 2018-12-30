@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {
-	public abstract class ContentViewModel : InteractiveViewModel, IServiceProviderHolder, IContentViewModel, IDefaultBehaviourProvider
+	public abstract class ContentViewModel : InteractiveViewModel, IServiceProviderHolder, IContentViewModel, IDefaultBehaviorProvider
 	{
 		protected static readonly ILogger Log = LogManager.GetLogger(nameof(ContentViewModel));
 		
@@ -43,6 +43,6 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 		public IServiceProvider ServiceProvider { get; set; }
 
 		/// <inheritdoc />
-		public abstract IEnumerable<IBehaviour> GetDefaultBehaviours();
+		public abstract IEnumerable<IBehavior> GetDefaultBehaviors();
 	}
 }

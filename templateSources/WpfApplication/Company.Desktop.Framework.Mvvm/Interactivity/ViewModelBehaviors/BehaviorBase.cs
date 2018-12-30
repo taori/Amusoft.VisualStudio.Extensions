@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reactive.Subjects;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public abstract class BehaviourBase<TArgument> : IBehaviour<TArgument> where TArgument : IBehaviourArgument
+	public abstract class BehaviorBase<TArgument> : IBehavior<TArgument> where TArgument : IBehaviorArgument
 	{
 		protected abstract void OnExecuteAsync(TArgument context);
 

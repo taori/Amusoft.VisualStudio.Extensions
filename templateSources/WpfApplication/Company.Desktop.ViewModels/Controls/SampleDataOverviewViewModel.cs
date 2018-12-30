@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.Models.Abstraction.Providers;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +45,7 @@ namespace Company.Desktop.ViewModels.Controls
 		}
 
 		/// <inheritdoc />
-		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		public override IEnumerable<IBehavior> GetDefaultBehaviors()
 		{
 			yield break;
 		}

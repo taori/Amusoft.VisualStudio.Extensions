@@ -4,14 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 {
 	public class FrameworkElementComposer : ViewComposerBase
 	{
 		/// <inheritdoc />
-		public FrameworkElementComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviourRunner behaviourRunner) : base(serviceContext, composerHooks, behaviourRunner)
+		public FrameworkElementComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner) : base(serviceContext, composerHooks, behaviorRunner)
 		{
 		}
 

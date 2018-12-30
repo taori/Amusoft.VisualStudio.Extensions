@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public abstract class AsyncBehaviourBase<TContext> : IAsyncBehaviour<TContext> where TContext : IBehaviourArgument
+	public abstract class AsyncBehaviorBase<TContext> : IAsyncBehavior<TContext> where TContext : IBehaviorArgument
 	{
 		/// <inheritdoc />
 		public async Task ExecuteAsync(TContext context)

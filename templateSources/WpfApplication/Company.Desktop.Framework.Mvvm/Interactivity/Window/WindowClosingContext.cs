@@ -1,9 +1,9 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {
-	public class WindowClosingContext : IWindowClosingBehaviourContext
+	public class WindowClosingContext : IWindowClosingBehaviorContext
 	{
 		/// <inheritdoc />
 		public WindowClosingContext(object viewModel, IServiceProvider serviceProvider)

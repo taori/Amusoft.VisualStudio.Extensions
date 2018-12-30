@@ -2,21 +2,21 @@
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Data;
 using Company.Desktop.Framework.Mvvm.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
-namespace Company.Desktop.Framework.Mvvm.Interactivity.Behaviours
+namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
-	public class RestoreWindowDimensionsBehaviour : AsyncBehaviourBase<IViewComposedBehaviourContext>
+	public class RestoreWindowDimensionsBehavior : AsyncBehaviorBase<IViewComposedBehaviorContext>
 	{
-		private static readonly ILogger Log = LogManager.GetLogger(nameof(RestoreWindowDimensionsBehaviour));
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(RestoreWindowDimensionsBehavior));
 
 		/// <inheritdoc />
-		protected override async Task OnExecuteAsync(IViewComposedBehaviourContext context)
+		protected override async Task OnExecuteAsync(IViewComposedBehaviorContext context)
 		{
 			if(context.CompositionContext.CoordinationArguments is WindowArguments windowArguments)
 			{

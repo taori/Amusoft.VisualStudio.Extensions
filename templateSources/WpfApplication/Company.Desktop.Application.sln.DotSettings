@@ -1,6 +1,33 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:Boolean x:Key="/Default/CodeInspection/CodeAnnotations/NamespacesWithAnnotations/=Company_002EDesktop_002EFramework_002EMvvm_002EAnnotations/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/CodeAnnotations/NamespacesWithAnnotations/=Company_002EDesktop_002EViewModels_002EAnnotations/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Description/@EntryValue">xaml hyperlink textblock</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Text/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Text/Expression/@EntryValue">completeSmart()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Text/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Uri/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Uri/Expression/@EntryValue">completeSmart()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Field/=Uri/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Scope/=2F5319C2E16A334DB8431F8560FB5D01/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Scope/=2F5319C2E16A334DB8431F8560FB5D01/Type/@EntryValue">InXmlTag</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Scope/=CF7C2F2066E462418ABD91975B64021C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Scope/=CF7C2F2066E462418ABD91975B64021C/CustomProperties/=mask/@EntryIndexedValue">*.xaml</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Scope/=CF7C2F2066E462418ABD91975B64021C/Type/@EntryValue">InFileWithMask</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Shortcut/@EntryValue">hyperlink</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=2FC00C6757485E4B966D077B78A483D9/Text/@EntryValue">&lt;TextBlock VerticalAlignment="Center"&gt;&#xD;
+	&lt;Hyperlink NavigateUri="{Binding Path=$Uri$}"&gt;&#xD;
+		&lt;Interactions:Interaction.Behaviors&gt;&#xD;
+			&lt;behaviours:HyperlinkOpenBehavior ConfirmNavigation="True"/&gt;&#xD;
+		&lt;/Interactions:Interaction.Behaviors&gt;&#xD;
+		&lt;Hyperlink.Inlines&gt;&#xD;
+			&lt;Run Text="{Binding Path=$Text$}"/&gt;&#xD;
+		&lt;/Hyperlink.Inlines&gt;&#xD;
+	&lt;/Hyperlink&gt;&#xD;
+&lt;/TextBlock&gt;</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F6F5D335C86E0348AF48AD8BD6DAA1F4/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F6F5D335C86E0348AF48AD8BD6DAA1F4/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F6F5D335C86E0348AF48AD8BD6DAA1F4/Description/@EntryValue">reactive event</s:String>

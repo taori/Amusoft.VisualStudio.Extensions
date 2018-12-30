@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using Company.Desktop.Framework.Mvvm.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 
 namespace Company.Desktop.ViewModels.Windows
@@ -24,10 +24,10 @@ namespace Company.Desktop.ViewModels.Windows
 		}
 
 		/// <inheritdoc />
-		public override IEnumerable<IBehaviour> GetDefaultBehaviours()
+		public override IEnumerable<IBehavior> GetDefaultBehaviors()
 		{
-			yield return new RestoreWindowDimensionsBehaviour();
-			yield return new DisposeOnCloseBehaviour();
+			yield return new RestoreWindowDimensionsBehavior();
+			yield return new DisposeOnCloseBehavior();
 		}
 
 		/// <inheritdoc />

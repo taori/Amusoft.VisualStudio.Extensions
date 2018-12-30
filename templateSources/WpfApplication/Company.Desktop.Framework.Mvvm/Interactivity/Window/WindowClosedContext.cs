@@ -1,11 +1,11 @@
 ﻿using System;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.Behaviours;
+using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {
-	public class WindowClosedContext : IWindowClosedBehaviourContext
+	public class WindowClosedContext : IWindowClosedBehaviorContext
 	{
 		/// <inheritdoc />
 		public WindowClosedContext([NotNull] object viewModel, [NotNull] IServiceProvider serviceProvider, [NotNull] IViewCompositionContext context)
