@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using NLog;
 
@@ -26,7 +27,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 			var coordinator = Coordinators.OrderByDescending(d => d.Priority).FirstOrDefault(d => d.CanProcess(dataContext));
 			if (coordinator == null)
 			{
-				Log.Error($"No implementation of {typeof(IDisplayCoordinator).FullName} can process {dataContext.GetType().FullName}.");
+				Log.Error($"No implementation of {typeof(IDisplayCoordinator).FullName} can process {dataContext.GetType().FullName}. You might need to maintain your implementation of {nameof(IInjectionAssemblyLoader)}.");
 				return null;
 			}
 

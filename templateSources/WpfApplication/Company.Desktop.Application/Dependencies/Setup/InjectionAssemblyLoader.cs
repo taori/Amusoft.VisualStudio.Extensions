@@ -3,6 +3,7 @@ using System.Reflection;
 using Company.Desktop.Framework.DataAccess;
 using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Models.Abstraction.Providers;
 using Company.Desktop.Models.Providers;
 
@@ -18,6 +19,7 @@ namespace Company.Desktop.Application.Dependencies.Setup
 			yield return typeof(SampleDataProvider).Assembly;
 			yield return typeof(DependencyContainer).Assembly;
 			yield return typeof(IRegionManager).Assembly;
+			yield return typeof(RegionManager).Assembly;
 		}
 	}
 }

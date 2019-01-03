@@ -6,6 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
@@ -13,18 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
-	  <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Reference Include="PresentationCore" />
-	  <Reference Include="PresentationFramework" />
-	  <Reference Include="System.Xaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Abstraction\" />
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Xaml" />
 	</ItemGroup>
 
 </Project>

@@ -24,7 +24,7 @@ namespace Company.Desktop.Application
 
 		/// <inheritdoc />
 		protected override void OnStartup(StartupEventArgs e)
-		{ 
+		{
 			Log.System($"{nameof(App)} - {nameof(OnStartup)}.", LogLevel.Trace);
 			try
 			{
@@ -50,7 +50,7 @@ namespace Company.Desktop.Application
 
 				var navigationService = DependencyContainer.ServiceProvider.GetService<INavigationService>();
 				navigationService.OpenWindowAsync(new DefaultWindowViewModel(new MainViewModel()), nameof(MainViewModel));
-				
+
 				base.OnStartup(e);
 			}
 			catch (Exception exception)

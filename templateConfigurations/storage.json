@@ -2,7 +2,7 @@
   {
     "Id": "b6b0a9e9-c0f9-4425-b95f-617c37b9c47e",
     "SolutionPath": "D:\\GitHub\\Amusoft.VisualStudio.Extensions\\templateSources\\WpfApplication\\Company.Desktop.Application.sln",
-    "ConfigurationName": "WPFN1",
+    "ConfigurationName": "WPF local deployment",
     "IconPackageReference": {
       "Package": "{b3bae735-386c-4030-8329-ef48eeda4036}",
       "Id": 4602
@@ -11,17 +11,71 @@
       "Company.Desktop.Application/Dependencies/Registrars/ShellRegistrar.cs"
     ],
     "OutputFolders": [
-      "D:\\out1",
       "C:\\Users\\Andreas\\Documents\\Visual Studio 2017\\Templates\\ProjectTemplates\\Visual C#\\MVVM"
     ],
+    "TemplateHierarchy": {
+      "Items": [
+        {
+          "$type": "Generator.Shared.Template.Folder, Generator.Shared",
+          "Items": [
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Framework"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Framework.Controls"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Framework.Mvvm"
+            }
+          ],
+          "IsRoot": false,
+          "Name": "framework"
+        },
+        {
+          "$type": "Generator.Shared.Template.Folder, Generator.Shared",
+          "Items": [
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Application"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Models"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Models.Abstraction"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.Shared"
+            },
+            {
+              "$type": "Generator.Shared.Template.Project, Generator.Shared",
+              "Namespace": "Company.Desktop.ViewModels"
+            }
+          ],
+          "IsRoot": false,
+          "Name": "project"
+        }
+      ],
+      "IsRoot": true,
+      "Name": "Solution root"
+    },
     "CreateInPlace": true,
     "CreateNewFolder": true,
+    "ZipContents": true,
+    "ArtifactName": "MetroDILogging",
+    "FileCopyBlacklist": "*.ico",
     "DefaultName": "Company.Desktop",
     "Description": "MahApps, NLog, basic Inline MVVM framework, control library",
     "CodeLanguage": "CSharp",
     "ProvideDefaultName": true,
     "PrimaryProject": "Company.Desktop.Application",
-    "Name": "WPF with boilerplate"
+    "Name": "WPF with boilerplate (local)"
   },
   {
     "Id": "ca7f0a9c-bc4d-4e4c-8038-7e572771e35a",
@@ -36,8 +90,16 @@
       "D:\\scaffoldingOut",
       "C:\\Users\\Andreas\\Documents\\Visual Studio 2017\\Templates\\ProjectTemplates\\Visual C#\\Scaffolding"
     ],
+    "TemplateHierarchy": {
+      "Items": [],
+      "IsRoot": true,
+      "Name": "Solution root"
+    },
     "CreateInPlace": true,
     "CreateNewFolder": true,
+    "ZipContents": false,
+    "ArtifactName": null,
+    "FileCopyBlacklist": null,
     "DefaultName": "scaffolding.app",
     "Description": "JustSome test",
     "CodeLanguage": "CSharp",
