@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
@@ -52,20 +53,25 @@ namespace Company.Desktop.ViewModels.Windows
 
 				var viewModel = new SecondaryWindowViewModel();
 
+				var windowViewModel = new DefaultWindowViewModel(viewModel);
+				windowViewModel.Behaviors.Add(new ClosingDelegateInterceptorBehavior(c => RequestSecondaryWindowClose(windowViewModel, c)));
+
 				if (await dialogService.YesNoAsync(this, "Should this window be opened with an ID?"))
-					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), "secondWindow");
+					await navigation.OpenWindowAsync(windowViewModel, "secondWindow");
 				else
-					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), null);
+					await navigation.OpenWindowAsync(windowViewModel, null);
+
+				windowViewModel.Focus();
 			}))));
 
 			Commands.Add(new TestCommand("Open Dialog", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
-//				await dialogService.DisplayMessageAsync(this, "title", "message");
-//				await dialogService.YesNoAsync(this, "YesNo");
-//				await dialogService.YesNoCancelAsync(this, "YesNoCancel");
-//				await dialogService.GetTextAsync(this, "GetText", "GetTextTitle");
-				var controller = await dialogService.ShowProgressAsync(this, "GetText", "GetTextTitle", true, async(progressController) =>
+				//				await dialogService.DisplayMessageAsync(this, "title", "message");
+				//				await dialogService.YesNoAsync(this, "YesNo");
+				//				await dialogService.YesNoCancelAsync(this, "YesNoCancel");
+				//				await dialogService.GetTextAsync(this, "GetText", "GetTextTitle");
+				var controller = await dialogService.ShowProgressAsync(this, "GetText", "GetTextTitle", true, async (progressController) =>
 				{
 					await progressController.CloseAsync();
 					await dialogService.DisplayMessageAsync(this, "", "aborted");
@@ -106,8 +112,18 @@ namespace Company.Desktop.ViewModels.Windows
 				GC.Collect();
 				return Task.CompletedTask;
 			}))));
-			
+
 			return Task.CompletedTask;
+		}
+
+		private async Task<bool> RequestSecondaryWindowClose(DefaultWindowViewModel windowViewModel, IWindowClosingBehaviorContext context)
+		{
+			if (ServiceProvider.TryGetService(out IDialogService dialogService))
+			{
+				return await dialogService.YesNoAsync(windowViewModel, "Close for sure?");
+			}
+
+			return true;
 		}
 
 		private async Task CommandHookCallback(object parameter)

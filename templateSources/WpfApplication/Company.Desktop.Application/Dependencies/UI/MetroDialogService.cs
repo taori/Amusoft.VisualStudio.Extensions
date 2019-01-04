@@ -24,7 +24,6 @@ namespace Company.Desktop.Application.Dependencies.UI
 
 		protected bool TryGetWindowByOwner(object owner, out MetroWindow window)
 		{
-			
 			var first = System.Windows.Application.Current.Windows.Cast<Window>().FirstOrDefault(d => ReferenceEquals(d.DataContext, owner));
 			if (first is MetroWindow metroWindow)
 			{
