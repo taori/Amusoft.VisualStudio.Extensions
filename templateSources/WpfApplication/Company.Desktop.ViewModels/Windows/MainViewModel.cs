@@ -7,8 +7,9 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Commands;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
-using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
@@ -43,7 +44,8 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
-			Commands.Add(new TestCommand("Open Window", new RelayCommand(async (o) =>
+			var disableBehavior = new DisableWhileExecutingBehavior();
+			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var navigation = ServiceProvider.GetRequiredService<INavigationService>();
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
@@ -54,9 +56,9 @@ namespace Company.Desktop.ViewModels.Windows
 					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), "secondWindow");
 				else
 					await navigation.OpenWindowAsync(new DefaultWindowViewModel(viewModel), null);
-			})));
+			}))));
 
-			Commands.Add(new TestCommand("Open Dialog", new RelayCommand(async (o) =>
+			Commands.Add(new TestCommand("Open Dialog", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var dialogService = ServiceProvider.GetRequiredService<IDialogService>();
 //				await dialogService.DisplayMessageAsync(this, "title", "message");
@@ -80,29 +82,38 @@ namespace Company.Desktop.ViewModels.Windows
 						await Task.Delay(20);
 					}
 				});
-			})));
+			}))));
 
-			Commands.Add(new TestCommand("Update top area", new RelayCommand(async (o) =>
+			Commands.Add(new TestCommand("Update top area", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var r = new Random();
 				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
 				vm.Behaviors.Add(new ConfirmContentChangingBehavior());
 				var opened = await UpdateRegionAsync(vm, RegionNames.TopArea);
-			})));
+			}))));
 
-			Commands.Add(new TestCommand("Update bottom area", new RelayCommand(async (o) =>
+			Commands.Add(new TestCommand("Update bottom area", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var r = new Random();
 				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
 				var opened = await UpdateRegionAsync(vm, RegionNames.BottomArea);
-			})));
+			}))));
 
-			Commands.Add(new TestCommand("Run GC", new RelayCommand((o) =>
+			Commands.Add(new TestCommand("Test Composition", new CompositionCommand(disableBehavior, new TaskExecution(CommandHookCallback), new DisableWhileExecutingBehavior())));
+
+			Commands.Add(new TestCommand("Run GC", new CompositionCommand(disableBehavior, new TaskExecution(parameter =>
 			{
 				GC.Collect();
-			})));
+				return Task.CompletedTask;
+			}))));
 			
 			return Task.CompletedTask;
+		}
+
+		private async Task CommandHookCallback(object parameter)
+		{
+			Log.Debug($"Command hook executing.");
+			await Task.Delay(3000);
 		}
 
 		/// <inheritdoc />

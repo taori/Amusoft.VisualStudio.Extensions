@@ -45,49 +45,60 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		/// <inheritdoc />
 		public int Priority { get; }
 
+		private TaskCompletionSource<object> DataContextLoadedCompletion = new TaskCompletionSource<object>();
+
 		protected abstract Task FinalizeCompositionAsync(IViewCompositionContext context);
 
 		private async void DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
 		{
-			if (sender is FrameworkElement element)
+			try
 			{
-				Log.Debug($"DataContext has changed.");
-				element.DataContextChanged -= DataContextChanged;
-				if (element.DataContext is IServiceProviderHolder holder)
+				if (sender is FrameworkElement element)
 				{
-					Log.Debug($"ServiceProvider set through {nameof(IServiceProviderHolder)}.");
-					holder.ServiceProvider = ServiceContext.ServiceProvider;
-				}
+					Log.Debug($"DataContext has changed.");
+					element.DataContextChanged -= DataContextChanged;
+					if (element.DataContext is IServiceProviderHolder holder)
+					{
+						Log.Debug($"ServiceProvider set through {nameof(IServiceProviderHolder)}.");
+						holder.ServiceProvider = ServiceContext.ServiceProvider;
+					}
 
-				if (element.DataContext is IWindowViewModel windowViewModel)
-				{
-					if (windowViewModel.Content is IServiceProviderHolder subHolder)
-						subHolder.ServiceProvider = ServiceContext.ServiceProvider;
-				}
+					if (element.DataContext is IWindowViewModel windowViewModel)
+					{
+						if (windowViewModel.Content is IServiceProviderHolder subHolder)
+							subHolder.ServiceProvider = ServiceContext.ServiceProvider;
+					}
 				
-				if (element.DataContext is IDefaultBehaviorProvider behaviourProvider && element.DataContext is IBehaviorHost interactiveBehaviour)
-				{
-					var behaviours = behaviourProvider.GetDefaultBehaviors().ToArray();
-					if (behaviours.Length > 0)
-						Log.Debug($"Binding {behaviours.Length} behaviours through {nameof(IDefaultBehaviorProvider)} [{string.Join(".", behaviours.Select(s => s.GetType().ToString()))}].");
+					if (element.DataContext is IDefaultBehaviorProvider behaviourProvider && element.DataContext is IBehaviorHost interactiveBehaviour)
+					{
+						var behaviours = behaviourProvider.GetDefaultBehaviors().ToArray();
+						if (behaviours.Length > 0)
+							Log.Debug($"Binding {behaviours.Length} behaviours through {nameof(IDefaultBehaviorProvider)} [{string.Join(".", behaviours.Select(s => s.GetType().ToString()))}].");
 					
-					interactiveBehaviour.Behaviors.AddRange(behaviours);
-				}
+						interactiveBehaviour.Behaviors.AddRange(behaviours);
+					}
 
-				foreach (var hook in ComposerHooks)
-				{
-					Log.Debug($"Executing [{nameof(IViewComposerHook)}] -> [{hook.GetType().ToString()}]");
-					hook.Execute(element, element.DataContext);
-				}
+					foreach (var hook in ComposerHooks)
+					{
+						Log.Debug($"Executing [{nameof(IViewComposerHook)}] -> [{hook.GetType().ToString()}]");
+						hook.Execute(element, element.DataContext);
+					}
 
-				await BehaviorRunner.ExecuteAsync(element.DataContext as IBehaviorHost, new ActivationBehaviorContext(element.DataContext, ServiceContext.ServiceProvider));
+					await BehaviorRunner.ExecuteAsync(element.DataContext as IBehaviorHost, new ActivationBehaviorContext(element.DataContext, ServiceContext.ServiceProvider));
 				
-				var coordinationArguments = GetCoordinationArguments(element);
+					var coordinationArguments = GetCoordinationArguments(element);
 
-				if (element.DataContext is ICompositionListener listener)
-					listener.Execute(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
+					if (element.DataContext is ICompositionListener listener)
+						listener.Execute(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
 
-				DataContextLoaded(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
+					DataContextLoaded(new ViewCompositionContext(element, element.DataContext, coordinationArguments));
+				}
+
+				DataContextLoadedCompletion.TrySetResult(true);
+			}
+			catch (Exception exception)
+			{
+				DataContextLoadedCompletion.TrySetException(exception);
 			}
 		}
 
@@ -98,6 +109,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			try
 			{
+				DataContextLoadedCompletion = new TaskCompletionSource<object>();
 				SetCoordinationArguments(context.Control, context.CoordinationArguments);
 
 				Log.Debug($"Composition is being configured.");
@@ -113,7 +125,8 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
 				await BehaviorRunner.ExecuteAsync(context.DataContext as IBehaviorHost, new ViewComposedBehaviorContext(context, ServiceContext));
-
+				await DataContextLoadedCompletion.Task;
+				
 				return true;
 			}
 			catch (Exception e)
