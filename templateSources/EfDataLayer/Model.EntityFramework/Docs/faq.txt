@@ -1,0 +1,13 @@
+﻿# Frequently asked questions / issues of using EF
+
+dotnet ef migrations add initial
+dotnet ef migrations remove
+
+how to mark a type as a joined property
+
+/// <inheritdoc />
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+	modelBuilder.Owned(typeof(World));
+	base.OnModelCreating(modelBuilder);
+}
