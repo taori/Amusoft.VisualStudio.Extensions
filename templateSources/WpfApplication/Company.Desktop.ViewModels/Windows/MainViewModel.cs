@@ -9,7 +9,6 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehavior
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Commands;
-using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
