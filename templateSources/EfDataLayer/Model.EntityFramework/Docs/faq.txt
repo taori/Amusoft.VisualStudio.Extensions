@@ -1,7 +1,13 @@
 ﻿# Frequently asked questions / issues of using EF
 
+#add migration
 dotnet ef migrations add initial
-dotnet ef migrations remove
+
+# force remove migration
+dotnet ef migrations remove -f
+
+# execute migrations through CLI
+dotnet ef database update
 
 how to mark a type as a joined property
 
