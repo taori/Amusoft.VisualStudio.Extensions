@@ -14,7 +14,7 @@ namespace Model.EntityFramework.Utility
 
 		public static DefaultDataContext Create(ContextType type)
 		{
-			var database = $"Model.{type}";
+			var database = $"Model.EntityFramework.{type}";
 			var options = new DbContextOptionsBuilder<DefaultDataContext>();
 			options
 				.UseLoggerFactory(new LoggerFactory(new ILoggerProvider[]{ CreateDebugLogger() }))
