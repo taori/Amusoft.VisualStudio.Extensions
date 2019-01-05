@@ -6,6 +6,7 @@
              xmlns:windows="clr-namespace:Company.Desktop.ViewModels.Windows;assembly=Company.Desktop.ViewModels"
              xmlns:viewMapping="clr-namespace:Company.Desktop.Framework.Mvvm.Integration.ViewMapping;assembly=Company.Desktop.Framework.Mvvm"
              xmlns:common="clr-namespace:Company.Desktop.ViewModels.Common;assembly=Company.Desktop.ViewModels"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
 			 x:Name="Self"
              d:DataContext="{d:DesignInstance windows:MainViewModel}"
@@ -25,11 +26,11 @@
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</StackPanel>
-		<ContentPresenter Grid.Row="1"
+		<mah:TransitioningContentControl Grid.Row="1"
 		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext, Mode=OneWay}"
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.TopArea}" />
 
-		<ContentPresenter Grid.Row="2"
+		<mah:TransitioningContentControl Grid.Row="2"
 		                  viewMapping:RegionManager.ViewModel="{Binding ElementName=Self, Path=DataContext, Mode=OneWay}"
 		                  viewMapping:RegionManager.RegionName="{x:Static common:RegionNames.BottomArea}" />
 	</Grid>

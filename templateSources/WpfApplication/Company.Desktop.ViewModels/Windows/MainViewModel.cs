@@ -69,7 +69,8 @@ namespace Company.Desktop.ViewModels.Windows
 				//				await dialogService.DisplayMessageAsync(this, "title", "message");
 				//				await dialogService.YesNoAsync(this, "YesNo");
 				//				await dialogService.YesNoCancelAsync(this, "YesNoCancel");
-				//				await dialogService.GetTextAsync(this, "GetText", "GetTextTitle");
+//				var text = await dialogService.GetTextAsync(this, "GetText", "GetTextTitle");
+//				await dialogService.DisplayMessageAsync(this, text, "Notice");
 				var controller = await dialogService.ShowProgressAsync(this, "GetText", "GetTextTitle", true, async (progressController) =>
 				{
 					await progressController.CloseAsync();
@@ -86,6 +87,8 @@ namespace Company.Desktop.ViewModels.Windows
 						controller.SetProgress(i);
 						await Task.Delay(20);
 					}
+
+					await controller.CloseAsync();
 				});
 			}))));
 

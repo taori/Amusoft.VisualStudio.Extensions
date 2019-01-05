@@ -5,14 +5,24 @@ using System.Windows.Controls;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 {
 	public class FrameworkElementComposer : ViewComposerBase
 	{
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(FrameworkElementComposer));
+
+		public IEnumerable<IViewContextBinder> ViewContextBinder { get; }
+
 		/// <inheritdoc />
-		public FrameworkElementComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner) : base(serviceContext, composerHooks, behaviorRunner)
+		public FrameworkElementComposer(IServiceContext serviceContext, 
+			IEnumerable<IViewComposerHook> composerHooks, 
+			IEnumerable<IViewContextBinder> viewContextBinder, 
+			IBehaviorRunner behaviorRunner) 
+			: base(serviceContext, composerHooks, behaviorRunner)
 		{
+			ViewContextBinder = viewContextBinder;
 		}
 
 		/// <param name="context"></param>
@@ -26,6 +36,14 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 			else
 			{
 				context.Control.DataContext = context.DataContext;
+			}
+
+			foreach (var binder in ViewContextBinder)
+			{
+				if (binder.TryBind(context))
+				{
+					Log.Debug($"ViewBinder {binder.GetType().FullName} is handling {context}.");
+				}
 			}
 
 			return Task.CompletedTask;
