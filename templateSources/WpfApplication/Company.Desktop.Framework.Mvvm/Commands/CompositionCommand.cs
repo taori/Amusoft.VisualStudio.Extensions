@@ -7,12 +7,21 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Commands;
 
 namespace Company.Desktop.Framework.Mvvm.Commands
 {
+	/// <summary>
+	/// Command which contains a multitude of command behaviors, to allow for easy disable and callback mechanisms
+	/// </summary>
 	public class CompositionCommand : ICommand
 	{
+		/// <summary>
+		/// Command which contains a multitude of command behaviors, to allow for easy disable and callback mechanisms
+		/// </summary>
 		public CompositionCommand()
 		{
 		}
 
+		/// <summary>
+		/// Command which contains a multitude of command behaviors, to allow for easy disable and callback mechanisms
+		/// </summary>
 		public CompositionCommand(params IBehavior[] behaviors)
 		{
 			Compositions.AddRange(behaviors);
