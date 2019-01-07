@@ -1,0 +1,13 @@
+version: 1.1.{build}
+image: Visual Studio 2017
+configuration: Release
+platform: Any CPU
+before_build:
+- ps: nuget restore src\ProjectTemplates.sln
+build:
+  project: src\ProjectTemplates\ProjectTemplates.csproj
+  verbosity: minimal
+artifacts:
+- path: '**\*.vsix'
+deploy_script:
+- ps: ''
