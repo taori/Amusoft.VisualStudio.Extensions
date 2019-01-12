@@ -22,6 +22,7 @@
 
 
 	<ItemGroup>
+		<PackageReference Include="Amusoft.UI.WPF" Version="0.1.22" />
 		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="MahApps.Metro" Version="1.6.5" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
