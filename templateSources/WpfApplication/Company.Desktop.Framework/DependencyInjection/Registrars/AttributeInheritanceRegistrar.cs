@@ -29,7 +29,7 @@ namespace Company.Desktop.Framework.DependencyInjection.Registrars
 			RegisterImplementorsForTypes(services, exportedTypes, inheritorsByType);
 		}
 
-		private void RegisterImplementorsForTypes(IServiceCollection services, HashSet<Type> exportedTypes, Dictionary<Type, IEnumerable<InheritedExportAttribute>> inheritorsByType)
+		private void RegisterImplementorsForTypes(IServiceCollection services, HashSet<Type> exportedTypes, Dictionary<Type, IEnumerable<InheritedMefExportAttribute>> inheritorsByType)
 		{
 			foreach (var exportedType in exportedTypes)
 			{
@@ -88,11 +88,11 @@ namespace Company.Desktop.Framework.DependencyInjection.Registrars
 			}
 		}
 
-		private static List<(Type type, IEnumerable<InheritedExportAttribute> attributes)> GetTypesWithInheritedExports(HashSet<Type> exportedTypes)
+		private static List<(Type type, IEnumerable<InheritedMefExportAttribute> attributes)> GetTypesWithInheritedExports(HashSet<Type> exportedTypes)
 		{
 			var serviceTypes = exportedTypes
-				.Where(d => d.IsDefined(typeof(InheritedExportAttribute)))
-				.Select(s => (s, s.GetCustomAttributes<InheritedExportAttribute>(true)))
+				.Where(d => d.IsDefined(typeof(InheritedMefExportAttribute)))
+				.Select(s => (s, s.GetCustomAttributes<InheritedMefExportAttribute>(true)))
 				.ToList();
 
 			return serviceTypes;

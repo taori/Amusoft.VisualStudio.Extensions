@@ -7,7 +7,7 @@ using Company.Desktop.Models.Abstraction.Entities;
 
 namespace Company.Desktop.Models.Abstraction.Providers
 {
-	[InheritedExport(typeof(ISampleDataProvider))]
+	[InheritedMefExport(typeof(ISampleDataProvider))]
 	public interface ISampleDataProvider : IDataProvider
 	{
 		Task<IEnumerable<ISampleData>> GetAllAsync(int count);

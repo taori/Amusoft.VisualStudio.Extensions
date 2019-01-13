@@ -3,7 +3,7 @@
 namespace Company.Desktop.Framework.DependencyInjection
 {
 	[AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class, AllowMultiple = true)]
-	public class InheritedExportAttribute : Attribute
+	public class InheritedMefExportAttribute : Attribute
 	{
 		public Type ContractType { get; }
 
@@ -11,12 +11,12 @@ namespace Company.Desktop.Framework.DependencyInjection
 
 		public LifeTime LifeTime { get; set; } = LifeTime.PerRequest;
 
-		public InheritedExportAttribute(Type contractType)
+		public InheritedMefExportAttribute(Type contractType)
 		{
 			ContractType = contractType;
 		}
 
-		public InheritedExportAttribute(Type contractType, string contactName)
+		public InheritedMefExportAttribute(Type contractType, string contactName)
 		{
 			ContactName = contactName;
 			ContractType = contractType;

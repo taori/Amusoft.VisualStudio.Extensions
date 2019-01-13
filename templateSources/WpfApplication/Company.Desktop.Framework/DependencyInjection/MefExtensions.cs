@@ -10,7 +10,7 @@ namespace Company.Desktop.Framework.DependencyInjection
 		public static void ImportFromAttributes(this ConventionBuilder convention, IEnumerable<Assembly> assemblies)
 		{
 			var exportedTypes = assemblies.SelectMany(d => d.ExportedTypes).ToList();
-			var serviceTypes = exportedTypes.Where(d => d.IsDefined(typeof(InheritedExportAttribute))).Select(s => new { type = s, attributes = s.GetCustomAttributes<InheritedExportAttribute>() }).ToList();
+			var serviceTypes = exportedTypes.Where(d => d.IsDefined(typeof(InheritedMefExportAttribute))).Select(s => new { type = s, attributes = s.GetCustomAttributes<InheritedMefExportAttribute>() }).ToList();
 			var creationPolicyByServiceType = serviceTypes.ToDictionary(key => key.type, val => new { creationPolicyAttr = val.type.GetCustomAttribute<PartCreationPolicyAttribute>(), exportAttr = val.attributes });
 
 			PartConventionBuilder partBuilder;

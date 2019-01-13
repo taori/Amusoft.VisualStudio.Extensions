@@ -4,7 +4,7 @@ using Company.Desktop.Framework.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer
 {
-	[InheritedExport(typeof(IViewComposer))]
+	[InheritedMefExport(typeof(IViewComposer))]
 	public interface IViewComposer
 	{
 		/// <summary>

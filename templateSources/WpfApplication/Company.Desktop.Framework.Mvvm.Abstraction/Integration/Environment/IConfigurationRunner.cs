@@ -2,7 +2,7 @@
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment
 {
-	[InheritedExport(typeof(IConfigurationRunner), LifeTime = LifeTime.Singleton)]
+	[InheritedMefExport(typeof(IConfigurationRunner), LifeTime = LifeTime.Singleton)]
 	public interface IConfigurationRunner
 	{
 		void Execute();

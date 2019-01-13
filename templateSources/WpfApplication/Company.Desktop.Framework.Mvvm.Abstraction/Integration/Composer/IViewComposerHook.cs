@@ -3,7 +3,7 @@ using Company.Desktop.Framework.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer
 {
-	[InheritedExport(typeof(IViewComposerHook))]
+	[InheritedMefExport(typeof(IViewComposerHook))]
 	public interface IViewComposerHook
 	{
 		void Execute(FrameworkElement control, object dataContext);

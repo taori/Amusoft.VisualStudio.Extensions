@@ -22,7 +22,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Amusoft.UI.WPF" Version="0.1.22" />
+		<!-- <PackageReference Include="Amusoft.UI.WPF" Version="0.2.0-alpha57" /> -->
 		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="MahApps.Metro" Version="1.6.5" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
@@ -32,6 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Amusoft.UI.WPF\src\Amusoft.UI.WPF\Amusoft.UI.WPF.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Framework.Controls\Company.Desktop.Framework.Controls.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj" />

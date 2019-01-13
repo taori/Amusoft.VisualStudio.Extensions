@@ -3,7 +3,7 @@ using Company.Desktop.Framework.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping
 {
-	[InheritedExport(typeof(IDisplayCoordinator), LifeTime = LifeTime.PerRequest)]
+	[InheritedMefExport(typeof(IDisplayCoordinator), LifeTime = LifeTime.PerRequest)]
 	public interface IDisplayCoordinator
 	{
 		/// <summary>

@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Amusoft.UI.WPF.Adorners;
+using Amusoft.UI.WPF.Notifications;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
@@ -10,6 +13,7 @@ using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Commands;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
@@ -105,6 +109,21 @@ namespace Company.Desktop.ViewModels.Windows
 				var r = new Random();
 				var vm = new SampleDataOverviewViewModel(r.Next(10, 30));
 				var opened = await UpdateRegionAsync(vm, RegionNames.BottomArea);
+			}))));
+
+			Commands.Add(new TestCommand("Spawn notifications", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
+			{
+				if (ServiceProvider.TryGetService(out INotificationService notificationService))
+				{
+					for (int i = 0; i < 5; i++)
+					{
+						await Task.Delay(800);
+						var notification = Notification.PrimaryScreen($"Test title {i}.", $"Just testmessage {i}.")
+							.AutoClose(TimeSpan.FromSeconds(5))
+							.CloseOnSelect(true);
+						notificationService.Display(notification.Notification);
+					}
+				}
 			}))));
 
 			Commands.Add(new TestCommand("Test Composition", new CompositionCommand(disableBehavior, new TaskExecution(CommandHookCallback), new DisableWhileExecutingBehavior())));

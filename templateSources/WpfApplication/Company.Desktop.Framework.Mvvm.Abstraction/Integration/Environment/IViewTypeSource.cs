@@ -4,7 +4,7 @@ using Company.Desktop.Framework.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment
 {
-	[InheritedExport(typeof(IViewTypeSource), LifeTime = LifeTime.Singleton)]
+	[InheritedMefExport(typeof(IViewTypeSource), LifeTime = LifeTime.Singleton)]
 	public interface IViewTypeSource
 	{
 		IEnumerable<Type> GetValues();

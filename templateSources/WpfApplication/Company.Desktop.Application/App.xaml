@@ -16,10 +16,6 @@
 				<ResourceDictionary Source="Resources/Resources.xaml"/>
 				<ResourceDictionary Source="Resources/Styles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
-
-			<!-- <DataTemplate DataType="{x:Type controls1:SampleDataOverviewViewModel}"> -->
-			<!-- 	<TextBlock Text="hi" Background="Red"></TextBlock> -->
-			<!-- </DataTemplate> -->
 		</ResourceDictionary>
     </Application.Resources>
 </Application>
