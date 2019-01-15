@@ -10,7 +10,6 @@
 		<Setter Property="TitleCharacterCasing" Value="Normal" />
 	</Style>
 
-
 	<DataTemplate DataType="{x:Type ui:Notification}">
 		<StackPanel VerticalAlignment="Center">
 			<TextBlock Text="{Binding Path=Title}" Foreground="White" FontSize="17"/>
