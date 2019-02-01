@@ -11,6 +11,9 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {
+	/// <summary>
+	/// This behavior can be applied if you want a window to have a size restoration behavior
+	/// </summary>
 	public class RestoreWindowDimensionsBehavior : AsyncBehaviorBase<IViewComposedBehaviorContext>
 	{
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(RestoreWindowDimensionsBehavior));

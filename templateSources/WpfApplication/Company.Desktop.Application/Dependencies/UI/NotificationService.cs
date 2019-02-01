@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
+using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using INotification = Company.Desktop.Framework.Mvvm.Abstraction.UI.INotification;
@@ -24,26 +25,26 @@ namespace Company.Desktop.Application.Dependencies.UI
 			}
 		}
 
-		private AnchorPosition TranslatePosition(NotificationPosition position)
+		private Position TranslatePosition(NotificationPosition position)
 		{
 			switch (position)
 			{
 				case NotificationPosition.BottomRight:
-					return AnchorPosition.BottomRight;
+					return Position.BottomRight;
 				case NotificationPosition.Bottom:
-					return AnchorPosition.Bottom;
+					return Position.Bottom;
 				case NotificationPosition.BottomLeft:
-					return AnchorPosition.BottomLeft;
+					return Position.BottomLeft;
 				case NotificationPosition.Left:
-					return AnchorPosition.Left;
+					return Position.Left;
 				case NotificationPosition.TopLeft:
-					return AnchorPosition.TopLeft;
+					return Position.TopLeft;
 				case NotificationPosition.Top:
-					return AnchorPosition.Top;
+					return Position.Top;
 				case NotificationPosition.TopRight:
-					return AnchorPosition.TopRight;
+					return Position.TopRight;
 				case NotificationPosition.Right:
-					return AnchorPosition.Right;
+					return Position.Right;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(position), position, null);
 			}

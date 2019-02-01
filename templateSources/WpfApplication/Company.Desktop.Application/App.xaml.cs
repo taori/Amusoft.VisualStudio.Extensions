@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Navigation;
 using Company.Desktop.Application.Dependencies;
+using Company.Desktop.Application.Dependencies.Configuration;
+using Company.Desktop.Application.Dependencies.Logging;
+using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
@@ -11,14 +14,22 @@ using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
+using NLog.Internal;
 
 namespace Company.Desktop.Application
 {
 	public partial class App : System.Windows.Application
 	{
-		private static readonly ILogger Log = LogManager.GetLogger(nameof(App));
+		static App()
+		{
+			LogConfiguration.RegisterTargets();
+			Log = LogManager.GetLogger(nameof(App));
+			DependencyContainer = new DependencyContainer();
+		}
+		
+		private static ILogger Log { get; }
 
-		public static readonly DependencyContainer DependencyContainer = new DependencyContainer();
+		public static readonly DependencyContainer DependencyContainer;
 
 		private static Mutex ApplicationMutex;
 

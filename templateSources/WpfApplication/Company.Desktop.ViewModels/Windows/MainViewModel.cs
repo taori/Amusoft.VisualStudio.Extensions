@@ -127,6 +127,7 @@ namespace Company.Desktop.ViewModels.Windows
 			}))));
 
 			Commands.Add(new TestCommand("Test Composition", new CompositionCommand(disableBehavior, new TaskExecution(CommandHookCallback), new DisableWhileExecutingBehavior())));
+			Commands.Add(new TestCommand("Spawn error", new CompositionCommand(disableBehavior, new TaskExecution(SpawnErrorExecute), new DisableWhileExecutingBehavior())));
 
 			Commands.Add(new TestCommand("Run GC", new CompositionCommand(disableBehavior, new TaskExecution(parameter =>
 			{
@@ -134,6 +135,12 @@ namespace Company.Desktop.ViewModels.Windows
 				return Task.CompletedTask;
 			}))));
 
+			return Task.CompletedTask;
+		}
+
+		private Task SpawnErrorExecute(object parameter)
+		{
+			Log.Error("this is just a test");
 			return Task.CompletedTask;
 		}
 

@@ -20,10 +20,20 @@
 		<PlatformTarget>x86</PlatformTarget>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="NLog.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="NLog.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 
 	<ItemGroup>
 		<!-- <PackageReference Include="Amusoft.UI.WPF" Version="0.2.0-alpha57" /> -->
-		<PackageReference Include="Amusoft.UI.WPF" Version="0.2.4" />
+		<PackageReference Include="Amusoft.UI.WPF" Version="0.4.0.150" />
 		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="MahApps.Metro" Version="1.6.5" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
@@ -42,9 +52,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="NLog.config">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
+	  <Compile Update="Resources\Translations.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Translations.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Translations.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
