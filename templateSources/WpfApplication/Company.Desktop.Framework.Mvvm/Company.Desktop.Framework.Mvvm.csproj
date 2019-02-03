@@ -7,7 +7,7 @@
 
 	<ItemGroup>
 		<!-- <PackageReference Include="Amusoft.UI.WPF" Version="0.2.0-alpha57" /> -->
-		<PackageReference Include="Amusoft.UI.WPF" Version="0.4.0.150" />
+		<PackageReference Include="Amusoft.UI.WPF" Version="0.5.0-alpha00155" />
 		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />

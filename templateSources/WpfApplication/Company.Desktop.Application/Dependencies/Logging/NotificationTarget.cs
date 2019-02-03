@@ -123,7 +123,7 @@ namespace Company.Desktop.Application.Dependencies.Logging
 
 				if (_notificationService == null)
 					_notificationService = App.DependencyContainer.ServiceProvider.GetService(typeof(INotificationService)) as NotificationService;
-
+				
 				_notificationService?.Display(notificationBuilder.Notification);
 			}
 

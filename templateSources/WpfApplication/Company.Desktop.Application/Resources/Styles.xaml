@@ -13,16 +13,8 @@
 		<Setter Property="TitleCharacterCasing" Value="Normal" />
 	</Style>
 
-	<!-- <Style TargetType="{x:Type aui:NotificationDisplay}" ></Style> -->
-	<Style TargetType="{x:Type aui:NotificationDisplayItem}" BasedOn="{StaticResource DefaultNotificationDisplayItem}">
-	<!-- <Style TargetType="{x:Type aui:NotificationDisplayItem}"> -->
-		<Setter Property="NotificationIconTemplate">
-			<Setter.Value>
-				<DataTemplate>
-					<TextBlock Text="Some text"></TextBlock>
-				</DataTemplate>
-			</Setter.Value>
-		</Setter>
+	<Style TargetType="{x:Type aui:NotificationDisplay}" BasedOn="{StaticResource DefaultNotificationDisplay}">
+		<Setter Property="Padding" Value="200"></Setter>
 	</Style>
 
 	<DataTemplate DataType="{x:Type ui:Notification}">
