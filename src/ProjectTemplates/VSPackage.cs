@@ -83,7 +83,7 @@ namespace ProjectTemplates
 			DTE = GetService(typeof(DTE)) as DTE2;
 			Package = this;
 
-		    await Commands.OpenToolwindowCommand.InitializeAsync(this);
+//		    await Commands.OpenToolwindowCommand.InitializeAsync(this);
 		}
 
 
