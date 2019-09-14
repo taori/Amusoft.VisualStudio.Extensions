@@ -6,11 +6,15 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.Win32;
+using ProjectTemplates.Infrastructure;
+using ProjectTemplates.Utility;
 using Task = System.Threading.Tasks.Task;
 
 namespace ProjectTemplates
@@ -36,8 +40,13 @@ namespace ProjectTemplates
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
 	[Guid(VSPackage.PackageGuidString)]
 	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+	[ProvideMenuResource("Menus.ctmenu", 1)]
 	public sealed class VSPackage : AsyncPackage
 	{
+		public static DTE2 DTE;
+
+		public static VSPackage Package;
+
 		/// <summary>
 		/// VSPackage GUID string.
 		/// </summary>
@@ -65,10 +74,18 @@ namespace ProjectTemplates
 		/// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
 		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
-			// When initialized asynchronously, the current thread may be a background thread at this point.
-			// Do any initialization that requires the UI thread after switching to the UI thread.
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-        }
+
+			LoggerHelper.Initialize(this, "Amusoft Template Extensions");
+			
+			CommandRegistrar.Initialize(this.GetService(typeof(OleMenuCommandService)) as IMenuCommandService);
+			
+			DTE = GetService(typeof(DTE)) as DTE2;
+			Package = this;
+
+		    await Commands.OpenToolwindowCommand.InitializeAsync(this);
+		}
+
 
 		#endregion
 	}
