@@ -52,6 +52,11 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToolingPackage.cs" />
+    <Compile Include="ToolingPackageCommands.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolingPackageCommands.vsct</DependentUpon>
+    </Compile>
     <Compile Include="Utility\EventDelegator.cs" />
     <Compile Include="Utility\LoggerHelper.cs" />
     <Compile Include="Utility\PackageHelper.cs" />
@@ -90,8 +95,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <VSCTCompile Include="ToolingPackage.vsct">
+    <VSCTCompile Include="ToolingPackageCommands.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <Generator>VsctGenerator</Generator>
+      <LastGenOutput>ToolingPackageCommands.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup />

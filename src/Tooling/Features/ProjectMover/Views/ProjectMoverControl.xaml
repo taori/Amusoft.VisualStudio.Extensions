@@ -28,7 +28,7 @@
 				   Margin="8"
 				   FontWeight="Bold"
 		           Text="{Binding Path=SolutionPath}" />
-		<Border DockPanel.Dock="Bottom" Background="{DynamicResource {x:Static vsshell:VsBrushes.AccentMediumKey}}" 
+		<Border DockPanel.Dock="Bottom" 
 		        Padding="8" 
 		        BorderThickness="0,2,0,0" 
 		        BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.BrandedUIBorderKey}}">
@@ -38,9 +38,7 @@
 						VerticalAlignment="Center"
 						Command="{Binding Path=MoveProjectsCommand}" 
 						Content="Move projects" 
-						Padding="8"
-						Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
-						Background="{DynamicResource {x:Static vsshell:VsBrushes.AccentDarkKey}}"/>
+						Padding="8"/>
 				</StackPanel>
 				<StackPanel DockPanel.Dock="Top" VerticalAlignment="Center">
 					<TextBlock Visibility="{Binding Path=IsSynchedWithSolution, Converter={StaticResource BooleanToVisibilityConverterInverted}}" 
@@ -56,9 +54,7 @@
 		</Border>
 		
 		<ListView ItemsSource="{Binding Path=Projects}" BorderThickness="0"
-				  IsSynchronizedWithCurrentItem="True"
-		          Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
-		          Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}">
+				  IsSynchronizedWithCurrentItem="True">
 			<ListView.InputBindings>
 				<KeyBinding Key="Space" Command="{Binding ElementName=MyToolWindow, Path=DataContext.ToggleSelectionCommand, Mode=OneWay}" CommandParameter="{Binding Path=Projects/}"></KeyBinding>
 				<KeyBinding Key="Enter" Command="{Binding ElementName=MyToolWindow, Path=DataContext.ToggleSelectionCommand, Mode=OneWay}" CommandParameter="{Binding Path=Projects/}"></KeyBinding>
