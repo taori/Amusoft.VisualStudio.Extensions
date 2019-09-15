@@ -1,23 +1,13 @@
 ﻿using System;
-using System.ComponentModel.Design;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+using System.Reactive.Subjects;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.Win32;
-using ProjectTemplates.Infrastructure;
-using ProjectTemplates.Utility;
+using Tooling.Utility;
 using Task = System.Threading.Tasks.Task;
 
-namespace ProjectTemplates
+namespace Tooling
 {
 	/// <summary>
 	/// This is the class that implements the package exposed by this assembly.
@@ -37,30 +27,26 @@ namespace ProjectTemplates
 	/// </para>
 	/// </remarks>
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-	[Guid(VSPackage.PackageGuidString)]
-	[SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+	[Guid(ToolingPackage.PackageGuidString)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	public sealed class VSPackage : AsyncPackage
+	[ProvideToolWindow(typeof(Tooling.Views.ProjectMoverToolWindow))]
+	public sealed class ToolingPackage : AsyncPackage
 	{
-		public static DTE2 DTE;
-
-		public static VSPackage Package;
-
 		/// <summary>
-		/// VSPackage GUID string.
+		/// ToolingPackage GUID string.
 		/// </summary>
-		public const string PackageGuidString = "5ef02419-67af-4d25-8205-96388422ff11";
+		public const string PackageGuidString = "5594ee3b-1ff9-4b15-b5db-ed7864223937";
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="VSPackage"/> class.
-		/// </summary>
-		public VSPackage()
+		public static DTE DTE;
+
+		/// <inheritdoc />
+		protected override void Dispose(bool disposing)
 		{
-			// Inside this method you can place any initialization code that does not require
-			// any Visual Studio service because at this point the package object is created but
-			// not sited yet inside Visual Studio environment. The place to do all the other
-			// initialization is the Initialize method.
+			if (disposing)
+			{
+				EventDelegator.Unload();
+			}
+			base.Dispose(disposing);
 		}
 
 		#region Package Members
@@ -74,18 +60,16 @@ namespace ProjectTemplates
 		/// <returns>A task representing the async work of package initialization, or an already completed task if there is none. Do not return null from this method.</returns>
 		protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
 		{
+			// When initialized asynchronously, the current thread may be a background thread at this point.
+			// Do any initialization that requires the UI thread after switching to the UI thread.
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+			DTE = GetService(typeof(DTE)) as DTE;
 
-			LoggerHelper.Initialize(this, "Amusoft Template Extensions");
-			
-			CommandRegistrar.Initialize(this.GetService(typeof(OleMenuCommandService)) as IMenuCommandService);
-			
-			DTE = GetService(typeof(DTE)) as DTE2;
-			Package = this;
+			EventDelegator.Initialize();
+			LoggerHelper.Initialize(this, "Amusoft Tooling");
 
-//		    await Commands.OpenToolwindowCommand.InitializeAsync(this);
+		    await Tooling.Views.ProjectMoverCommand.InitializeAsync(this);
 		}
-
 
 		#endregion
 	}
