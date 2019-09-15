@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Build.Construction;
-using Tooling.Models;
 
 namespace Tooling.Features.ProjectMover
 {

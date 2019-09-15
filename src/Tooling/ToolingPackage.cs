@@ -4,6 +4,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
+using Tooling.Features.ProjectMover.Commands;
+using Tooling.Features.ProjectMover.Views;
 using Tooling.Utility;
 using Task = System.Threading.Tasks.Task;
 
@@ -29,15 +31,13 @@ namespace Tooling
 	[PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
 	[Guid(ToolingPackage.PackageGuidString)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	[ProvideToolWindow(typeof(Tooling.Views.ProjectMoverToolWindow))]
+	[ProvideToolWindow(typeof(ProjectMoverToolWindow))]
 	public sealed class ToolingPackage : AsyncPackage
 	{
 		/// <summary>
 		/// ToolingPackage GUID string.
 		/// </summary>
 		public const string PackageGuidString = "5594ee3b-1ff9-4b15-b5db-ed7864223937";
-
-		public static DTE DTE;
 
 		/// <inheritdoc />
 		protected override void Dispose(bool disposing)
@@ -63,12 +63,11 @@ namespace Tooling
 			// When initialized asynchronously, the current thread may be a background thread at this point.
 			// Do any initialization that requires the UI thread after switching to the UI thread.
 			await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-			DTE = GetService(typeof(DTE)) as DTE;
 
 			EventDelegator.Initialize();
 			LoggerHelper.Initialize(this, "Amusoft Tooling");
 
-		    await Tooling.Views.ProjectMoverCommand.InitializeAsync(this);
+		    await ProjectMoverCommand.InitializeAsync(this);
 		}
 
 		#endregion

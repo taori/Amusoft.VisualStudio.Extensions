@@ -1,12 +1,12 @@
-﻿<UserControl x:Class="Tooling.Views.ProjectMoverControl"
+﻿<UserControl x:Class="Tooling.Features.ProjectMover.Views.ProjectMoverControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
-             xmlns:models="clr-namespace:Tooling.Models"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:viewModels="clr-namespace:Tooling.Features.ProjectMover.ViewModels"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d"
@@ -21,7 +21,7 @@
 		                                               VisibilityIfTrue="Collapsed"/>
 	</UserControl.Resources>
 	<UserControl.DataContext>
-		<models:ProjectMoverViewModel></models:ProjectMoverViewModel>
+		<viewModels:ProjectMoverViewModel></viewModels:ProjectMoverViewModel>
 	</UserControl.DataContext>
 	<DockPanel>
 		<TextBlock DockPanel.Dock="Top"

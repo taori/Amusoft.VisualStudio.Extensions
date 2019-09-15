@@ -1,9 +1,8 @@
-﻿namespace Tooling.Views
-{
-	using System.Diagnostics.CodeAnalysis;
-	using System.Windows;
-	using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using Tooling.Utility;
 
+namespace Tooling.Features.ProjectMover.Views
+{
 	/// <summary>
 	/// Interaction logic for OpenProjectMoverCommandControl.
 	/// </summary>
@@ -15,6 +14,7 @@
 		public ProjectMoverControl()
 		{
 			this.InitializeComponent();
+			this.ShouldBeThemed();
 		}
 	}
 }

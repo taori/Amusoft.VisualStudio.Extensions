@@ -9,7 +9,6 @@ namespace Tooling.Utility
 	{
 		public static DTE2 GetActiveIDE()
 		{
-			// Get an instance of currently running Visual Studio IDE.
 			DTE2 dte2 = Package.GetGlobalService(typeof(DTE)) as DTE2;
 			return dte2;
 		}

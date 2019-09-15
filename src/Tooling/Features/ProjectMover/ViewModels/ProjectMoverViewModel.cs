@@ -1,58 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
-using EnvDTE;
-using EnvDTE100;
 using Microsoft.Build.Construction;
-using Microsoft.Build.Evaluation;
-using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.PlatformUI;
-using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Tooling.Features.ProjectMover;
+using Tooling.Shared;
 using Tooling.Utility;
-using IServiceProvider = Microsoft.VisualStudio.OLE.Interop.IServiceProvider;
-using Project = EnvDTE.Project;
-using Task = System.Threading.Tasks.Task;
 
-namespace Tooling.Models
+namespace Tooling.Features.ProjectMover.ViewModels
 {
 	public class ProjectMoverViewModel : ViewModelBase, IDisposable
 	{
-		public class ProjectMoverItemViewModel : ViewModelBase
-		{
-			public ProjectInSolution Project { get; }
-
-			public ProjectMoverItemViewModel(ProjectInSolution project)
-			{
-				Project = project;
-				RelativePath = project.RelativePath;
-			}
-
-			public string RelativePath { get; set; }
-
-			private bool _isSelectedForMovement;
-
-			public bool IsSelectedForMovement
-			{
-				get => _isSelectedForMovement;
-				set => SetValue(ref _isSelectedForMovement, value, nameof(IsSelectedForMovement));
-			}
-		}
-
 		private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
 		private ObservableCollection<ProjectMoverItemViewModel> _projects;
@@ -66,8 +30,8 @@ namespace Tooling.Models
 		private Subject<string> _whenReloadSuggested = new Subject<string>();
 		public IObservable<string> WhenReloadSuggested => _whenReloadSuggested;
 
-		private Subject<object> _whenSolutionChanged = new Subject<object>();
-		public IObservable<object> WhenSolutionChanged => _whenSolutionChanged;
+		private Subject<string> _whenSolutionChanged = new Subject<string>();
+		public IObservable<string> WhenSolutionChanged => _whenSolutionChanged;
 
 		private string _feedbackText;
 
@@ -133,7 +97,7 @@ namespace Tooling.Models
 
 			_disposables.Add(EventDelegator.WhenSolutionOpened
 				.ObserveOn(Dispatcher.CurrentDispatcher)
-				.Subscribe(d => _whenSolutionChanged.OnNext(null)));
+				.Subscribe(d => _whenSolutionChanged.OnNext(d)));
 
 			_disposables.Add(EventDelegator.WhenProjectAdded
 				.ObserveOn(Dispatcher.CurrentDispatcher)
@@ -161,13 +125,14 @@ namespace Tooling.Models
 		{
 			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-			ToolingPackage.DTE.Solution.SaveAs(ToolingPackage.DTE.Solution.FullName);
+			var solution = PackageHelper.GetDTE().Solution;
+			solution.SaveAs(solution.FullName);
 
 			_whenReloadSuggested.OnNext("User saved all files");
 		}
 
 		private FileSystemWatcher _solutionFileSystemWatcher;
-		private void OnSolutionChanged(object obj)
+		private void OnSolutionChanged(string solutionPath)
 		{
 			try
 			{
@@ -176,11 +141,12 @@ namespace Tooling.Models
 
 				_solutionFileSystemWatcher?.Dispose();
 
-				var sln = ToolingPackage.DTE.Solution?.FullName;
-				if (string.IsNullOrEmpty(sln))
+				if (string.IsNullOrEmpty(solutionPath))
 					return;
 
-				_disposables.Add(_solutionFileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(sln), "*.sln"));
+				SolutionPath = solutionPath;
+
+				_disposables.Add(_solutionFileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(solutionPath), "*.sln"));
 
 				var fromEventPattern = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
 					add => _solutionFileSystemWatcher.Changed += add, 
@@ -189,10 +155,9 @@ namespace Tooling.Models
 				_solutionFileSystemWatcher.NotifyFilter = NotifyFilters.DirectoryName | NotifyFilters.LastWrite;
 
 				_disposables.Add(fromEventPattern
-					.Where(d => d.EventArgs.FullPath.Equals(sln))
+					.Where(d => d.EventArgs.FullPath.Equals(solutionPath))
 					.Subscribe(pattern => _whenReloadSuggested.OnNext("Solution file changed")));
 
-				SolutionPath = sln;
 
 				_whenReloadSuggested.OnNext("Solution has changed");
 			}
@@ -245,11 +210,11 @@ namespace Tooling.Models
 			LoggerHelper.Log($"Reloading projects for {nameof(ProjectMoverViewModel)}.");
 			Projects.Clear();
 			
-			if (!string.IsNullOrEmpty(ToolingPackage.DTE.Solution.FullName))
+			if (!string.IsNullOrEmpty(SolutionPath))
 			{
 				LoggerHelper.Log($"Adding projects");
 				
-				var solutionFile = SolutionFile.Parse(ToolingPackage.DTE.Solution.FullName);
+				var solutionFile = SolutionFile.Parse(SolutionPath);
 
 				foreach (var project in solutionFile.ProjectsInOrder)
 				{

@@ -13,7 +13,7 @@ namespace Tooling.Utility
 		
 		public static void Initialize()
 		{
-			_solutionEvents = ToolingPackage.DTE.Events.SolutionEvents;
+			_solutionEvents = PackageHelper.GetDTE().Events.SolutionEvents;
 			_solutionEvents.Opened += SolutionEventsOnOpened;
 			_solutionEvents.AfterClosing += SolutionEventsOnAfterClosing;
 			_solutionEvents.ProjectAdded += SolutionEventsOnProjectAdded;
@@ -37,7 +37,8 @@ namespace Tooling.Utility
 
 		private static void SolutionEventsOnOpened()
 		{
-			_whenSolutionOpened.OnNext(null);
+			var solution = PackageHelper.GetDTE().Solution.FullName;
+			_whenSolutionOpened.OnNext(solution);
 		}
 
 		public static void Unload()
@@ -53,8 +54,8 @@ namespace Tooling.Utility
 		private static Subject<Project> _whenProjectRemoved = new Subject<Project>();
 		public static IObservable<Project> WhenProjectRemoved => _whenProjectRemoved;
 
-		private static Subject<object> _whenSolutionOpened = new Subject<object>();
-		public static IObservable<object> WhenSolutionOpened => _whenSolutionOpened;
+		private static Subject<string> _whenSolutionOpened = new Subject<string>();
+		public static IObservable<string> WhenSolutionOpened => _whenSolutionOpened;
 
 		private static Subject<object> _whenSolutionClosed = new Subject<object>();
 		public static IObservable<object> WhenSolutionClosed => _whenSolutionClosed;

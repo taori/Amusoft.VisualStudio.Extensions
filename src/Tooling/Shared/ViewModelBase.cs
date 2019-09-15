@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
-using Tooling.Annotations;
+using Tooling.Properties;
 
-namespace Tooling.Models
+namespace Tooling.Shared
 {
 	public class ViewModelBase : INotifyPropertyChanged
 	{

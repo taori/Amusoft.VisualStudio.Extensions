@@ -1,13 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.Globalization;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Tooling.Features.ProjectMover.Views;
 using Task = System.Threading.Tasks.Task;
 
-namespace Tooling.Views
+namespace Tooling.Features.ProjectMover.Commands
 {
 	/// <summary>
 	/// Command handler
