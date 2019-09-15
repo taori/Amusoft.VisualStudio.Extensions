@@ -13,15 +13,12 @@
              d:DesignHeight="300" d:DesignWidth="666.019"
              Name="MyToolWindow">
 	<UserControl.Resources>
-		<!-- <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></BooleanToVisibilityConverter> -->
 		<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
 		                                               VisibilityIfFalse="Collapsed" 
 		                                               VisibilityIfTrue="Visible"/>
 		<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" 
 		                                               VisibilityIfFalse="Visible" 
 		                                               VisibilityIfTrue="Collapsed"/>
-		<system:Boolean x:Key="FalseValue">False</system:Boolean>
-		<system:Boolean x:Key="TrueValue">True</system:Boolean>
 	</UserControl.Resources>
 	<UserControl.DataContext>
 		<models:ProjectMoverViewModel></models:ProjectMoverViewModel>
@@ -45,18 +42,16 @@
 						Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
 						Background="{DynamicResource {x:Static vsshell:VsBrushes.AccentDarkKey}}"/>
 				</StackPanel>
-				<TextBlock DockPanel.Dock="Top" 
-				           Visibility="{Binding Path=CanMoveProjectsExecute, Converter={StaticResource BooleanToVisibilityConverterInverted}}" 
-				           Foreground="Red" 
-				           VerticalAlignment="Center">
-					<Run>Solution file and IDE are out of sync. You need to </Run>
-					<Hyperlink Command="{Binding Path=SaveAllChangesCommand}" BaselineAlignment="Center">save all changes</Hyperlink>
-				</TextBlock>
-				<TextBlock 
-					DockPanel.Dock="Top" 
-					Visibility="{Binding Path=CanMoveProjectsExecute, Converter={StaticResource BooleanToVisibilityConverter}}" 
-					VerticalAlignment="Center" 
-					Text="{Binding Path=FeedbackText}"/>
+				<StackPanel DockPanel.Dock="Top" VerticalAlignment="Center">
+					<TextBlock Visibility="{Binding Path=IsSynchedWithSolution, Converter={StaticResource BooleanToVisibilityConverterInverted}}" 
+					           Foreground="Red" >
+						<Run>Solution file and IDE are out of sync. You need to </Run>
+						<Hyperlink Command="{Binding Path=SaveAllChangesCommand}" BaselineAlignment="Center">save all changes</Hyperlink>
+					</TextBlock>
+					<TextBlock 
+						Visibility="{Binding Path=IsSynchedWithSolution, Converter={StaticResource BooleanToVisibilityConverter}}" 
+						Text="{Binding Path=FeedbackText}"/>
+				</StackPanel>
 			</DockPanel>
 		</Border>
 		

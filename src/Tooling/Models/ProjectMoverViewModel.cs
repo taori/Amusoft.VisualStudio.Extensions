@@ -85,20 +85,20 @@ namespace Tooling.Models
 			set => SetValue(ref _solutionPath, value, nameof(SolutionPath));
 		}
 
-		private bool _canReloadExecute;
-
-		public bool CanReloadExecute
-		{
-			get => _canReloadExecute;
-			set => SetValue(ref _canReloadExecute, value, nameof(CanReloadExecute));
-		}
-
 		private bool _canMoveProjectsExecute;
 
 		public bool CanMoveProjectsExecute
 		{
 			get => _canMoveProjectsExecute;
 			set => SetValue(ref _canMoveProjectsExecute, value, nameof(CanMoveProjectsExecute));
+		}
+
+		private bool _isSynchedWithSolution;
+
+		public bool IsSynchedWithSolution
+		{
+			get => _isSynchedWithSolution;
+			set => SetValue(ref _isSynchedWithSolution, value, nameof(IsSynchedWithSolution));
 		}
 
 		private ICommand _moveProjectsCommand;
@@ -171,7 +171,9 @@ namespace Tooling.Models
 		{
 			try
 			{
-				_whenReloadSuggested.OnNext("Solution has changed");
+				CanMoveProjectsExecute = false;
+				IsSynchedWithSolution = true;
+
 				_solutionFileSystemWatcher?.Dispose();
 
 				var sln = ToolingPackage.DTE.Solution?.FullName;
@@ -191,6 +193,8 @@ namespace Tooling.Models
 					.Subscribe(pattern => _whenReloadSuggested.OnNext("Solution file changed")));
 
 				SolutionPath = sln;
+
+				_whenReloadSuggested.OnNext("Solution has changed");
 			}
 			catch (Exception e)
 			{
@@ -235,8 +239,8 @@ namespace Tooling.Models
 		{
 			LoggerHelper.Log($"Reload reason: {updateReason}.");
 
-			CanReloadExecute = false;
 			CanMoveProjectsExecute = false;
+			IsSynchedWithSolution = true;
 
 			LoggerHelper.Log($"Reloading projects for {nameof(ProjectMoverViewModel)}.");
 			Projects.Clear();
@@ -245,11 +249,8 @@ namespace Tooling.Models
 			{
 				LoggerHelper.Log($"Adding projects");
 				
-				var allProjects = SolutionHelper.GetProjectsRecursive();
-
 				var solutionFile = SolutionFile.Parse(ToolingPackage.DTE.Solution.FullName);
 
-				var stateConsistent = IsSolutionFileConsistentWithRuntimeProjects(allProjects, solutionFile.ProjectsInOrder);
 				foreach (var project in solutionFile.ProjectsInOrder)
 				{
 					var projectItem = new ProjectMoverItemViewModel(project);
@@ -257,14 +258,16 @@ namespace Tooling.Models
 					Projects.Add(projectItem);
 				}
 
-				CanReloadExecute = !stateConsistent;
-				CanMoveProjectsExecute = stateConsistent && Projects.Count(d => d.IsSelectedForMovement) > 0;
 				UpdateFeedback();
 			}
 		}
 
 		private void UpdateFeedback()
 		{
+			var isConsistent = IsSolutionFileConsistentWithRuntimeProjects(SolutionFile.Parse(SolutionPath));
+			CanMoveProjectsExecute = isConsistent && Projects.Count(d => d.IsSelectedForMovement) > 0;
+			IsSynchedWithSolution = isConsistent || string.IsNullOrEmpty(SolutionPath);
+
 			var selected = Projects.Count(d => d.IsSelectedForMovement);
 			if (selected == 0)
 			{
@@ -276,9 +279,10 @@ namespace Tooling.Models
 			}
 		}
 
-		private bool IsSolutionFileConsistentWithRuntimeProjects(IEnumerable<Project> allProjects, IReadOnlyList<ProjectInSolution> solutionFileProjectsInOrder)
+		private bool IsSolutionFileConsistentWithRuntimeProjects(SolutionFile solutionFile)
 		{
-			var solutionFileProjects = solutionFileProjectsInOrder.Where(d => d.ProjectType != SolutionProjectType.SolutionFolder).Select(d => d.AbsolutePath.ToUpperInvariant()).ToHashSet();
+			var allProjects = SolutionHelper.GetProjectsRecursive();
+			var solutionFileProjects = solutionFile.ProjectsInOrder.Where(d => d.ProjectType != SolutionProjectType.SolutionFolder).Select(d => d.AbsolutePath.ToUpperInvariant()).ToHashSet();
 			var vsRuntimeProjects = allProjects.Select(d => d.FullName.ToUpperInvariant()).ToHashSet();
 
 			return vsRuntimeProjects.All(d => solutionFileProjects.Contains(d))
