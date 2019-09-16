@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestContent\EF.Attempt1.EntityFramework.csproj" />
+    <EmbeddedResource Include="TestContent\case1.ef.original.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestContent\EF.Attempt1.Entities.csproj" />
+    <EmbeddedResource Include="TestContent\case1.entities.original.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestContent\ExtensionTests.sln" />
+    <EmbeddedResource Include="TestContent\case1.original.sln" />
   </ItemGroup>
 
   <ItemGroup>

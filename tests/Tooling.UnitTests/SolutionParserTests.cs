@@ -10,11 +10,10 @@ namespace Tooling.UnitTests
 	public class SolutionParserTests
 	{
 		[Fact]
-		public async Task VerifyProcessing()
+		public async Task Verify()
 		{
 			var processor = new SolutionFileProcessor();
-			await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("ExtensionTests.sln"));
-			var references = processor.ProjectReferences;
+			var references = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("case1.original.sln"));
 
 			references.Count.ShouldBe(14);
 

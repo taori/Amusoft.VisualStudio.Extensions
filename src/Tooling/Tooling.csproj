@@ -46,8 +46,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Features\ProjectMover\Mapping\ProjectPathMapper.cs" />
     <Compile Include="Features\ProjectMover\MoverTool.cs" />
     <Compile Include="Features\ProjectMover\Processors\ProjectFileProcessor.cs" />
+    <Compile Include="Features\ProjectMover\Processors\ProjectReference.cs" />
     <Compile Include="Features\ProjectMover\Processors\SolutionFileProcessor.cs" />
     <Compile Include="Features\ProjectMover\Processors\SolutionReference.cs" />
     <Compile Include="Features\ProjectMover\ViewModels\ProjectMoverItemViewModel.cs" />
