@@ -26,9 +26,11 @@ namespace Tooling
     /// </summary>
     internal sealed partial class PackageIds
     {
-        public const int MyMenuGroup = 0x1020;
-        public const int ToolingMenuGroup = 0x1150;
-        public const int cmdidOpenProjectMoverCommandCommand = 0x1021;
+        public const int TopGroup = 0x1020;
+        public const int TopWindowsGroup = 0x1040;
+        public const int TopMenu = 0x1060;
+        public const int TopWindowsMenu = 0x1080;
+        public const int cmdidOpenProjectMoverCommand = 0x1021;
         public const int bmpPic1 = 0x0001;
         public const int bmpPic2 = 0x0002;
         public const int bmpPicSearch = 0x0003;

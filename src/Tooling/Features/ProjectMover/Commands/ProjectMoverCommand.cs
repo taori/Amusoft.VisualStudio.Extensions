@@ -3,6 +3,7 @@ using System.ComponentModel.Design;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Tooling.Features.ProjectMover.Views;
+using Tooling.Shared.Resources;
 using Task = System.Threading.Tasks.Task;
 
 namespace Tooling.Features.ProjectMover.Commands
@@ -39,8 +40,17 @@ namespace Tooling.Features.ProjectMover.Commands
 			commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
 
 			var menuCommandID = new CommandID(CommandSet, CommandId);
-			var menuItem = new MenuCommand(this.Execute, menuCommandID);
+			var menuItem = new OleMenuCommand(this.Execute, menuCommandID);
+			menuItem.BeforeQueryStatus += MenuItemOnBeforeQueryStatus;
 			commandService.AddCommand(menuItem);
+		}
+
+		private void MenuItemOnBeforeQueryStatus(object sender, EventArgs e)
+		{
+			if (sender is OleMenuCommand command)
+			{
+				command.Text = Translations.CommandLabelOpenProjectMover;
+			}
 		}
 
 		/// <summary>
