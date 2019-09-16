@@ -3,6 +3,7 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -46,8 +47,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Features\ProjectMover\MoverTool.cs" />
+    <Compile Include="Features\ProjectMover\Processors\ProjectFileProcessor.cs" />
+    <Compile Include="Features\ProjectMover\Processors\SolutionFileProcessor.cs" />
+    <Compile Include="Features\ProjectMover\Processors\SolutionReference.cs" />
     <Compile Include="Features\ProjectMover\ViewModels\ProjectMoverItemViewModel.cs" />
     <Compile Include="Features\ProjectMover\ViewModels\ProjectMoverViewModel.cs" />
+    <Compile Include="Shared\Converters\CustomStringToVisibilityConverter.cs" />
     <Compile Include="Shared\Resources\Translations.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,7 +114,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Shared\Resources\Translations.de.resx" />
     <EmbeddedResource Include="Shared\Resources\Translations.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Translations.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

@@ -49,7 +49,7 @@ namespace Tooling.Features.ProjectMover.Commands
 		{
 			if (sender is OleMenuCommand command)
 			{
-				command.Text = Translations.CommandLabelOpenProjectMover;
+				command.Text = Translations.ProjectMoverToolWindowTitle;
 			}
 		}
 

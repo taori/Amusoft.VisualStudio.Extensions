@@ -7,12 +7,20 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
              xmlns:viewModels="clr-namespace:Tooling.Features.ProjectMover.ViewModels"
+             xmlns:resources="clr-namespace:Tooling.Shared.Resources"
+             xmlns:converters="clr-namespace:Tooling.Shared.Converters"
+             xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+             xmlns:imaging1="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.WindowKey}}"
              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.WindowTextKey}}"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="666.019"
              Name="MyToolWindow">
 	<UserControl.Resources>
+		<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+		<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityInvertedConverter" 
+		                                              NullVisibility="Visible" 
+		                                              NotNullVisibility="Collapsed"/>
 		<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
 		                                               VisibilityIfFalse="Collapsed" 
 		                                               VisibilityIfTrue="Visible"/>
@@ -23,7 +31,7 @@
 	<UserControl.DataContext>
 		<viewModels:ProjectMoverViewModel></viewModels:ProjectMoverViewModel>
 	</UserControl.DataContext>
-	<DockPanel>
+	<DockPanel Visibility="{Binding Path=SolutionPath, Converter={StaticResource StringToVisibilityConverter}}">
 		<TextBlock DockPanel.Dock="Top"
 				   Margin="8"
 				   FontWeight="Bold"
@@ -37,22 +45,30 @@
 					<Button  
 						VerticalAlignment="Center"
 						Command="{Binding Path=MoveProjectsCommand}" 
-						Content="Move projects" 
-						Padding="8"/>
+						Padding="8">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{x:Static resources:Translations.btn_MoveProject}"/>
+						</StackPanel>
+					</Button>
 				</StackPanel>
-				<StackPanel DockPanel.Dock="Top" VerticalAlignment="Center">
-					<TextBlock Visibility="{Binding Path=IsSynchedWithSolution, Converter={StaticResource BooleanToVisibilityConverterInverted}}" 
+				<StackPanel 
+					Visibility="{Binding Path=SolutionPath, Converter={StaticResource StringToVisibilityConverter}}"
+					DockPanel.Dock="Top" 
+					VerticalAlignment="Center">
+					<TextBlock Visibility="{Binding Path=DisplayError, Converter={StaticResource BooleanToVisibilityConverter}}" 
 					           Foreground="Red" >
-						<Run>Solution file and IDE are out of sync. You need to </Run>
-						<Hyperlink Command="{Binding Path=SaveAllChangesCommand}" BaselineAlignment="Center">save all changes</Hyperlink>
+						<Run Text="{x:Static resources:Translations.err_MoverSyncWarning}"/>
+						<Hyperlink Command="{Binding Path=SaveAllChangesCommand}" BaselineAlignment="Center">
+							<Run Text="{x:Static resources:Translations.err_MoverSyncWarningLinkText}"/>
+						</Hyperlink>
 					</TextBlock>
 					<TextBlock 
-						Visibility="{Binding Path=IsSynchedWithSolution, Converter={StaticResource BooleanToVisibilityConverter}}" 
+						Visibility="{Binding Path=DisplayError, Converter={StaticResource BooleanToVisibilityConverterInverted}}" 
 						Text="{Binding Path=FeedbackText}"/>
 				</StackPanel>
 			</DockPanel>
 		</Border>
-		
+
 		<ListView ItemsSource="{Binding Path=Projects}" BorderThickness="0"
 				  IsSynchronizedWithCurrentItem="True">
 			<ListView.InputBindings>
@@ -72,5 +88,5 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
-    </DockPanel>
+	</DockPanel>
 </UserControl>

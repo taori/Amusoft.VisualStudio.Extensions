@@ -8,7 +8,6 @@ namespace Tooling.Features.ProjectMover
 	{
 		public static void Move(IEnumerable<ProjectInSolution> projects, string solutionPath)
 		{
-			
 		}
 	}
 }

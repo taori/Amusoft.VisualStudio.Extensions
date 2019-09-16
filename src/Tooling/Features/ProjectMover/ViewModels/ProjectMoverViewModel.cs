@@ -11,6 +11,7 @@ using System.Windows.Threading;
 using Microsoft.Build.Construction;
 using Microsoft.VisualStudio.Shell;
 using Tooling.Shared;
+using Tooling.Shared.Resources;
 using Tooling.Utility;
 
 namespace Tooling.Features.ProjectMover.ViewModels
@@ -48,21 +49,10 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			get => _solutionPath;
 			set => SetValue(ref _solutionPath, value, nameof(SolutionPath));
 		}
-
-		private bool _canMoveProjectsExecute;
-
+		
 		public bool CanMoveProjectsExecute
 		{
-			get => _canMoveProjectsExecute;
-			set => SetValue(ref _canMoveProjectsExecute, value, nameof(CanMoveProjectsExecute));
-		}
-
-		private bool _isSynchedWithSolution;
-
-		public bool IsSynchedWithSolution
-		{
-			get => _isSynchedWithSolution;
-			set => SetValue(ref _isSynchedWithSolution, value, nameof(IsSynchedWithSolution));
+			get => IsSolutionFileConsistentWithRuntimeProjects() && Projects.Any(d => d.IsSelectedForMovement);
 		}
 
 		private ICommand _moveProjectsCommand;
@@ -87,6 +77,14 @@ namespace Tooling.Features.ProjectMover.ViewModels
 		{
 			get => _saveAllChangesCommand;
 			set => SetValue(ref _saveAllChangesCommand, value, nameof(SaveAllChangesCommand));
+		}
+
+		private bool _displayError;
+
+		public bool DisplayError
+		{
+			get => _displayError;
+			set => SetValue(ref _displayError, value, nameof(DisplayError));
 		}
 
 		public ProjectMoverViewModel()
@@ -126,9 +124,11 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
 			var solution = PackageHelper.GetDTE().Solution;
-			solution.SaveAs(solution.FullName);
-
-			_whenReloadSuggested.OnNext("User saved all files");
+			if (!string.IsNullOrEmpty(solution.FullName))
+			{
+				solution.SaveAs(solution.FullName);
+				_whenReloadSuggested.OnNext("User saved all files");
+			}
 		}
 
 		private FileSystemWatcher _solutionFileSystemWatcher;
@@ -136,15 +136,14 @@ namespace Tooling.Features.ProjectMover.ViewModels
 		{
 			try
 			{
-				CanMoveProjectsExecute = false;
-				IsSynchedWithSolution = true;
+				SolutionPath = solutionPath;
+
+				UpdateFeedback();
 
 				_solutionFileSystemWatcher?.Dispose();
 
 				if (string.IsNullOrEmpty(solutionPath))
 					return;
-
-				SolutionPath = solutionPath;
 
 				_disposables.Add(_solutionFileSystemWatcher = new FileSystemWatcher(Path.GetDirectoryName(solutionPath), "*.sln"));
 
@@ -157,8 +156,7 @@ namespace Tooling.Features.ProjectMover.ViewModels
 				_disposables.Add(fromEventPattern
 					.Where(d => d.EventArgs.FullPath.Equals(solutionPath))
 					.Subscribe(pattern => _whenReloadSuggested.OnNext("Solution file changed")));
-
-
+				
 				_whenReloadSuggested.OnNext("Solution has changed");
 			}
 			catch (Exception e)
@@ -173,19 +171,21 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			{
 				casted.IsSelectedForMovement = casted.IsSelectedForMovement;
 			}
+
+			UpdateFeedback();
 		}
 
 		private void MoveProjectsExecute(object obj)
 		{
 			if (MessageBox.Show(
 				    "Avoid using this tool for existing projects where there are multiple inter-project references. This is currently not supported. Proceed?",
-				    "Warning",
+				    Translations.caption_Warning,
 				    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 			{
 				using (var dialog = new FolderBrowserDialog())
 				{
 					dialog.ShowNewFolderButton = false;
-					dialog.Description = "Select a target directory";
+					dialog.Description = Translations.SelectTargetDirectory;
 					dialog.SelectedPath = Path.GetDirectoryName(SolutionPath);
 					if (dialog.ShowDialog() == DialogResult.OK)
 					{
@@ -198,16 +198,13 @@ namespace Tooling.Features.ProjectMover.ViewModels
 		private void OnReloadSuggested(string updateReason)
 		{
 			Reload(updateReason);
+			this.OnPropertyChanged(nameof(CanMoveProjectsExecute));
 		}
 
 		private void Reload(string updateReason)
 		{
 			LoggerHelper.Log($"Reload reason: {updateReason}.");
-
-			CanMoveProjectsExecute = false;
-			IsSynchedWithSolution = true;
-
-			LoggerHelper.Log($"Reloading projects for {nameof(ProjectMoverViewModel)}.");
+			
 			Projects.Clear();
 			
 			if (!string.IsNullOrEmpty(SolutionPath))
@@ -222,30 +219,38 @@ namespace Tooling.Features.ProjectMover.ViewModels
 					_disposables.Add(projectItem.WhenPropertyChanged.Subscribe(d => UpdateFeedback()));
 					Projects.Add(projectItem);
 				}
-
-				UpdateFeedback();
 			}
+
+			UpdateFeedback();
 		}
 
 		private void UpdateFeedback()
 		{
-			var isConsistent = IsSolutionFileConsistentWithRuntimeProjects(SolutionFile.Parse(SolutionPath));
-			CanMoveProjectsExecute = isConsistent && Projects.Count(d => d.IsSelectedForMovement) > 0;
-			IsSynchedWithSolution = isConsistent || string.IsNullOrEmpty(SolutionPath);
+			if (string.IsNullOrEmpty(SolutionPath))
+			{
+				FeedbackText = "No project loaded";
+				return;
+			}
+			
+			DisplayError = !CanMoveProjectsExecute && Projects.Any(d => d.IsSelectedForMovement);
 
 			var selected = Projects.Count(d => d.IsSelectedForMovement);
 			if (selected == 0)
 			{
-				FeedbackText = $"Select the projects you want to move";
+				FeedbackText = Translations.SelectProjectsForMoveAction;
 			}
 			else
 			{
-				FeedbackText = $"{selected} projects selected for movement.";
+				FeedbackText = string.Format(Translations.MoveActionSelectedProject_0, selected);
 			}
 		}
 
-		private bool IsSolutionFileConsistentWithRuntimeProjects(SolutionFile solutionFile)
+		private bool IsSolutionFileConsistentWithRuntimeProjects()
 		{
+			if (string.IsNullOrEmpty(SolutionPath))
+				return true;
+
+			var solutionFile = SolutionFile.Parse(SolutionPath);
 			var allProjects = SolutionHelper.GetProjectsRecursive();
 			var solutionFileProjects = solutionFile.ProjectsInOrder.Where(d => d.ProjectType != SolutionProjectType.SolutionFolder).Select(d => d.AbsolutePath.ToUpperInvariant()).ToHashSet();
 			var vsRuntimeProjects = allProjects.Select(d => d.FullName.ToUpperInvariant()).ToHashSet();

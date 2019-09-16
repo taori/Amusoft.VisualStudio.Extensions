@@ -18,8 +18,12 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
 		<Groups>
-			<Group guid="guidToolingPackageCmdSet" id="TopGroup" priority="0x0600">
+			<Group guid="guidToolingPackageCmdSet" id="MainGroup" priority="0x0600">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+			</Group>
+
+			<Group guid="guidToolingPackageCmdSet" id="TopGroup" priority="0x0601">
+				<Parent guid="guidToolingPackageCmdSet" id="MainMenu" />
 			</Group>
 
 			<Group guid="guidToolingPackageCmdSet" id="TopWindowsGroup" priority="0x0601">
@@ -28,15 +32,14 @@
 		</Groups>
 
 		<Menus>
-			<Menu guid="guidToolingPackageCmdSet" id="TopMenu" priority="0x0602" type="Menu">
-				<Parent guid="guidToolingPackageCmdSet" id="TopGroup"/>
+			<Menu guid="guidToolingPackageCmdSet" id="MainMenu" priority="0x0700" type="Menu">
+				<Parent guid="guidToolingPackageCmdSet" id="MainGroup"/>
 				<Strings>
 					<ButtonText>Amusoft Tools</ButtonText>
 				</Strings>
 			</Menu>
-
-			<Menu guid="guidToolingPackageCmdSet" id="TopWindowsMenu" priority="0x0603" type="Menu">
-				<Parent guid="guidToolingPackageCmdSet" id="TopWindowsGroup"/>
+			<Menu guid="guidToolingPackageCmdSet" id="TopMenu" priority="0x0701" type="Menu">
+				<Parent guid="guidToolingPackageCmdSet" id="TopGroup"/>
 				<Strings>
 					<ButtonText>Windows</ButtonText>
 				</Strings>
@@ -47,16 +50,6 @@
 		<!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
 		<Buttons>
-
-			<!-- <Button guid="guidToolingPackageCmdSet" id="cmdidOpenProjectMoverCommand" priority="0x0100" type="Button"> -->
-			<!-- 	<Parent guid="guidToolingPackageCmdSet" id="TopGroup" /> -->
-			<!-- 	<Icon guid="ImageCatalogGuid" id="SwitchFolders" /> -->
-			<!-- 	<CommandFlag>TextChanges</CommandFlag> -->
-			<!-- 	<CommandFlag>IconIsMoniker</CommandFlag> -->
-			<!-- 	<Strings> -->
-			<!-- 		<ButtonText>Open Project moving utility</ButtonText> -->
-			<!-- 	</Strings> -->
-			<!-- </Button> -->
 
 			<Button guid="guidToolingPackageCmdSet" id="cmdidOpenProjectMoverCommand" priority="0x0120" type="Button">
 				<Parent guid="guidToolingPackageCmdSet" id="TopWindowsGroup" />
@@ -87,10 +80,14 @@
 
 		<!-- This is the guid used to group the menu commands together -->
 		<GuidSymbol name="guidToolingPackageCmdSet" value="{b06e81b0-3ef8-4c81-b260-412cd82b7366}">
-			<IDSymbol name="TopGroup" value="0x1020" />
-			<IDSymbol name="TopWindowsGroup" value="0x1040" />
-			<IDSymbol name="TopMenu" value="0x1060" />
-			<IDSymbol name="TopWindowsMenu" value="0x1080" />
+			<IDSymbol name="MainGroup" value="0x2001" />
+			<IDSymbol name="TopGroup" value="0x2002" />
+			<IDSymbol name="TopWindowsGroup" value="0x2003" />
+
+			<IDSymbol name="MainMenu" value="0x3001" />
+			<IDSymbol name="TopMenu" value="0x3002" />
+			<IDSymbol name="TopWindowsMenu" value="0x3003" />
+
 			<IDSymbol name="cmdidOpenProjectMoverCommand" value="4129" />
 		</GuidSymbol>
 

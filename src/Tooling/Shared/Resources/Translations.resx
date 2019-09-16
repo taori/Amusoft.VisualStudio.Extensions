@@ -117,10 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btn_MoveProject" xml:space="preserve">
+    <value>Move projects</value>
+  </data>
+  <data name="caption_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
   <data name="CommandLabelOpenProjectMover" xml:space="preserve">
     <value>Open project mover utility</value>
   </data>
+  <data name="err_MoverSyncWarning" xml:space="preserve">
+    <value>The solution must be </value>
+  </data>
+  <data name="err_MoverSyncWarningLinkText" xml:space="preserve">
+    <value>saved.</value>
+  </data>
   <data name="MenuGroupLabel" xml:space="preserve">
     <value>Amusoft</value>
+  </data>
+  <data name="MoveActionSelectedProject_0" xml:space="preserve">
+    <value>{0} projects selected for movement.</value>
+  </data>
+  <data name="ProjectMoverToolWindowTitle" xml:space="preserve">
+    <value>Project folder hierarchy tool</value>
+  </data>
+  <data name="SelectProjectsForMoveAction" xml:space="preserve">
+    <value>Select the projects you want to move</value>
+  </data>
+  <data name="SelectTargetDirectory" xml:space="preserve">
+    <value>Select the target directory</value>
   </data>
 </root>
