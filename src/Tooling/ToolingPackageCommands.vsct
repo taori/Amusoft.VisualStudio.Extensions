@@ -35,13 +35,13 @@
 			<Menu guid="guidToolingPackageCmdSet" id="MainMenu" priority="0x0700" type="Menu">
 				<Parent guid="guidToolingPackageCmdSet" id="MainGroup"/>
 				<Strings>
-					<ButtonText>Amusoft Tools</ButtonText>
+					<ButtonText>Amusoft</ButtonText>
 				</Strings>
 			</Menu>
 			<Menu guid="guidToolingPackageCmdSet" id="TopMenu" priority="0x0701" type="Menu">
 				<Parent guid="guidToolingPackageCmdSet" id="TopGroup"/>
 				<Strings>
-					<ButtonText>Windows</ButtonText>
+					<ButtonText>Tools</ButtonText>
 				</Strings>
 			</Menu>
 		</Menus>
