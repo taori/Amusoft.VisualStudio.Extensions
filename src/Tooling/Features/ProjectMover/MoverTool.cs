@@ -108,8 +108,6 @@ namespace Tooling.Features.ProjectMover
 						referenceHistory.After.AbsolutePath = futureReference.After.AbsolutePath;
 						referenceHistory.After.RelativePath = new PathMapper(currentProject.After.AbsolutePath).GetRelativePath(futureReference.After.AbsolutePath);
 					}
-						
-
 
 					historyInformations.Add(referenceHistory);
 				}
