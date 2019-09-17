@@ -14,8 +14,16 @@ namespace Tooling.Features.ProjectMover.Processors
 			if (streamReader == null)
 				throw new ArgumentNullException(nameof(streamReader));
 
-			var items = new List<ProjectReference>();
 			var content = await streamReader.ReadToEndAsync();
+
+			return Process(content);
+		}
+		public List<ProjectReference> Process(string content)
+		{
+			if (content == null)
+				throw new ArgumentNullException(nameof(content));
+
+			var items = new List<ProjectReference>();
 			AddFromContent(items, content);
 
 			return items;

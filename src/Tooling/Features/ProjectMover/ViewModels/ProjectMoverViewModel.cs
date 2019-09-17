@@ -196,8 +196,8 @@ namespace Tooling.Features.ProjectMover.ViewModels
 				{
 					try
 					{
-						var moverTool = new MoverTool2();
-						await moverTool.MoveAsync(Projects.Where(d => d.IsSelectedForMovement).Select(d => d.Project.AbsolutePath), SolutionPath, dialog.SelectedPath);
+						var moverTool = new MoverTool2(Projects.Where(d => d.IsSelectedForMovement).Select(d => d.Project.AbsolutePath), SolutionPath, dialog.SelectedPath);
+						await moverTool.MoveAsync();
 					}
 					catch (Exception e)
 					{

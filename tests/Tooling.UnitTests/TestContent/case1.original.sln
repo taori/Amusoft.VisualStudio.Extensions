@@ -7,32 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt1.EntityFramework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt1.Entities", "EF.Attempt1\EF.Attempt1.Entities\EF.Attempt1.Entities.csproj", "{C5AB4CF4-914F-4122-9D0F-1740C2AE2963}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt2.EntityFramework", "EF.Attempt2\EF.Attempt2.EntityFramework\EF.Attempt2.EntityFramework.csproj", "{5D6923AA-4E65-404A-9711-8187ED1DA70B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt2.Entities", "EF.Attempt2\EF.Attempt2.Entities\EF.Attempt2.Entities.csproj", "{88587B21-16D6-42F6-816B-E16088F82BA2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt3.EntityFramework", "EF.Attempt3\EF.Attempt3.EntityFramework\EF.Attempt3.EntityFramework.csproj", "{102EAF8E-B8CA-4C92-B056-24A65F739357}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt3.Entities", "EF.Attempt3\EF.Attempt3.Entities\EF.Attempt3.Entities.csproj", "{BB4250D7-757E-4420-A679-28856E489958}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{0DE18758-04F4-4D28-95BA-F031223E98EA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt4.EntityFramework", "EF.Attempt4\EF.Attempt4.EntityFramework\EF.Attempt4.EntityFramework.csproj", "{3C1A96DE-A03A-450E-A68B-655BE6B1AF52}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt4.Entities", "EF.Attempt4\EF.Attempt4.Entities\EF.Attempt4.Entities.csproj", "{C08C7661-613F-46EB-8FD6-DAF15C0CFCB3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt5.EntityFramework", "EF.Attempt5\EF.Attempt5.EntityFramework\EF.Attempt5.EntityFramework.csproj", "{8E1868B0-42D6-44F2-9C61-D9E91E1404E2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt5.Entities", "EF.Attempt5\EF.Attempt5.Entities\EF.Attempt5.Entities.csproj", "{C7F37F3C-A9E3-4C07-9BF1-8E9E38303505}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VS.VSIXProject", "VS.VSIXProject\VS.VSIXProject.csproj", "{0466DFB6-BBC0-405F-B25B-78BC241F5C6B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VS.VsixAnalyzer", "VS.VsixAnalyzer\VS.VsixAnalyzer\VS.VsixAnalyzer.csproj", "{C3CE3939-9DF4-494D-A18C-26D7B12AF5F5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VS.VsixAnalyzer.Test", "VS.VsixAnalyzer\VS.VsixAnalyzer.Test\VS.VsixAnalyzer.Test.csproj", "{0D5C89D3-3713-4EF5-A301-B9C1BDCCE7CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VS.VsixAnalyzer.Vsix", "VS.VsixAnalyzer\VS.VsixAnalyzer.Vsix\VS.VsixAnalyzer.Vsix.csproj", "{86AEA71D-F3AD-4E8C-AEF3-162A1F38E59C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

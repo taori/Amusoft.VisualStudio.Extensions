@@ -9,15 +9,23 @@ namespace Tooling.Features.ProjectMover.Processors
 {
 	public class SolutionFileProcessor
 	{
+		public List<SolutionReference> Process(string content)
+		{
+			if (content == null)
+				throw new ArgumentNullException(nameof(content));
+
+			var items = new List<SolutionReference>();
+			AddFromContent(items, content);
+			return items;
+		}
+
 		public async Task<List<SolutionReference>> ProcessAsync(StreamReader streamReader)
 		{
 			if (streamReader == null)
 				throw new ArgumentNullException(nameof(streamReader));
 
-			var items = new List<SolutionReference>();
 			var content = await streamReader.ReadToEndAsync();
-			AddFromContent(items, content);
-			return items;
+			return Process(content);
 		}
 
 		private readonly Regex _linkReferencesExpression = new Regex("\"(?<name>[^\"]+)(?:\",\\s?)\"(?<relativePath>[^\"]+\\.(?:cs|vb)proj)\"");
