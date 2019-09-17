@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Build.Construction;
+using Microsoft.Build.Evaluation;
 using Microsoft.VisualStudio.Shell;
 using Tooling.Features.ProjectMover.Mapping;
 using Tooling.Features.ProjectMover.Processors;
 using Tooling.Features.ProjectMover.Utility;
 using Tooling.Shared.Resources;
+using Tooling.Utility;
 using Task = System.Threading.Tasks.Task;
 
 namespace Tooling.Features.ProjectMover
@@ -103,6 +105,7 @@ namespace Tooling.Features.ProjectMover
 
 				var content = new StringBuilder(File.ReadAllText(relatedPath));
 				var projectMapper = new PathMapper(relatedPath);
+				
 				foreach (var containedReference in containedReferences)
 				{
 					var absoluteReference = projectMapper.GetAbsolutePath(containedReference.RelativePath);
