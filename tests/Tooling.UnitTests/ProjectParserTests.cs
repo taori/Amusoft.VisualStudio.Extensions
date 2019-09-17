@@ -12,8 +12,8 @@ namespace Tooling.UnitTests
 		public async Task Verify()
 		{
 			var processor = new ProjectFileProcessor();
-			var entitiesReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("case1.entities.original.csproj"));
-			var efReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("case1.ef.original.csproj"));
+			var entitiesReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.entities.csproj"));
+			var efReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.ef.csproj"));
 
 			entitiesReferences.Count.ShouldBe(0);
 

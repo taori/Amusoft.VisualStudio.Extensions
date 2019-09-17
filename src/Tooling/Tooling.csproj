@@ -49,15 +49,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Features\ProjectMover\MoverTool2.cs" />
-    <Compile Include="Features\ProjectMover\MoverToolContext.cs" />
+    <Compile Include="Dependencies\DefaultFileSystem.cs" />
+    <Compile Include="Features\ProjectMover\MoverTool.cs" />
     <Compile Include="Features\ProjectMover\Utility\AbsolutePathReferenceMap.cs" />
     <Compile Include="Features\ProjectMover\Mapping\PathMapper.cs" />
-    <Compile Include="Features\ProjectMover\MoverTool.cs" />
     <Compile Include="Features\ProjectMover\Processors\ProjectFileProcessor.cs" />
     <Compile Include="Features\ProjectMover\Processors\ProjectReference.cs" />
     <Compile Include="Features\ProjectMover\Processors\SolutionFileProcessor.cs" />
     <Compile Include="Features\ProjectMover\Processors\SolutionReference.cs" />
+    <Compile Include="Features\ProjectMover\Utility\HistoryInformation.cs" />
+    <Compile Include="Features\ProjectMover\Utility\MigrationInformation.cs" />
+    <Compile Include="Features\ProjectMover\Utility\MoverToolContext.cs" />
+    <Compile Include="Features\ProjectMover\Utility\MoverToolOptions.cs" />
     <Compile Include="Features\ProjectMover\ViewModels\ProjectMoverItemViewModel.cs" />
     <Compile Include="Features\ProjectMover\ViewModels\ProjectMoverViewModel.cs" />
     <Compile Include="Shared\Converters\CustomStringToVisibilityConverter.cs" />
@@ -76,6 +79,7 @@
       <DependentUpon>ToolingPackageCommands.vsct</DependentUpon>
     </Compile>
     <Compile Include="Utility\EventDelegator.cs" />
+    <Compile Include="Utility\IFileSystem.cs" />
     <Compile Include="Utility\LoggerHelper.cs" />
     <Compile Include="Utility\PackageHelper.cs" />
     <Compile Include="Utility\RelayCommand.cs" />

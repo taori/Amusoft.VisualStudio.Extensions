@@ -7,15 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="TestContent\case1.ef.original.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestContent\case1.entities.original.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TestContent\case1.original.sln" />
+    <EmbeddedResource Include="TestContent\MoveTests\Before\ef.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\Before\entities.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\Before\solution.sln" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveNonDependency\ef.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveNonDependency\entities.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveNonDependency\solution.sln" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveDependency\ef.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveDependency\entities.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveDependency\solution.sln" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\ef.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\entities.csproj" />
+    <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\solution.sln" />
   </ItemGroup>
 
   <ItemGroup>

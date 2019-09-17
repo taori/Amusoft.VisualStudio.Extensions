@@ -13,7 +13,7 @@ namespace Tooling.UnitTests
 		public async Task Case1Integrity()
 		{
 			var processor = new SolutionFileProcessor();
-			var references = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("case1.original.sln"));
+			var references = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.solution.sln"));
 
 			references.Count.ShouldBe(2);
 
