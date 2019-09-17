@@ -5,11 +5,14 @@ using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
+using EnvDTE80;
 using Microsoft.Build.Construction;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Threading;
 using Tooling.Shared;
 using Tooling.Shared.Resources;
 using Tooling.Utility;
@@ -52,7 +55,14 @@ namespace Tooling.Features.ProjectMover.ViewModels
 		
 		public bool CanMoveProjectsExecute
 		{
-			get => IsSolutionFileConsistentWithRuntimeProjects() && Projects.Any(d => d.IsSelectedForMovement);
+			get
+			{
+				if (!Projects.Any(d => d.IsSelectedForMovement))
+					return false;
+
+				var sync = ThreadHelper.JoinableTaskFactory.Run(IsSolutionFileConsistentWithRuntimeProjectsAsync);
+				return sync;
+			}
 		}
 
 		private ICommand _moveProjectsCommand;
@@ -175,21 +185,22 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			UpdateFeedback();
 		}
 
-		private void MoveProjectsExecute(object obj)
+		private async void MoveProjectsExecute(object obj)
 		{
-			if (MessageBox.Show(
-				    "Avoid using this tool for existing projects where there are multiple inter-project references. This is currently not supported. Proceed?",
-				    Translations.caption_Warning,
-				    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+			using (var dialog = new FolderBrowserDialog())
 			{
-				using (var dialog = new FolderBrowserDialog())
+				dialog.ShowNewFolderButton = false;
+				dialog.Description = Translations.SelectTargetDirectory;
+				dialog.SelectedPath = Path.GetDirectoryName(SolutionPath);
+				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					dialog.ShowNewFolderButton = false;
-					dialog.Description = Translations.SelectTargetDirectory;
-					dialog.SelectedPath = Path.GetDirectoryName(SolutionPath);
-					if (dialog.ShowDialog() == DialogResult.OK)
+					try
 					{
-						MoverTool.Move(Projects.Where(d => d.IsSelectedForMovement).Select(d => d.Project), SolutionPath);
+						await MoverTool.MoveAsync(Projects.Where(d => d.IsSelectedForMovement).Select(d => d.Project), SolutionPath, dialog.SelectedPath);
+					}
+					catch (Exception e)
+					{
+						LoggerHelper.Log(e);
 					}
 				}
 			}
@@ -213,7 +224,7 @@ namespace Tooling.Features.ProjectMover.ViewModels
 				
 				var solutionFile = SolutionFile.Parse(SolutionPath);
 
-				foreach (var project in solutionFile.ProjectsInOrder)
+				foreach (var project in solutionFile.ProjectsInOrder.Where(d => d.ProjectType != SolutionProjectType.SolutionFolder))
 				{
 					var projectItem = new ProjectMoverItemViewModel(project);
 					_disposables.Add(projectItem.WhenPropertyChanged.Subscribe(d => UpdateFeedback()));
@@ -245,10 +256,12 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			}
 		}
 
-		private bool IsSolutionFileConsistentWithRuntimeProjects()
+		private async Task<bool> IsSolutionFileConsistentWithRuntimeProjectsAsync()
 		{
 			if (string.IsNullOrEmpty(SolutionPath))
 				return true;
+
+			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
 			var solutionFile = SolutionFile.Parse(SolutionPath);
 			var allProjects = SolutionHelper.GetProjectsRecursive();

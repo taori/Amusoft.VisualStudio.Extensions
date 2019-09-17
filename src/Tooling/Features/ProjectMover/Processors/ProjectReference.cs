@@ -1,5 +1,8 @@
-﻿namespace Tooling.Features.ProjectMover.Processors
+﻿using System.Diagnostics;
+
+namespace Tooling.Features.ProjectMover.Processors
 {
+	[DebuggerDisplay("{RelativePath}")]
 	public class ProjectReference
 	{
 		/// <inheritdoc />

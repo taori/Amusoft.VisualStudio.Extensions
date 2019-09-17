@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Tooling.Features.ProjectMover.Mapping
 {
-	public class ProjectPathMapper
+	public class PathMapper
 	{
 		public Uri ReferencePath { get; set; }
 
 		/// <inheritdoc />
-		public ProjectPathMapper(string referencePath)
+		public PathMapper(string referencePath)
 		{
 			if (referencePath == null)
 				throw new ArgumentNullException(nameof(referencePath));
@@ -54,6 +54,13 @@ namespace Tooling.Features.ProjectMover.Mapping
 			var relative = ReferencePath.MakeRelativeUri(projectAbsolute);
 
 			return relative.OriginalString.Replace('/', Path.DirectorySeparatorChar);
+		}
+
+		public string GetAbsolutePath(string relativePath)
+		{
+			var path = new Uri(relativePath, UriKind.Relative);
+			var fullUri = new Uri(ReferencePath, path);
+			return fullUri.AbsolutePath.Replace('/', Path.DirectorySeparatorChar);
 		}
 	}
 }

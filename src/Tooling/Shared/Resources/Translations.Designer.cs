@@ -70,6 +70,15 @@ namespace Tooling.Shared.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
+        /// </summary>
+        public static string caption_Question {
+            get {
+                return ResourceManager.GetString("caption_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Warning ähnelt.
         /// </summary>
         public static string caption_Warning {
@@ -129,6 +138,15 @@ namespace Tooling.Shared.Resources {
         public static string ProjectMoverToolWindowTitle {
             get {
                 return ResourceManager.GetString("ProjectMoverToolWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Do you want to remove empty folders in the target location? ähnelt.
+        /// </summary>
+        public static string question_ClearTargetFolderOfEmptyFolders {
+            get {
+                return ResourceManager.GetString("question_ClearTargetFolderOfEmptyFolders", resourceCulture);
             }
         }
         

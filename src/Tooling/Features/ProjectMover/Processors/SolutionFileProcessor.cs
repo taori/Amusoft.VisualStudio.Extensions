@@ -20,7 +20,7 @@ namespace Tooling.Features.ProjectMover.Processors
 			return items;
 		}
 
-		private readonly Regex _linkReferencesExpression = new Regex("\"(?<name>[^\"]+)(?:\",\\s?)\"(?<relativePath>[^\"]+)\"");
+		private readonly Regex _linkReferencesExpression = new Regex("\"(?<name>[^\"]+)(?:\",\\s?)\"(?<relativePath>[^\"]+\\.(?:cs|vb)proj)\"");
 
 		private void AddFromContent(List<SolutionReference> items, string content)
 		{

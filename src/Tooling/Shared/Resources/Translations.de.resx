@@ -120,6 +120,9 @@
   <data name="btn_MoveProject" xml:space="preserve">
     <value>Projekte verschieben</value>
   </data>
+  <data name="caption_Question" xml:space="preserve">
+    <value>Frage</value>
+  </data>
   <data name="caption_Warning" xml:space="preserve">
     <value>Warnung</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="ProjectMoverToolWindowTitle" xml:space="preserve">
     <value>Projektmappen-Ordnerstrukturverwaltung</value>
+  </data>
+  <data name="question_ClearTargetFolderOfEmptyFolders" xml:space="preserve">
+    <value>Wollen Sie leere Ordner im Zielverzeichnis löschen?</value>
   </data>
   <data name="SelectProjectsForMoveAction" xml:space="preserve">
     <value>Es müssen Projekte zum verschieben ausgewählt werden.</value>

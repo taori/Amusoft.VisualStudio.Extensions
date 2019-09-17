@@ -19,14 +19,14 @@ namespace Tooling.Features.ProjectMover.Processors
 				if (x.GetType() != y.GetType())
 					return false;
 
-				return x.Name == y.Name && x.RelativeName == y.RelativeName;
+				return x.Name == y.Name && x.RelativePath == y.RelativePath;
 			}
 
 			public int GetHashCode(SolutionReference obj)
 			{
 				unchecked
 				{
-					return ((obj.Name != null ? obj.Name.GetHashCode() : 0) * 397) ^ (obj.RelativeName != null ? obj.RelativeName.GetHashCode() : 0);
+					return ((obj.Name != null ? obj.Name.GetHashCode() : 0) * 397) ^ (obj.RelativePath != null ? obj.RelativePath.GetHashCode() : 0);
 				}
 			}
 		}
@@ -46,14 +46,14 @@ namespace Tooling.Features.ProjectMover.Processors
 		public static IEqualityComparer<SolutionReference> NameRelativeNameComparer { get; } = new NameRelativeNameEqualityComparer();
 
 		/// <inheritdoc />
-		public SolutionReference(string name, string relativeName)
+		public SolutionReference(string name, string relativePath)
 		{
 			Name = name;
-			RelativeName = relativeName;
+			RelativePath = relativePath;
 		}
 
 		public string Name { get; set; }
 
-		public string RelativeName { get; set; }
+		public string RelativePath { get; set; }
 	}
 }

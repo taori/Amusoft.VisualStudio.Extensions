@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt3.EntityFramework
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt3.Entities", "EF.Attempt3\EF.Attempt3.Entities\EF.Attempt3.Entities.csproj", "{BB4250D7-757E-4420-A679-28856E489958}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "framework", "framework", "{0DE18758-04F4-4D28-95BA-F031223E98EA}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt4.EntityFramework", "EF.Attempt4\EF.Attempt4.EntityFramework\EF.Attempt4.EntityFramework.csproj", "{3C1A96DE-A03A-450E-A68B-655BE6B1AF52}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF.Attempt4.Entities", "EF.Attempt4\EF.Attempt4.Entities\EF.Attempt4.Entities.csproj", "{C08C7661-613F-46EB-8FD6-DAF15C0CFCB3}"
