@@ -18,9 +18,46 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Tooling.Features.ProjectMover
 {
+	public interface IFileSystem
+	{
+		Task<bool> WriteAsync(string path, string content);
+		Task<string> ReadAsync(string path);
+	}
+
+	public class DefaultFileSystem : IFileSystem
+	{
+		/// <inheritdoc />
+		public async Task<bool> WriteAsync(string path, string content)
+		{
+			try
+			{
+				using (var writer = new StreamWriter(path, false))
+				{
+					await writer.WriteAsync(content).ConfigureAwait(false);
+				}
+
+				return true;
+			}
+			catch (Exception e)
+			{
+				LoggerHelper.Log(e);
+				return false;
+			}
+		}
+
+		/// <inheritdoc />
+		public async Task<string> ReadAsync(string path)
+		{
+			using (var streamReader = new StreamReader(path))
+			{
+				return await streamReader.ReadToEndAsync().ConfigureAwait(false);
+			}
+		}
+	}
+
 	public static class MoverTool
 	{
-		public static async Task MoveAsync(IEnumerable<ProjectInSolution> projects, string solutionPath, string targetPath)
+		public static async Task MoveAsync(IEnumerable<string> projects, string solutionPath, string targetPath)
 		{
 			var context = BuildContext(projects, solutionPath, targetPath);
 			await CollectInformationAsync(context);
@@ -79,7 +116,7 @@ namespace Tooling.Features.ProjectMover
 			{
 				var absolutePath = pathMapper.GetAbsolutePath(reference.RelativePath);
 				if (context.PathSuggestions.TryGetValue(absolutePath, out var suggestion) 
-				    && context.ProjectsForRewrite.Select(d => d.AbsolutePath).Any(d => string.Equals(absolutePath, d, StringComparison.OrdinalIgnoreCase)))
+				    && context.RewriteTargets.Any(d => string.Equals(absolutePath, d, StringComparison.OrdinalIgnoreCase)))
 				{
 					var newRelative = pathMapper.GetRelativePath(suggestion);
 					content.Replace(reference.RelativePath, newRelative);
@@ -130,9 +167,9 @@ namespace Tooling.Features.ProjectMover
 		private static IEnumerable<string> GetProjectRewriteCandidates(MoverToolContext context)
 		{
 			return context
-				.ProjectsForRewrite
-				.SelectMany(d => context.AbsoluteSolutionReferences.GetInversedDependencies(d.AbsolutePath))
-				.Concat(context.ProjectsForRewrite.Select(d => d.AbsolutePath))
+				.RewriteTargets
+				.SelectMany(d => context.AbsoluteSolutionReferences.GetInversedDependencies(d))
+				.Concat(context.RewriteTargets.Select(d => d))
 				.ToHashSet();
 
 		}
@@ -151,10 +188,10 @@ namespace Tooling.Features.ProjectMover
 		private static Dictionary<string, string> GetFuturePaths(MoverToolContext context)
 		{
 			var mapper = new PathMapper(context.SolutionPath);
-			return context.ProjectsForRewrite.Select(d => new
+			return context.RewriteTargets.Select(d => new
 			{
-				currentPath = d.AbsolutePath,
-				suggestedPath = mapper.GetSuggestedPath(d.AbsolutePath, context.TargetPath),
+				currentPath = d,
+				suggestedPath = mapper.GetSuggestedPath(d, context.TargetPath),
 			}).ToDictionary(d => d.currentPath, d => d.suggestedPath);
 		}
 
@@ -188,7 +225,7 @@ namespace Tooling.Features.ProjectMover
 			return map;
 		}
 
-		private static MoverToolContext BuildContext(IEnumerable<ProjectInSolution> projects, string solutionPath, string targetPath)
+		private static MoverToolContext BuildContext(IEnumerable<string> projects, string solutionPath, string targetPath)
 		{
 			var context = new MoverToolContext(projects, solutionPath, targetPath);
 			return context;

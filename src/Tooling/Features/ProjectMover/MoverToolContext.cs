@@ -7,16 +7,26 @@ namespace Tooling.Features.ProjectMover
 {
 	public class MoverToolContext
 	{
-		public MoverToolContext(IEnumerable<ProjectInSolution> projectsForRewrite, string solutionPath, string targetPath)
+		public MoverToolContext(IEnumerable<string> rewriteTargets, string solutionPath, string targetPath)
 		{
-			ProjectsForRewrite = projectsForRewrite;
+			RewriteTargets = rewriteTargets;
 			SolutionPath = solutionPath;
 			TargetPath = targetPath;
 		}
 
-		public IEnumerable<ProjectInSolution> ProjectsForRewrite { get; }
+		/// <summary>
+		/// Projects which are scheduled to be moved
+		/// </summary>
+		public IEnumerable<string> RewriteTargets { get; }
 
+		/// <summary>
+		/// Full path to solution file
+		/// </summary>
 		public string SolutionPath { get; }
+
+		/// <summary>
+		/// Selected folder for RewriteTargets
+		/// </summary>
 		public string TargetPath { get; }
 
 		public List<SolutionReference> RelativeSolutionReferences { get; set; }

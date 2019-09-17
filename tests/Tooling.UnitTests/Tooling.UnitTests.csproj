@@ -29,4 +29,8 @@
     <ProjectReference Include="..\..\src\Tooling\Tooling.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mocks\" />
+  </ItemGroup>
+
 </Project>

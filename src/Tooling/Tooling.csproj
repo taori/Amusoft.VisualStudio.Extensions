@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Features\ProjectMover\MoverTool2.cs" />
     <Compile Include="Features\ProjectMover\MoverToolContext.cs" />
     <Compile Include="Features\ProjectMover\Utility\AbsolutePathReferenceMap.cs" />
     <Compile Include="Features\ProjectMover\Mapping\PathMapper.cs" />
