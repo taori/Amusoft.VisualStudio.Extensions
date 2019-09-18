@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="ProjectTemplates.b2e02887-4fdd-4af4-935f-d85d112e432c" Version="1.2.1" Language="de-DE" Publisher="Amusoft" />
-        <DisplayName>Amusoft Project Templates</DisplayName>
-        <Description xml:space="preserve">This extension contains only project templates</Description>
+        <Identity Id="Tooling.1f0e53fa-0625-45ac-af83-68edcbdd7dd0" Version="1.0" Language="de-DE" Publisher="Andreas Müller" />
+        <DisplayName>Amusoft Tools</DisplayName>
+        <Description xml:space="preserve">This extensions contains the following features:
+project folder hierarchy manager</Description>
         <License>License.txt</License>
-        <ReleaseNotes>windows service bugfix</ReleaseNotes>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
@@ -15,12 +15,11 @@
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
     </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\MetroDILogging.zip" TargetVersion="[15.0,)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" TargetVersion="[15.0,)" d:TargetPath="ProjectTemplates\efquickstart.zip" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" TargetVersion="[15.0,)" d:TargetPath="ProjectTemplates\WindowsService.zip" />
-    </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+      <Asset Type="Microsoft.VisualStudio.ToolboxControl" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>
