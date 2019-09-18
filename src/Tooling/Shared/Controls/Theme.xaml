@@ -2,7 +2,20 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
                     xmlns:resources="clr-namespace:Tooling.Shared.Resources"
-                    xmlns:local="clr-namespace:Tooling.Shared.Controls">
+                    xmlns:local="clr-namespace:Tooling.Shared.Controls"
+                    xmlns:converters="clr-namespace:Tooling.Shared.Converters"
+                    xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0">
+
+	<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+	<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityInvertedConverter" 
+	                                              NullVisibility="Visible" 
+	                                              NotNullVisibility="Collapsed"/>
+	<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
+	                                               VisibilityIfFalse="Collapsed" 
+	                                               VisibilityIfTrue="Visible"/>
+	<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" 
+	                                               VisibilityIfFalse="Visible" 
+	                                               VisibilityIfTrue="Collapsed"/>
 
 	<Style x:Key="BottomCommandLayout" TargetType="{x:Type local:BottomCommandLayout}">
 		<Style.Setters>

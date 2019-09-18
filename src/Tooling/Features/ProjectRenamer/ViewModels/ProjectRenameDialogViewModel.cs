@@ -82,7 +82,7 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 		{
 			UpdateCommand = new RelayCommand(UpdateExecute);
 
-			_composables.Add(NewProjectName.WhenPropertyChanged
+			_composables.Add(WhenPropertyChanged
 				.Where(d => Test(d))
 				.ObserveOn(Dispatcher.CurrentDispatcher)
 				.Subscribe(OnNewNameChanged));
@@ -93,20 +93,35 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 			return d == nameof(NewProjectName);
 		}
 
-		private readonly Regex _projectNameExpression = new Regex(@"^[\w][\w\d\._]+$", RegexOptions.Compiled);
+		private readonly Regex _projectNameExpression = new Regex(@"^(?!\d)[\w\d\._]{3,}$", RegexOptions.Compiled);
 		private void OnNewNameChanged(string name)
 		{
-			if (string.IsNullOrEmpty(name))
+			var newName = _newProjectName?.Value;
+			if (string.IsNullOrEmpty(newName))
 			{
-				NewProjectName.Message = "Project name can not be empty";
+				NewProjectName.Message = "Project name can not be empty.";
 				return;
 			}
 
-			if (!_projectNameExpression.IsMatch(name))
+			if (new Regex(@"^\d").IsMatch(newName))
+			{
+				NewProjectName.Message = $"The name cannot start with a number.";
+				return;
+			}
+
+			if (newName.Length < 3)
+			{
+				NewProjectName.Message = $"The new name is too short.";
+				return;
+			}
+
+			if (!_projectNameExpression.IsMatch(newName))
 			{
 				NewProjectName.Message = $"The name can only cantain alphanumeric characters, dots and underscore.";
 				return;
 			}
+
+			NewProjectName.Message = string.Empty;
 				
 			OnPropertyChanged(nameof(NewProjectPath));
 		}

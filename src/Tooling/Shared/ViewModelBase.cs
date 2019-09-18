@@ -23,9 +23,25 @@ namespace Tooling.Shared
 			if (EqualityComparer<T>.Default.Equals(field, value))
 				return false;
 
+			if (field != null && field is INotifyPropertyChanged unsub)
+			{
+				unsub.PropertyChanged -= ValuePropertyChanged(propertyName);
+			}
+
 			field = value;
+
+			if (field != null && field is INotifyPropertyChanged sub)
+			{
+				sub.PropertyChanged += ValuePropertyChanged(propertyName);
+			}
+
 			OnPropertyChanged(propertyName);
 			return true;
+		}
+
+		private PropertyChangedEventHandler ValuePropertyChanged(string propertyName)
+		{
+			return (sender, args) => { OnPropertyChanged(propertyName); };
 		}
 
 		private Subject<string> _whenPropertyChanged = new Subject<string>();

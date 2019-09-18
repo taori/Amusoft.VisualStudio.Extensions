@@ -16,21 +16,23 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="666.019"
              Name="MyToolWindow">
-	<UserControl.Resources>
-		<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-		<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityInvertedConverter" 
-		                                              NullVisibility="Visible" 
-		                                              NotNullVisibility="Collapsed"/>
-		<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
-		                                               VisibilityIfFalse="Collapsed" 
-		                                               VisibilityIfTrue="Visible"/>
-		<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" 
-		                                               VisibilityIfFalse="Visible" 
-		                                               VisibilityIfTrue="Collapsed"/>
-	</UserControl.Resources>
 	<UserControl.DataContext>
 		<viewModels:ProjectMoverViewModel></viewModels:ProjectMoverViewModel>
 	</UserControl.DataContext>
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+			<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityInvertedConverter" 
+			                                              NullVisibility="Visible" 
+			                                              NotNullVisibility="Collapsed"/>
+			<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
+			                                               VisibilityIfFalse="Collapsed" 
+			                                               VisibilityIfTrue="Visible"/>
+			<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" 
+			                                               VisibilityIfFalse="Visible" 
+			                                               VisibilityIfTrue="Collapsed"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
 	<DockPanel Visibility="{Binding Path=SolutionPath, Converter={StaticResource StringToVisibilityConverter}}">
 		<TextBlock DockPanel.Dock="Top"
 				   Margin="8"

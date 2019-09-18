@@ -7,8 +7,24 @@
              xmlns:controls="clr-namespace:Tooling.Shared.Controls"
              xmlns:viewModels="clr-namespace:Tooling.Features.ProjectRenamer.ViewModels"
              xmlns:resources="clr-namespace:Tooling.Shared.Resources"
+             xmlns:converters="clr-namespace:Tooling.Shared.Converters"
+             xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
              mc:Ignorable="d" d:DataContext="{d:DesignInstance {x:Type viewModels:ProjectRenameDialogViewModel}}"
              d:DesignHeight="250" d:DesignWidth="300">
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+			<converters:CustomStringToVisibilityConverter x:Key="StringToVisibilityInvertedConverter" 
+			                                              NullVisibility="Visible" 
+			                                              NotNullVisibility="Collapsed"/>
+			<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverter" 
+			                                               VisibilityIfFalse="Collapsed" 
+			                                               VisibilityIfTrue="Visible"/>
+			<platformUi:BooleanToCustomVisibilityConverter x:Key="BooleanToVisibilityConverterInverted" 
+			                                               VisibilityIfFalse="Visible" 
+			                                               VisibilityIfTrue="Collapsed"/>
+		</ResourceDictionary>
+	</UserControl.Resources>
 	<Border>
 		<controls:BottomCommandLayout>
 			<controls:BottomCommandLayout.TopArea>
@@ -19,7 +35,7 @@
 					<TextBox Text="{Binding Path=OldProjectPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
 					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_NewName}"/>
 					<TextBox Text="{Binding Path=NewProjectName.Value, UpdateSourceTrigger=PropertyChanged}"/>
-					<Label FontWeight="Bold" Content="{Binding Path=NewProjectName.Message, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Foreground="Red"/>
+					<Label FontWeight="Bold" Content="{Binding Path=NewProjectName.Message, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Foreground="Red" Visibility="{Binding Path=NewProjectName.Message, Converter={StaticResource StringToVisibilityConverter}}"/>
 					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_NewProjectPath}"/>
 					<TextBox Text="{Binding Path=NewProjectPath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
 				</StackPanel>
