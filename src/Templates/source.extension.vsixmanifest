@@ -1,11 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" ?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="ProjectTemplates.b2e02887-4fdd-4af4-935f-d85d112e432c" Version="1.2.1" Language="de-DE" Publisher="Amusoft" />
-        <DisplayName>Amusoft Project Templates</DisplayName>
+        <Identity Id="ProjectTemplates.b2e02887-4fdd-4af4-935f-d85d112e432c" Version="1.2.2" Language="en-US" Publisher="Andreas Müller" />
+        <DisplayName>Amusoft Templates</DisplayName>
         <Description xml:space="preserve">This extension contains only project templates</Description>
         <License>License.txt</License>
-        <ReleaseNotes>windows service bugfix</ReleaseNotes>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />
@@ -15,12 +14,13 @@
     <Dependencies>
         <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
     </Dependencies>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\MetroDILogging.zip" TargetVersion="[15.0,)" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" TargetVersion="[15.0,)" d:TargetPath="ProjectTemplates\efquickstart.zip" />
-        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" TargetVersion="[15.0,)" d:TargetPath="ProjectTemplates\WindowsService.zip" />
-    </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\efquickstart.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\MetroDILogging.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\WindowsService.zip" />
+    </Assets>
 </PackageManifest>
