@@ -7,5 +7,7 @@ namespace Tooling.Utility
 		Task<bool> WriteAsync(string path, string content);
 		Task<string> ReadAsync(string path);
 		void MoveDirectory(string source, string target);
+		void MoveFile(string source, string target);
+		bool Exists(string combine);
 	}
 }

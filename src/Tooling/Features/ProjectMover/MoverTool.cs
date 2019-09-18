@@ -40,6 +40,16 @@ namespace Tooling.Features.ProjectMover
 					var source = Path.GetDirectoryName(projectReference.Before.AbsolutePath);
 					var target = Path.GetDirectoryName(projectReference.After.AbsolutePath);
 					Context.Options.FileSystem.MoveDirectory(source, target);
+
+					if (!string.Equals(projectReference.Before.AbsolutePath, projectReference.After.AbsolutePath, StringComparison.OrdinalIgnoreCase))
+					{
+						var directoryName = Path.GetDirectoryName(projectReference.After.AbsolutePath);
+						var currentFileName = Path.GetFileName(projectReference.Before.AbsolutePath);
+						var futureFileName = Path.GetFileName(projectReference.After.AbsolutePath);
+
+						if (Context.Options.FileSystem.Exists(Path.Combine(directoryName, currentFileName)))
+							Context.Options.FileSystem.MoveFile(Path.Combine(directoryName, currentFileName), Path.Combine(directoryName, futureFileName));
+					}
 				}
 			}
 		}
@@ -53,6 +63,12 @@ namespace Tooling.Features.ProjectMover
 				if (projectReference.Before.AbsolutePath != projectReference.After.AbsolutePath)
 				{
 					solutionContent.Replace(projectReference.Before.RelativePath, projectReference.After.RelativePath);
+					if (!string.Equals(Path.GetFileName(projectReference.Before.RelativePath), Path.GetFileName(projectReference.After.RelativePath), StringComparison.OrdinalIgnoreCase))
+					{
+						solutionContent.Replace(
+							Path.GetFileNameWithoutExtension(projectReference.Before.RelativePath), 
+							Path.GetFileNameWithoutExtension(projectReference.After.RelativePath));
+					}
 				}
 			}
 
@@ -130,17 +146,23 @@ namespace Tooling.Features.ProjectMover
 				if (Context.Projects.Contains(solutionHistory.Before.AbsolutePath))
 				{
 					// reference will be moved
-					solutionHistory.After.AbsolutePath = solutionPathMapper.GetSuggestedPath(solutionHistory.Before.AbsolutePath, Context.DestinationPath);
-					solutionHistory.After.RelativePath = solutionPathMapper.GetRelativePath(solutionHistory.After.AbsolutePath);
+					solutionHistory.After.AbsolutePath = Context.Options.ProjectPathTransformer.AbsolutePath(solutionPathMapper.GetSuggestedPath(solutionHistory.Before.AbsolutePath, Context.DestinationPath));
+					solutionHistory.After.RelativePath = Context.Options.ProjectPathTransformer.RelativePath(solutionPathMapper.GetRelativePath(solutionHistory.After.AbsolutePath));
 				}
 				else
 				{
-					solutionHistory.After.AbsolutePath = solutionPathMapper.GetAbsolutePath(solutionReference.RelativePath);
-					solutionHistory.After.RelativePath = solutionReference.RelativePath;
+					solutionHistory.After.AbsolutePath = Context.Options.ProjectPathTransformer.AbsolutePath(solutionPathMapper.GetAbsolutePath(solutionReference.RelativePath));
+					solutionHistory.After.RelativePath = Context.Options.ProjectPathTransformer.RelativePath(solutionReference.RelativePath);
 				}
 
 				SolutionReferences.Add(solutionHistory);
 			}
 		}
+	}
+
+	public interface IProjectPathTransformer
+	{
+		string RelativePath(string path);
+		string AbsolutePath(string path);
 	}
 }

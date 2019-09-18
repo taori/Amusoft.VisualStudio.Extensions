@@ -10,6 +10,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using EnvDTE;
+using Tooling.Dependencies;
+using Tooling.Features.ProjectMover;
+using Tooling.Features.ProjectMover.Utility;
 using Tooling.Shared;
 using Tooling.Utility;
 
@@ -32,7 +35,13 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 	{
 		private readonly CompositeDisposable _composables = new CompositeDisposable();
 
-		public Project Project { get; private set; }
+		private Project _project;
+
+		public Project Project
+		{
+			get => _project;
+			set => SetValue(ref _project, value, nameof(Project));
+		}
 
 		private string _oldProjectName;
 
@@ -48,6 +57,14 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 		{
 			get => _newProjectName;
 			set => SetValue(ref _newProjectName, value, nameof(NewProjectName));
+		}
+
+		private bool _isViewModelTerminated;
+
+		public bool IsViewModelTerminated
+		{
+			get => _isViewModelTerminated;
+			set => SetValue(ref _isViewModelTerminated, value, nameof(IsViewModelTerminated));
 		}
 
 		private string _oldProjectPath;
@@ -80,55 +97,80 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 
 		public ProjectRenameDialogViewModel()
 		{
-			UpdateCommand = new RelayCommand(UpdateExecute);
+			UpdateCommand = new RelayCommand(UpdateExecute, d => IsNameValid(_newProjectName?.Value, out _));
 
 			_composables.Add(WhenPropertyChanged
-				.Where(d => Test(d))
+				.Where(d => d == nameof(NewProjectName))
 				.ObserveOn(Dispatcher.CurrentDispatcher)
 				.Subscribe(OnNewNameChanged));
+
+			_composables.Add(WhenPropertyChanged
+				.Where(d => d == nameof(Project))
+				.ObserveOn(Dispatcher.CurrentDispatcher)
+				.Subscribe(OnProjectChanged));
 		}
 
-		private bool Test(string d)
+		private void OnProjectChanged(string obj)
 		{
-			return d == nameof(NewProjectName);
+			if (Project == null)
+				IsViewModelTerminated = true;
 		}
 
 		private readonly Regex _projectNameExpression = new Regex(@"^(?!\d)[\w\d\._]{3,}$", RegexOptions.Compiled);
 		private void OnNewNameChanged(string name)
 		{
 			var newName = _newProjectName?.Value;
-			if (string.IsNullOrEmpty(newName))
+			if (!IsNameValid(newName, out var error))
 			{
-				NewProjectName.Message = "Project name can not be empty.";
-				return;
+				NewProjectName.Message = error;
 			}
-
-			if (new Regex(@"^\d").IsMatch(newName))
+			else
 			{
-				NewProjectName.Message = $"The name cannot start with a number.";
-				return;
-			}
+				NewProjectName.Message = null;
 
-			if (newName.Length < 3)
-			{
-				NewProjectName.Message = $"The new name is too short.";
-				return;
+				OnPropertyChanged(nameof(NewProjectPath));
 			}
-
-			if (!_projectNameExpression.IsMatch(newName))
-			{
-				NewProjectName.Message = $"The name can only cantain alphanumeric characters, dots and underscore.";
-				return;
-			}
-
-			NewProjectName.Message = string.Empty;
-				
-			OnPropertyChanged(nameof(NewProjectPath));
 		}
 
-		private void UpdateExecute(object obj)
+		private bool IsNameValid(string name, out string error)
 		{
-			MessageBox.Show($"The new path is {NewProjectPath}");
+			if (string.IsNullOrEmpty(name))
+			{
+				error = "Project name can not be empty.";
+				return false;
+			}
+
+			if (new Regex(@"^\d").IsMatch(name))
+			{
+				error = $"The name cannot start with a number.";
+				return false;
+			}
+
+			if (name.Length < 3)
+			{
+				error = $"The new name is too short.";
+				return false;
+			}
+
+			if (!_projectNameExpression.IsMatch(name))
+			{
+				error = $"The name can only cantain alphanumeric characters, dots and underscore.";
+				return false;
+			}
+
+			error = null;
+			return true;
+		}
+
+		private async void UpdateExecute(object obj)
+		{
+			var targetUri = new Uri(new Uri(OldProjectPath, UriKind.Absolute), new Uri("..", UriKind.Relative))
+				.AbsolutePath.Replace('/', Path.DirectorySeparatorChar);
+			var options = new MoverToolOptions();
+			options.ProjectPathTransformer = new SingleProjectRenamer(OldProjectName, NewProjectName.Value);
+			
+			var tool = new MoverTool(new[] {OldProjectPath}, SolutionHelper.GetActiveIDE().Solution.FileName, targetUri, options);
+			await tool.MoveAsync();
 			Project = null;
 		}
 

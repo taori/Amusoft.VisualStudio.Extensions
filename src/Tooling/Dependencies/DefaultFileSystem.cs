@@ -40,5 +40,17 @@ namespace Tooling.Dependencies
 		{
 			Directory.Move(source, target);
 		}
+
+		/// <inheritdoc />
+		public void MoveFile(string source, string target)
+		{
+			File.Move(source, target);
+		}
+
+		/// <inheritdoc />
+		public bool Exists(string combine)
+		{
+			return File.Exists(combine);
+		}
 	}
 }

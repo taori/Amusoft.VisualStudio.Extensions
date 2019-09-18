@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\Before\ef.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\Before\entities.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\Before\solution.sln" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveDependency\ef.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveDependency\entities.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveDependency\solution.sln" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveNonDependency\ef.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveNonDependency\entities.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\MoveNonDependency\solution.sln" />
     <EmbeddedResource Include="TestContent\MoveTests\Before\ef.csproj" />
     <EmbeddedResource Include="TestContent\MoveTests\Before\entities.csproj" />
     <EmbeddedResource Include="TestContent\MoveTests\Before\solution.sln" />

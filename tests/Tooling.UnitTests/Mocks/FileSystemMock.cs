@@ -65,5 +65,31 @@ namespace Tooling.UnitTests.Mocks
 				}
 			}
 		}
+
+		/// <inheritdoc />
+		public void MoveFile(string source, string target)
+		{
+			if (_values.TryGetValue(source, out var value))
+			{
+				if (_values.ContainsKey(target))
+				{
+					_values[target] = value;
+				}
+				else
+				{
+					_values.Add(target, value);
+				}
+			}
+			else
+			{
+				throw new FileNotFoundException($"{source}");
+			}
+		}
+
+		/// <inheritdoc />
+		public bool Exists(string combine)
+		{
+			return _values.ContainsKey(combine);
+		}
 	}
 }

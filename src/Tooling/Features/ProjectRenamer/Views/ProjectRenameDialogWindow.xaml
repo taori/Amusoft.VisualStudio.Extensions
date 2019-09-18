@@ -25,7 +25,7 @@
 			                                               VisibilityIfTrue="Collapsed"/>
 		</ResourceDictionary>
 	</UserControl.Resources>
-	<Border>
+	<Border Visibility="{Binding Path=IsViewModelTerminated, Converter={StaticResource BooleanToVisibilityConverterInverted}}">
 		<controls:BottomCommandLayout>
 			<controls:BottomCommandLayout.TopArea>
 				<StackPanel>

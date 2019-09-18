@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Tooling.UnitTests
 {
-	public class MoverToolTests
+	public class ProjectMoverFeatureTests
 	{
 		[Fact]
 		public async Task MoveMultiple()

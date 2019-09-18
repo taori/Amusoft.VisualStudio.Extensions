@@ -50,15 +50,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Dependencies\DefaultFileSystem.cs" />
+    <Compile Include="Dependencies\SingleProjectRenamer.cs" />
     <Compile Include="Features\ProjectMover\MoverTool.cs" />
     <Compile Include="Features\ProjectMover\Utility\AbsolutePathReferenceMap.cs" />
     <Compile Include="Features\ProjectMover\Mapping\PathMapper.cs" />
+    <Compile Include="Features\ProjectMover\Utility\NoopPathTransformer.cs" />
     <Compile Include="Features\ProjectRenamer\Commands\RenameProjectCommand.cs" />
     <Compile Include="Features\ProjectRenamer\ViewModels\ProjectRenameDialogViewModel.cs" />
     <Compile Include="Features\ProjectRenamer\Views\ProjectRenameDialogWindow.xaml.cs">
       <DependentUpon>ProjectRenameDialogWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Annotations1.cs" />
     <Compile Include="Shared\AttributedValue.cs" />
     <Compile Include="Shared\Controls\BottomCommandLayout.cs" />
     <Compile Include="Shared\Helpers\ToolWindowHelper.cs" />
@@ -123,6 +124,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.200" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="16.2.3074" />
+    <PackageReference Include="ReactiveProperty">
+      <Version>6.1.2</Version>
+    </PackageReference>
     <PackageReference Include="System.Reactive">
       <Version>4.1.6</Version>
     </PackageReference>
