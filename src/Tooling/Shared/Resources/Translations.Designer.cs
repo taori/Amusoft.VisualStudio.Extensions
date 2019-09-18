@@ -88,11 +88,29 @@ namespace Tooling.Shared.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rename including folder name ähnelt.
+        /// </summary>
+        public static string cmd_RenameProjectWithFolders {
+            get {
+                return ResourceManager.GetString("cmd_RenameProjectWithFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Open project mover utility ähnelt.
         /// </summary>
         public static string CommandLabelOpenProjectMover {
             get {
                 return ResourceManager.GetString("CommandLabelOpenProjectMover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Update ähnelt.
+        /// </summary>
+        public static string common_Update {
+            get {
+                return ResourceManager.GetString("common_Update", resourceCulture);
             }
         }
         
@@ -115,6 +133,42 @@ namespace Tooling.Shared.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Current name: ähnelt.
+        /// </summary>
+        public static string lbl_CurrentName {
+            get {
+                return ResourceManager.GetString("lbl_CurrentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Current project path: ähnelt.
+        /// </summary>
+        public static string lbl_CurrentProjectPath {
+            get {
+                return ResourceManager.GetString("lbl_CurrentProjectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die New name: ähnelt.
+        /// </summary>
+        public static string lbl_NewName {
+            get {
+                return ResourceManager.GetString("lbl_NewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die New project path: ähnelt.
+        /// </summary>
+        public static string lbl_NewProjectPath {
+            get {
+                return ResourceManager.GetString("lbl_NewProjectPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Amusoft ähnelt.
         /// </summary>
         public static string MenuGroupLabel {
@@ -129,6 +183,15 @@ namespace Tooling.Shared.Resources {
         public static string MoveActionSelectedProject_0 {
             get {
                 return ResourceManager.GetString("MoveActionSelectedProject_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Please choose a valid name. ähnelt.
+        /// </summary>
+        public static string msg_PleaseChooseAValidName {
+            get {
+                return ResourceManager.GetString("msg_PleaseChooseAValidName", resourceCulture);
             }
         }
         
@@ -165,6 +228,15 @@ namespace Tooling.Shared.Resources {
         public static string SelectTargetDirectory {
             get {
                 return ResourceManager.GetString("SelectTargetDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Rename project ähnelt.
+        /// </summary>
+        public static string title_RenameProject {
+            get {
+                return ResourceManager.GetString("title_RenameProject", resourceCulture);
             }
         }
     }

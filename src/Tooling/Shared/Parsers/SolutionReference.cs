@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Tooling.Features.ProjectMover.Processors
+namespace Tooling.Shared.Parsers
 {
 	[DebuggerDisplay("{Name}")]
 	public class SolutionReference 

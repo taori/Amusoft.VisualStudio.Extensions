@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tooling.Features.ProjectMover.Mapping;
-using Tooling.Features.ProjectMover.Processors;
 using Tooling.Features.ProjectMover.Utility;
+using Tooling.Shared.Parsers;
 
 namespace Tooling.Features.ProjectMover
 {
@@ -87,7 +87,7 @@ namespace Tooling.Features.ProjectMover
 		{
 			foreach (var currentProject in SolutionReferences)
 			{
-				var projectProcessor = new ProjectFileProcessor();
+				var projectProcessor = new ProjectReferenceParser();
 				var projectReferences = projectProcessor.Process(await Context.Options.FileSystem.ReadAsync(currentProject.Before.AbsolutePath));
 				var historyInformations = new List<HistoryInformation>();
 
@@ -118,7 +118,7 @@ namespace Tooling.Features.ProjectMover
 
 		private async Task CollectSolutionInformationAsync()
 		{
-			var solutionReader = new SolutionFileProcessor();
+			var solutionReader = new SolutionReferenceParser();
 			var solutionReferences = solutionReader.Process(await Context.Options.FileSystem.ReadAsync(Context.SolutionPath));
 			foreach (var solutionReference in solutionReferences)
 			{

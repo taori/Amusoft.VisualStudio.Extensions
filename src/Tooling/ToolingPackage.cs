@@ -6,6 +6,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Tooling.Features.ProjectMover.Commands;
 using Tooling.Features.ProjectMover.Views;
+using Tooling.Features.ProjectRenamer.Views;
 using Tooling.Utility;
 using Task = System.Threading.Tasks.Task;
 
@@ -32,6 +33,7 @@ namespace Tooling
 	[Guid(ToolingPackage.PackageGuidString)]
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	[ProvideToolWindow(typeof(ProjectMoverToolWindow))]
+	[ProvideToolWindow(typeof(ProjectRenameDialogToolPane))]
 	public sealed class ToolingPackage : AsyncPackage
 	{
 		/// <summary>
@@ -68,6 +70,7 @@ namespace Tooling
 			LoggerHelper.Initialize(this, "Amusoft Tooling");
 
 		    await ProjectMoverCommand.InitializeAsync(this);
+		    await Tooling.Features.ProjectRenamer.Commands.RenameProjectCommand.InitializeAsync(this);
 		}
 
 		#endregion

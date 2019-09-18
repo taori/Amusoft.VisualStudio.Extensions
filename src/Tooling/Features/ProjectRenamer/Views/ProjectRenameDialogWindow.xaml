@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Tooling.Features.ProjectRenamer.Views.ProjectRenameDialogWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+             xmlns:controls="clr-namespace:Tooling.Shared.Controls"
+             xmlns:viewModels="clr-namespace:Tooling.Features.ProjectRenamer.ViewModels"
+             xmlns:resources="clr-namespace:Tooling.Shared.Resources"
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance {x:Type viewModels:ProjectRenameDialogViewModel}}"
+             d:DesignHeight="250" d:DesignWidth="300">
+	<Border>
+		<controls:BottomCommandLayout>
+			<controls:BottomCommandLayout.TopArea>
+				<StackPanel>
+					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_CurrentName}"/>
+					<TextBox Text="{Binding Path=OldProjectName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_CurrentProjectPath}"/>
+					<TextBox Text="{Binding Path=OldProjectPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_NewName}"/>
+					<TextBox Text="{Binding Path=NewProjectName.Value, UpdateSourceTrigger=PropertyChanged}"/>
+					<Label FontWeight="Bold" Content="{Binding Path=NewProjectName.Message, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Foreground="Red"/>
+					<Label FontWeight="Bold" Content="{x:Static resources:Translations.lbl_NewProjectPath}"/>
+					<TextBox Text="{Binding Path=NewProjectPath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+				</StackPanel>
+			</controls:BottomCommandLayout.TopArea>
+			<controls:BottomCommandLayout.CommandArea>
+				<StackPanel Orientation="Horizontal">
+					<Button 
+						Command="{Binding Path=UpdateCommand}"
+						Content="{x:Static resources:Translations.common_Update}"></Button>
+				</StackPanel>
+			</controls:BottomCommandLayout.CommandArea>
+			<controls:BottomCommandLayout.CommandLabelArea>
+				<Label Content="{x:Static resources:Translations.msg_PleaseChooseAValidName}"/>
+			</controls:BottomCommandLayout.CommandLabelArea>
+		</controls:BottomCommandLayout>
+	</Border>
+</UserControl>

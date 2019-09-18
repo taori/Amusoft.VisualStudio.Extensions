@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -11,6 +12,19 @@ namespace Tooling.Utility
 		{
 			DTE2 dte2 = Package.GetGlobalService(typeof(DTE)) as DTE2;
 			return dte2;
+		}
+
+		public static Project GetCurrentProject()
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			DTE2 dte2 = Package.GetGlobalService(typeof(DTE)) as DTE2;
+			if (dte2.ActiveSolutionProjects is Array activeSolutionProjects && activeSolutionProjects.Length > 0)
+			{
+				return activeSolutionProjects.GetValue(0) as Project;
+			}
+
+			return null;
 		}
 
 		public static IEnumerable<Project> GetProjectsRecursive()

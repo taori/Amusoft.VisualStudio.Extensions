@@ -6,8 +6,8 @@
 
 	<!--This header contains the command ids for the menus provided by the shell. -->
 	<Extern href="vsshlids.h" />
-	
-	<Include href="KnownImageIds.vsct"/>
+
+	<Include href="KnownImageIds.vsct" />
 
 	<!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
@@ -18,6 +18,10 @@
          group as the part of a menu contained between two lines. The parent of a group
          must be a menu. -->
 		<Groups>
+			<Group guid="guidToolingPackageCmdSet" id="ProjectContextMenuGroup" priority="0x0701">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+			</Group>
+
 			<Group guid="guidToolingPackageCmdSet" id="MainGroup" priority="0x0600">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
 			</Group>
@@ -33,19 +37,19 @@
 
 		<Menus>
 			<Menu guid="guidToolingPackageCmdSet" id="MainMenu" priority="0x0700" type="Menu">
-				<Parent guid="guidToolingPackageCmdSet" id="MainGroup"/>
+				<Parent guid="guidToolingPackageCmdSet" id="MainGroup" />
 				<Strings>
 					<ButtonText>Amusoft</ButtonText>
 				</Strings>
 			</Menu>
 			<Menu guid="guidToolingPackageCmdSet" id="TopMenu" priority="0x0701" type="Menu">
-				<Parent guid="guidToolingPackageCmdSet" id="TopGroup"/>
+				<Parent guid="guidToolingPackageCmdSet" id="TopGroup" />
 				<Strings>
 					<ButtonText>Tools</ButtonText>
 				</Strings>
 			</Menu>
 		</Menus>
-
+		
 		<!--Buttons section. -->
 		<!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
@@ -60,6 +64,16 @@
 					<ButtonText>Open Project moving utility</ButtonText>
 				</Strings>
 			</Button>
+
+			<Button guid="guidToolingPackageCmdSet" id="cmdidRenameProjectCommand" priority="0x0100" type="Button">
+				<Parent guid="guidToolingPackageCmdSet" id="ProjectContextMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="SwitchFolders" />
+				<CommandFlag>TextChanges</CommandFlag>
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Invoke RenameProjectCommand</ButtonText>
+				</Strings>
+			</Button>
 		</Buttons>
 
 		<!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -71,8 +85,15 @@
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
 
 			<Bitmap guid="guidImages" href="Features\ProjectMover\Resources\OpenProjectMoverCommandCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+			<Bitmap guid="guidImages" href="Features\ProjectRenamer\Resources\RenameProjectCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
 		</Bitmaps>
 	</Commands>
+
+	<!-- <CommandPlacements> -->
+	<!-- 	<CommandPlacement guid="guidToolingPackageCmdSet" id="cmdidRenameProjectCommand" priority="0x500"> -->
+	<!-- 		<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" /> -->
+	<!-- 	</CommandPlacement> -->
+	<!-- </CommandPlacements> -->
 
 	<Symbols>
 		<!-- This is the package guid. -->
@@ -80,6 +101,8 @@
 
 		<!-- This is the guid used to group the menu commands together -->
 		<GuidSymbol name="guidToolingPackageCmdSet" value="{b06e81b0-3ef8-4c81-b260-412cd82b7366}">
+			<IDSymbol name="ProjectContextMenuGroup" value="0x2000" />
+
 			<IDSymbol name="MainGroup" value="0x2001" />
 			<IDSymbol name="TopGroup" value="0x2002" />
 			<IDSymbol name="TopWindowsGroup" value="0x2003" />
@@ -89,6 +112,7 @@
 			<IDSymbol name="TopWindowsMenu" value="0x3003" />
 
 			<IDSymbol name="cmdidOpenProjectMoverCommand" value="4129" />
+			<IDSymbol name="cmdidRenameProjectCommand" value="256" />
 		</GuidSymbol>
 
 		<GuidSymbol name="guidImages" value="{dfda9d4e-d782-47e1-9565-f7d36eaf6c08}">
@@ -99,6 +123,5 @@
 			<IDSymbol name="bmpPicArrows" value="5" />
 			<IDSymbol name="bmpPicStrikethrough" value="6" />
 		</GuidSymbol>
-
 	</Symbols>
 </CommandTable>

@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Shouldly;
-using Tooling.Features.ProjectMover.Processors;
+using Tooling.Shared.Parsers;
 using Tooling.UnitTests.Utility;
 using Xunit;
 
@@ -12,8 +12,8 @@ namespace Tooling.UnitTests
 		[Fact]
 		public async Task Case1Integrity()
 		{
-			var processor = new SolutionFileProcessor();
-			var references = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.solution.sln"));
+			var processor = new SolutionReferenceParser();
+			var references = processor.Process(await EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.solution.sln").ReadToEndAsync());
 
 			references.Count.ShouldBe(2);
 

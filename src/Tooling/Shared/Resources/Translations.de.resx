@@ -126,8 +126,14 @@
   <data name="caption_Warning" xml:space="preserve">
     <value>Warnung</value>
   </data>
+  <data name="cmd_RenameProjectWithFolders" xml:space="preserve">
+    <value>Umbenennen inkl. Ordnername</value>
+  </data>
   <data name="CommandLabelOpenProjectMover" xml:space="preserve">
     <value>Projektordnerstruktur ändern</value>
+  </data>
+  <data name="common_Update" xml:space="preserve">
+    <value>Aktualisieren</value>
   </data>
   <data name="err_MoverSyncWarning" xml:space="preserve">
     <value>Die Projektmappe muss</value>
@@ -135,11 +141,26 @@
   <data name="err_MoverSyncWarningLinkText" xml:space="preserve">
     <value>gespeichert werden.</value>
   </data>
+  <data name="lbl_CurrentName" xml:space="preserve">
+    <value>Aktueller Name:</value>
+  </data>
+  <data name="lbl_CurrentProjectPath" xml:space="preserve">
+    <value>Aktueller Pfad:</value>
+  </data>
+  <data name="lbl_NewName" xml:space="preserve">
+    <value>Neuer Name:</value>
+  </data>
+  <data name="lbl_NewProjectPath" xml:space="preserve">
+    <value>Zukünftiger Pfad:</value>
+  </data>
   <data name="MenuGroupLabel" xml:space="preserve">
     <value>Amusoft</value>
   </data>
   <data name="MoveActionSelectedProject_0" xml:space="preserve">
     <value>{0} Projekte ausgewählt.</value>
+  </data>
+  <data name="msg_PleaseChooseAValidName" xml:space="preserve">
+    <value>Bitte wählen Sie einen gültigen Namen aus.</value>
   </data>
   <data name="ProjectMoverToolWindowTitle" xml:space="preserve">
     <value>Projektmappen-Ordnerstrukturverwaltung</value>
@@ -152,5 +173,8 @@
   </data>
   <data name="SelectTargetDirectory" xml:space="preserve">
     <value>Zielverzeichnis auswählen</value>
+  </data>
+  <data name="title_RenameProject" xml:space="preserve">
+    <value>Projekt umbenennen</value>
   </data>
 </root>

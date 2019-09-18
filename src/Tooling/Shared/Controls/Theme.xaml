@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
+                    xmlns:resources="clr-namespace:Tooling.Shared.Resources"
+                    xmlns:local="clr-namespace:Tooling.Shared.Controls">
+
+	<Style x:Key="BottomCommandLayout" TargetType="{x:Type local:BottomCommandLayout}">
+		<Style.Setters>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<DockPanel>
+							<Border DockPanel.Dock="Bottom" 
+							        Padding="8" 
+							        BorderThickness="0,2,0,0" 
+							        BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.BrandedUIBorderKey}}">
+								<DockPanel>
+									<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+										<ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:BottomCommandLayout}}, Path=CommandArea}"></ContentPresenter>
+									</StackPanel>
+									<ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:BottomCommandLayout}}, Path=CommandLabelArea}"></ContentPresenter>
+								</DockPanel>
+							</Border>
+							<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+								<ContentPresenter Margin="8" Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:BottomCommandLayout}}, Path=TopArea}"></ContentPresenter>
+							</ScrollViewer>
+						</DockPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style.Setters>
+	</Style>
+	<Style TargetType="{x:Type local:BottomCommandLayout}" BasedOn="{StaticResource BottomCommandLayout}"></Style>
+
+</ResourceDictionary>

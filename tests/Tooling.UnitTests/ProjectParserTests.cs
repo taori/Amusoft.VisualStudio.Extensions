@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Shouldly;
-using Tooling.Features.ProjectMover.Processors;
+using Tooling.Shared.Parsers;
 using Tooling.UnitTests.Utility;
 using Xunit;
 
@@ -11,9 +11,9 @@ namespace Tooling.UnitTests
 		[Fact]
 		public async Task Verify()
 		{
-			var processor = new ProjectFileProcessor();
-			var entitiesReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.entities.csproj"));
-			var efReferences = await processor.ProcessAsync(EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.ef.csproj"));
+			var processor = new ProjectReferenceParser();
+			var entitiesReferences = processor.Process(await EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.entities.csproj").ReadToEndAsync());
+			var efReferences = processor.Process( await EmbeddedTestFileUtility.GetFileStream("MoveTests.Before.ef.csproj").ReadToEndAsync());
 
 			entitiesReferences.Count.ShouldBe(0);
 

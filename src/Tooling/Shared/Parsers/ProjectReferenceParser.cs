@@ -1,23 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Tooling.Features.ProjectMover.Processors
+namespace Tooling.Shared.Parsers
 {
-	public class ProjectFileProcessor
+	public class ProjectReferenceParser
 	{
-		public async Task<List<ProjectReference>> ProcessAsync(StreamReader streamReader)
-		{
-			if (streamReader == null)
-				throw new ArgumentNullException(nameof(streamReader));
-
-			var content = await streamReader.ReadToEndAsync();
-
-			return Process(content);
-		}
 		public List<ProjectReference> Process(string content)
 		{
 			if (content == null)
