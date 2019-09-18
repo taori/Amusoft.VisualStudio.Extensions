@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Tooling.1f0e53fa-0625-45ac-af83-68edcbdd7dd0" Version="1.0" Language="de-DE" Publisher="Amusoft" />
+        <Identity Id="Tooling.1f0e53fa-0625-45ac-af83-68edcbdd7dd0" Version="1.0.1" Language="de-DE" Publisher="Amusoft" />
         <DisplayName>Amusoft Tools</DisplayName>
         <Description xml:space="preserve">This extensions contains the following features:
 project folder hierarchy tool
