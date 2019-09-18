@@ -5,15 +5,18 @@ using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using EnvDTE;
+using Microsoft.VisualStudio.Shell.Interop;
 using Tooling.Dependencies;
 using Tooling.Features.ProjectMover;
 using Tooling.Features.ProjectMover.Utility;
 using Tooling.Shared;
+using Tooling.Shared.Resources;
 using Tooling.Utility;
 
 namespace Tooling.Features.ProjectRenamer.ViewModels
@@ -164,11 +167,20 @@ namespace Tooling.Features.ProjectRenamer.ViewModels
 
 		private async void UpdateExecute(object obj)
 		{
+			if (!await SolutionHelper.IsIdeAndSolutionFileInSyncAsync())
+			{
+				if (MessageBox.Show(Translations.msg_theSolutionMustBeSavedConfirm, Translations.caption_Question, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+					return;
+
+				SolutionHelper.SaveSolution();
+				await Task.Delay(1000);
+			}
+
 			var targetUri = new Uri(new Uri(OldProjectPath, UriKind.Absolute), new Uri("..", UriKind.Relative))
 				.AbsolutePath.Replace('/', Path.DirectorySeparatorChar);
 			var options = new MoverToolOptions();
 			options.ProjectPathTransformer = new SingleProjectRenamer(OldProjectName, NewProjectName.Value);
-			
+
 			var tool = new MoverTool(new[] {OldProjectPath}, SolutionHelper.GetActiveIDE().Solution.FileName, targetUri, options);
 			await tool.MoveAsync();
 			Project = null;

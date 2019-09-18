@@ -136,7 +136,7 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			var solution = PackageHelper.GetDTE().Solution;
 			if (!string.IsNullOrEmpty(solution.FullName))
 			{
-				solution.SaveAs(solution.FullName);
+				SolutionHelper.SaveSolution();
 				_whenReloadSuggested.OnNext("User saved all files");
 			}
 		}
@@ -262,15 +262,7 @@ namespace Tooling.Features.ProjectMover.ViewModels
 			if (string.IsNullOrEmpty(SolutionPath))
 				return true;
 
-			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-			var solutionFile = SolutionFile.Parse(SolutionPath);
-			var allProjects = SolutionHelper.GetProjectsRecursive();
-			var solutionFileProjects = solutionFile.ProjectsInOrder.Where(d => d.ProjectType != SolutionProjectType.SolutionFolder).Select(d => d.AbsolutePath.ToUpperInvariant()).ToHashSet();
-			var vsRuntimeProjects = allProjects.Select(d => d.FullName.ToUpperInvariant()).ToHashSet();
-
-			return vsRuntimeProjects.All(d => solutionFileProjects.Contains(d))
-				&& solutionFileProjects.All(d => vsRuntimeProjects.Contains(d));
+			return await SolutionHelper.IsIdeAndSolutionFileInSyncAsync();
 		}
 
 		/// <inheritdoc />

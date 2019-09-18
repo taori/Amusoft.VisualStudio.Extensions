@@ -162,6 +162,9 @@
   <data name="msg_PleaseChooseAValidName" xml:space="preserve">
     <value>Bitte wählen Sie einen gültigen Namen aus.</value>
   </data>
+  <data name="msg_theSolutionMustBeSavedConfirm" xml:space="preserve">
+    <value>Die Projektmappe muss gespeichert werden. Wollen Sie fortfahren?</value>
+  </data>
   <data name="ProjectMoverToolWindowTitle" xml:space="preserve">
     <value>Projektmappen-Ordnerstrukturverwaltung</value>
   </data>

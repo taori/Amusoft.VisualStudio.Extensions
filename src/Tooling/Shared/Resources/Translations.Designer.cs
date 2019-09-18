@@ -196,6 +196,15 @@ namespace Tooling.Shared.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The solution must be saved. Do you want to proceed? ähnelt.
+        /// </summary>
+        public static string msg_theSolutionMustBeSavedConfirm {
+            get {
+                return ResourceManager.GetString("msg_theSolutionMustBeSavedConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Project folder hierarchy tool ähnelt.
         /// </summary>
         public static string ProjectMoverToolWindowTitle {

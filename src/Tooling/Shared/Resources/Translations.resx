@@ -162,6 +162,9 @@
   <data name="msg_PleaseChooseAValidName" xml:space="preserve">
     <value>Please choose a valid name.</value>
   </data>
+  <data name="msg_theSolutionMustBeSavedConfirm" xml:space="preserve">
+    <value>The solution must be saved. Do you want to proceed?</value>
+  </data>
   <data name="ProjectMoverToolWindowTitle" xml:space="preserve">
     <value>Project folder hierarchy tool</value>
   </data>

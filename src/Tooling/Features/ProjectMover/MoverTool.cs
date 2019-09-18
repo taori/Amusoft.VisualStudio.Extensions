@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Build.Construction;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Tooling.Features.ProjectMover.Mapping;
 using Tooling.Features.ProjectMover.Utility;
 using Tooling.Shared.Parsers;
+using Tooling.Utility;
+using Task = System.Threading.Tasks.Task;
 
 namespace Tooling.Features.ProjectMover
 {
@@ -26,9 +30,46 @@ namespace Tooling.Features.ProjectMover
 		public async Task MoveAsync()
 		{
 			await CollectInformationAsync();
+//			await ChangeLoadStateOfProjectAsync(false);
 			await RewriteProjectsAsync();
 			await RewriteSolutionAsync();
 			MoveFolders();
+//			await ChangeLoadStateOfProjectAsync(true);
+		}
+
+		private async Task ChangeLoadStateOfProjectAsync(bool load)
+		{
+			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+			var activeIde = SolutionHelper.GetActiveIDE();
+
+			if (load)
+			{
+				foreach (var solutionReference in SolutionReferences)
+				{
+					if (!string.Equals(solutionReference.After.AbsolutePath, solutionReference.Before.AbsolutePath, StringComparison.OrdinalIgnoreCase))
+					{
+						activeIde.Solution.AddFromFile(solutionReference.After.AbsolutePath);
+					}
+				}
+			}
+			else
+			{
+				var affectedPaths = Context.Projects.ToHashSet();
+				var allProjects = ProjectReferences.Keys.ToHashSet();
+				var filteredReferences = allProjects.Where(d => affectedPaths.Contains(d));
+				var projectsByPath = SolutionHelper
+					.GetProjectsRecursive()
+					.ToDictionary(d => d.FullName);
+
+				foreach (var projectPath in filteredReferences)
+				{
+					if (projectsByPath.TryGetValue(projectPath, out var vsProject))
+					{
+						activeIde.Solution.Remove(vsProject);
+						await Task.Delay(1000);
+					}
+				}
+			}
 		}
 
 		private void MoveFolders()
