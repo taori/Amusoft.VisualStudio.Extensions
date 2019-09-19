@@ -7,6 +7,7 @@
 project folder hierarchy tool
 project folder rename tool</Description>
         <License>License.txt</License>
+        <ReleaseNotes>bugfixes for rename tool</ReleaseNotes>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[15.0,)" />

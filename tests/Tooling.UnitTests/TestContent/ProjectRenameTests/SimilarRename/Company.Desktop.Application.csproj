@@ -46,7 +46,7 @@
 		<ProjectReference Include="..\Company.Desktop.Framework.Controls\Company.Desktop.Framework.Controls.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj" />
-		<ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
+		<ProjectReference Include="..\Framework\Framework.csproj" />
 		<ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj" />
 		<ProjectReference Include="..\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj" />
 	</ItemGroup>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Build.Construction;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -30,48 +31,11 @@ namespace Tooling.Features.ProjectMover
 		public async Task MoveAsync()
 		{
 			await CollectInformationAsync();
-//			await ChangeLoadStateOfProjectAsync(false);
 			await RewriteProjectsAsync();
 			await RewriteSolutionAsync();
 			MoveFolders();
-//			await ChangeLoadStateOfProjectAsync(true);
 		}
-
-		private async Task ChangeLoadStateOfProjectAsync(bool load)
-		{
-			await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-			var activeIde = SolutionHelper.GetActiveIDE();
-
-			if (load)
-			{
-				foreach (var solutionReference in SolutionReferences)
-				{
-					if (!string.Equals(solutionReference.After.AbsolutePath, solutionReference.Before.AbsolutePath, StringComparison.OrdinalIgnoreCase))
-					{
-						activeIde.Solution.AddFromFile(solutionReference.After.AbsolutePath);
-					}
-				}
-			}
-			else
-			{
-				var affectedPaths = Context.Projects.ToHashSet();
-				var allProjects = ProjectReferences.Keys.ToHashSet();
-				var filteredReferences = allProjects.Where(d => affectedPaths.Contains(d));
-				var projectsByPath = SolutionHelper
-					.GetProjectsRecursive()
-					.ToDictionary(d => d.FullName);
-
-				foreach (var projectPath in filteredReferences)
-				{
-					if (projectsByPath.TryGetValue(projectPath, out var vsProject))
-					{
-						activeIde.Solution.Remove(vsProject);
-						await Task.Delay(1000);
-					}
-				}
-			}
-		}
-
+		
 		private void MoveFolders()
 		{
 			foreach (var projectReference in SolutionReferences)
@@ -95,6 +59,7 @@ namespace Tooling.Features.ProjectMover
 			}
 		}
 
+		private static readonly Regex SolutionReplaceRegex = new Regex("");
 		private async Task RewriteSolutionAsync()
 		{
 			var solutionContent = new StringBuilder(await Context.Options.FileSystem.ReadAsync(Context.SolutionPath).ConfigureAwait(false));
@@ -103,17 +68,24 @@ namespace Tooling.Features.ProjectMover
 			{
 				if (projectReference.Before.AbsolutePath != projectReference.After.AbsolutePath)
 				{
-					solutionContent.Replace(projectReference.Before.RelativePath, projectReference.After.RelativePath);
-					if (!string.Equals(Path.GetFileName(projectReference.Before.RelativePath), Path.GetFileName(projectReference.After.RelativePath), StringComparison.OrdinalIgnoreCase))
-					{
-						solutionContent.Replace(
-							Path.GetFileNameWithoutExtension(projectReference.Before.RelativePath), 
-							Path.GetFileNameWithoutExtension(projectReference.After.RelativePath));
-					}
+					solutionContent.Replace($@"""{projectReference.Before.RelativePath}""", $@"""{projectReference.After.RelativePath}""");
+					
+					HandleReferenceRenames(projectReference, solutionContent);
 				}
 			}
 
 			await Context.Options.FileSystem.WriteAsync(Context.SolutionPath, solutionContent.ToString()).ConfigureAwait(false);
+		}
+
+		private static void HandleReferenceRenames(HistoryInformation projectReference, StringBuilder solutionContent)
+		{
+			if (!string.Equals(Path.GetFileName(projectReference.Before.RelativePath), Path.GetFileName(projectReference.After.RelativePath), StringComparison.OrdinalIgnoreCase))
+			{
+				solutionContent.Replace(
+					$@"""{Path.GetFileNameWithoutExtension(projectReference.Before.RelativePath)}""",
+					$@"""{Path.GetFileNameWithoutExtension(projectReference.After.RelativePath)}"""
+				);
+			}
 		}
 
 		private async Task RewriteProjectsAsync()
@@ -199,11 +171,5 @@ namespace Tooling.Features.ProjectMover
 				SolutionReferences.Add(solutionHistory);
 			}
 		}
-	}
-
-	public interface IProjectPathTransformer
-	{
-		string RelativePath(string path);
-		string AbsolutePath(string path);
 	}
 }

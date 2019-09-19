@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj" />
-    <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
+    <ProjectReference Include="..\Framework\Framework.csproj" />
     <ProjectReference Include="..\Company.Desktop.Models.Abstraction\Company.Desktop.Models.Abstraction.csproj" />
     <ProjectReference Include="..\Company.Desktop.Models\Company.Desktop.Models.csproj" />
     <ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj" />

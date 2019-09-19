@@ -186,11 +186,6 @@ namespace Tooling.UnitTests
 			var moverTool = new MoverTool(new[] { beforePaths[3] }, beforePaths[1], @"D:\GitHub\Projects\Wpf\", options);
 			await moverTool.MoveAsync();
 
-//			using (var beforeStream = EmbeddedTestFileUtility.GetFileStream(tuple.after, true))
-//			{
-//				await fileSystemMock.WriteAsync(afterPaths[index], await beforeStream.ReadToEndAsync());
-//			}
-
 			for (var index = 0; index < embeddedNameGroups.Length; index++)
 			{
 				var tuple = embeddedNameGroups[index];
@@ -198,18 +193,9 @@ namespace Tooling.UnitTests
 				{
 					var isState = await fileSystemMock.ReadAsync(afterPaths[index]);
 					var shouldState = await stream.ReadToEndAsync();
-					shouldState.ShouldBe(isState);
+					isState.ShouldBe(shouldState);
 				}
 			}
-
-//			(await fileSystemMock.ReadAsync(slnPath))
-//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.solution.sln"));
-//
-//			(await fileSystemMock.ReadAsync(@"D:\GitHub\Projects\MyProject\EF.Attempt1\EF.Attempt1.Entities\EF.Attempt1.Entities.csproj"))
-//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.entities.csproj"));
-//
-//			(await fileSystemMock.ReadAsync(@"D:\GitHub\Projects\MyProject\Apples.Bananas\Apples.Bananas.csproj"))
-//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.ef.csproj"));
 		}
 	}
 }

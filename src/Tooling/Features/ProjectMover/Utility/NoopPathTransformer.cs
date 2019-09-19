@@ -1,4 +1,6 @@
-﻿namespace Tooling.Features.ProjectMover.Utility
+﻿using Tooling.Features.ProjectMover.Mapping;
+
+namespace Tooling.Features.ProjectMover.Utility
 {
 	public class NoopPathTransformer : IProjectPathTransformer
 	{

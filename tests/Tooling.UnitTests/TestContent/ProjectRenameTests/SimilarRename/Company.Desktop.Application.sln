@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Desktop.ViewModels"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Desktop.Models", "Company.Desktop.Models\Company.Desktop.Models.csproj", "{CA4AB45B-4B1C-45FE-B3BB-487D819C16C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Desktop.Framework", "Company.Desktop.Framework\Company.Desktop.Framework.csproj", "{23F7183D-FFAE-4559-AEFE-7AD23D930DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Framework", "Framework\Framework.csproj", "{23F7183D-FFAE-4559-AEFE-7AD23D930DF9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Desktop.Models.Abstraction", "Company.Desktop.Models.Abstraction\Company.Desktop.Models.Abstraction.csproj", "{AF69A15B-D5F0-485A-9FE9-F2ED2E8C6B75}"
 EndProject
