@@ -1,0 +1,93 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net472</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Platforms>AnyCPU;x64;x86</Platforms>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
+		<PlatformTarget>AnyCPU</PlatformTarget>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)'=='x64'">
+		<PlatformTarget>x64</PlatformTarget>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Platform)'=='x86'">
+		<PlatformTarget>x86</PlatformTarget>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="NLog.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="NLog.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<!-- <PackageReference Include="Amusoft.UI.WPF" Version="0.2.0-alpha57" /> -->
+		<PackageReference Include="Amusoft.UI.WPF" Version="0.5.0-alpha00155" />
+		<PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+		<PackageReference Include="MahApps.Metro" Version="1.6.5" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+		<PackageReference Include="NLog" Version="4.5.11" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Company.Desktop.Framework.Controls\Company.Desktop.Framework.Controls.csproj" />
+		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
+		<ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj" />
+		<ProjectReference Include="..\Framework\Framework.csproj" />
+		<ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj" />
+		<ProjectReference Include="..\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\Translations.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Translations.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Translations.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Page Update="Resources\Resources.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Resources\Styles.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\Controls\SampleDataOverviewView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\Windows\DefaultWindow.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\Windows\MainView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\Windows\SecondaryWindowView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+		<Page Update="Views\Windows\Splash.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</Page>
+	</ItemGroup>
+
+</Project>

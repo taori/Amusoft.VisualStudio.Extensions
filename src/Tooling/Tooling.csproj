@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Dependencies\DefaultFileSystem.cs" />
     <Compile Include="Dependencies\SingleProjectRenamer.cs" />
+    <Compile Include="Features\ProjectMover\Mapping\IProjectPathTransformer.cs" />
     <Compile Include="Features\ProjectMover\MoverTool.cs" />
     <Compile Include="Features\ProjectMover\Utility\AbsolutePathReferenceMap.cs" />
     <Compile Include="Features\ProjectMover\Mapping\PathMapper.cs" />

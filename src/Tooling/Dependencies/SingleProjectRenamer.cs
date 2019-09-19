@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Tooling.Features.ProjectMover;
+using Tooling.Features.ProjectMover.Mapping;
 
 namespace Tooling.Dependencies
 {
