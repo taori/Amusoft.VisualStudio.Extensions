@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -136,6 +135,81 @@ namespace Tooling.UnitTests
 
 			(await fileSystemMock.ReadAsync(@"D:\GitHub\Projects\MyProject\Apples.Bananas\Apples.Bananas.csproj"))
 				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.ef.csproj"));
+		}
+
+		[Fact]
+		public async Task SimilarName()
+		{
+			var embeddedNameGroups = EmbeddedTestFileGrouper.Group("ProjectRenameTests.BeforeMultipleSimilar", "ProjectRenameTests.SimilarRename").ToArray();
+			var fileSystemMock = new FileSystemMock();
+
+			var beforePaths = new[]
+			{
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Application\Company.Desktop.Application.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Application.sln",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Controls\Company.Desktop.Framework.Controls.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework\Company.Desktop.Framework.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Models.Abstraction\Company.Desktop.Models.Abstraction.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Models\Company.Desktop.Models.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Shared\Company.Desktop.Shared.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj",
+			};
+
+			var afterPaths = new[]
+			{
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Application\Company.Desktop.Application.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Application.sln",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Controls\Company.Desktop.Framework.Controls.csproj",
+				@"D:\GitHub\Projects\Wpf\Framework\Framework.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Models.Abstraction\Company.Desktop.Models.Abstraction.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Models\Company.Desktop.Models.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.Shared\Company.Desktop.Shared.csproj",
+				@"D:\GitHub\Projects\Wpf\Company.Desktop.ViewModels\Company.Desktop.ViewModels.csproj",
+			};
+
+			for (var index = 0; index < embeddedNameGroups.Length; index++)
+			{
+				var tuple = embeddedNameGroups[index];
+				using (var stream = EmbeddedTestFileUtility.GetFileStream(tuple.before, true))
+				{
+					await fileSystemMock.WriteAsync(beforePaths[index], await stream.ReadToEndAsync());
+				}
+			}
+
+			var options = new MoverToolOptions();
+			options.ProjectPathTransformer = new SingleProjectRenamer("Company.Desktop.Framework", "Framework");
+			options.FileSystem = fileSystemMock;
+			var moverTool = new MoverTool(new[] { beforePaths[3] }, beforePaths[1], @"D:\GitHub\Projects\Wpf\", options);
+			await moverTool.MoveAsync();
+
+//			using (var beforeStream = EmbeddedTestFileUtility.GetFileStream(tuple.after, true))
+//			{
+//				await fileSystemMock.WriteAsync(afterPaths[index], await beforeStream.ReadToEndAsync());
+//			}
+
+			for (var index = 0; index < embeddedNameGroups.Length; index++)
+			{
+				var tuple = embeddedNameGroups[index];
+				using (var stream = EmbeddedTestFileUtility.GetFileStream(tuple.after, true))
+				{
+					var isState = await fileSystemMock.ReadAsync(afterPaths[index]);
+					var shouldState = await stream.ReadToEndAsync();
+					shouldState.ShouldBe(isState);
+				}
+			}
+
+//			(await fileSystemMock.ReadAsync(slnPath))
+//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.solution.sln"));
+//
+//			(await fileSystemMock.ReadAsync(@"D:\GitHub\Projects\MyProject\EF.Attempt1\EF.Attempt1.Entities\EF.Attempt1.Entities.csproj"))
+//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.entities.csproj"));
+//
+//			(await fileSystemMock.ReadAsync(@"D:\GitHub\Projects\MyProject\Apples.Bananas\Apples.Bananas.csproj"))
+//				.ShouldBe(await EmbeddedTestFileUtility.GetContentAsync("ProjectRenameTests.MoveNonDependency.ef.csproj"));
 		}
 	}
 }

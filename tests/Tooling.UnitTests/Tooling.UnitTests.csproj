@@ -28,6 +28,16 @@
     <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\ef.csproj" />
     <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\entities.csproj" />
     <EmbeddedResource Include="TestContent\MoveTests\MoveMultiple\solution.sln" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Application.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Application.sln" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Framework.Controls.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Framework.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Framework.Mvvm.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Models.Abstraction.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Models.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.Shared.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\SimilarRename\Company.Desktop.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +49,19 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tooling\Tooling.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Application.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Application.sln" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Framework.Controls.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Framework.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Framework.Mvvm.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Models.Abstraction.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Models.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.Shared.csproj" />
+    <EmbeddedResource Include="TestContent\ProjectRenameTests\BeforeMultipleSimilar\Company.Desktop.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

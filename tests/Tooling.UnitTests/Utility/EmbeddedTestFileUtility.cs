@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,16 +10,30 @@ namespace Tooling.UnitTests.Utility
 {
 	public static class EmbeddedTestFileUtility
 	{
-		private static string GetManifestFilePath(string path)
+		private static string GetManifestPath()
 		{
 			var fullName = Assembly.GetAssembly(typeof(EmbeddedTestFileUtility)).FullName;
 			var assemblyName = fullName.Substring(0, fullName.IndexOf(','));
-			return  $"{assemblyName}.TestContent.{path}";
+			return $"{assemblyName}.TestContent.";
 		}
 
-		public static StreamReader GetFileStream(string path)
+		private static string GetManifestFilePath(string path)
 		{
-			var stream = typeof(EmbeddedTestFileUtility).Assembly.GetManifestResourceStream(GetManifestFilePath(path));
+			return  $"{GetManifestPath()}{path}";
+		}
+
+		public static IEnumerable<string> GetStreamsStartingWith(string path)
+		{
+			var names = typeof(EmbeddedTestFileUtility).Assembly.GetManifestResourceNames().Where(d => d.StartsWith(GetManifestPath() + path));
+			return names;
+		}
+
+		public static StreamReader GetFileStream(string path, bool fullPath = false)
+		{
+			if (!fullPath)
+				path = GetManifestFilePath(path);
+			var stream = typeof(EmbeddedTestFileUtility).Assembly.GetManifestResourceStream(path);
+
 			return new StreamReader(stream, Encoding.UTF8, true, 1024, true);
 		}
 
