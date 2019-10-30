@@ -74,7 +74,7 @@ namespace Tooling.Features.ProjectMover
 				}
 			}
 
-			await Context.Options.FileSystem.WriteAsync(Context.SolutionPath, solutionContent.ToString()).ConfigureAwait(false);
+			await Context.Options.FileSystem.WriteAsync(Context.SolutionPath, solutionContent.ToString(), Encoding.UTF8).ConfigureAwait(false);
 		}
 
 		private static void HandleReferenceRenames(HistoryInformation projectReference, StringBuilder solutionContent)
@@ -102,7 +102,7 @@ namespace Tooling.Features.ProjectMover
 					sb.Replace(information.Before.RelativePath, information.After.RelativePath);
 				}
 
-				await Context.Options.FileSystem.WriteAsync(projectReference.Key, sb.ToString());
+				await Context.Options.FileSystem.WriteAsync(projectReference.Key, sb.ToString(), Encoding.UTF8);
 			}
 		}
 

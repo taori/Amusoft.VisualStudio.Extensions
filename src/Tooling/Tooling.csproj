@@ -90,6 +90,7 @@
       <DependentUpon>ToolingPackageCommands.vsct</DependentUpon>
     </Compile>
     <Compile Include="Utility\EventDelegator.cs" />
+    <Compile Include="Utility\FileHelper.cs" />
     <Compile Include="Utility\IFileSystem.cs" />
     <Compile Include="Shared\Helpers\LoggerHelper.cs" />
     <Compile Include="Shared\Helpers\PackageHelper.cs" />

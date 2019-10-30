@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Tooling.Utility;
 
@@ -8,11 +9,11 @@ namespace Tooling.Dependencies
 	public class DefaultFileSystem : IFileSystem
 	{
 		/// <inheritdoc />
-		public async Task<bool> WriteAsync(string path, string content)
+		public async Task<bool> WriteAsync(string path, string content, Encoding encoding)
 		{
 			try
 			{
-				using (var writer = new StreamWriter(path, false))
+				using (var writer = new StreamWriter(path, false, encoding))
 				{
 					await writer.WriteAsync(content).ConfigureAwait(false);
 				}

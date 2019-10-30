@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Tooling.Features.ProjectMover;
 using Tooling.Utility;
@@ -14,11 +15,11 @@ namespace Tooling.UnitTests.Mocks
 		public async Task RegisterContentAsync(string path, Func<StreamReader> streamAccess)
 		{
 			var streamReader = streamAccess();
-			await WriteAsync(path, await streamReader.ReadToEndAsync());
+			await WriteAsync(path, await streamReader.ReadToEndAsync(), Encoding.UTF8);
 		}
 
 		/// <inheritdoc />
-		public async Task<bool> WriteAsync(string path, string content)
+		public async Task<bool> WriteAsync(string path, string content, Encoding encoding)
 		{
 			if (_values.ContainsKey(path))
 			{

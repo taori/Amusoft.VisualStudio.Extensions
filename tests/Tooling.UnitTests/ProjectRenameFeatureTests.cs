@@ -1,5 +1,6 @@
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Shouldly;
 using Tooling.Dependencies;
@@ -176,7 +177,7 @@ namespace Tooling.UnitTests
 				var tuple = embeddedNameGroups[index];
 				using (var stream = EmbeddedTestFileUtility.GetFileStream(tuple.before, true))
 				{
-					await fileSystemMock.WriteAsync(beforePaths[index], await stream.ReadToEndAsync());
+					await fileSystemMock.WriteAsync(beforePaths[index], await stream.ReadToEndAsync(), Encoding.UTF8);
 				}
 			}
 
