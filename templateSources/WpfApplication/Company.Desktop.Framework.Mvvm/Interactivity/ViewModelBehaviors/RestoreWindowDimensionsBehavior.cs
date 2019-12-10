@@ -47,18 +47,17 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 
 				if (context.CompositionContext.Control is System.Windows.Window window)
 				{
-					var changeTrigger = window
-						.WhenLocationChanged().Throttle(TimeSpan.FromMilliseconds(250))
-						.Select(s => EventArgs.Empty)
-						.Concat(window.WhenSizeChanged().Throttle(TimeSpan.FromMilliseconds(250)));
-					changeTrigger
-						.ObserveOn(System.Windows.Application.Current.Dispatcher)
+					window.WhenSizeChanged()
+						.Select(d => EventArgs.Empty)
+						.Merge(window.WhenLocationChanged().Select(d => EventArgs.Empty))
+						.Throttle(TimeSpan.FromMilliseconds(250))
+						.ObserveOn(Dispatcher.CurrentDispatcher)
 						.Subscribe(d =>
-					{
-						Log.Debug($"Updating window size information for [{windowArguments.WindowId}].");
-						storage.UpdateValue(windowStorageKey, new WindowAttributes(window.Width, window.Height, window.Left, window.Top));
-						storage.Save();
-					});
+						{
+							Log.Debug($"Updating window size information for [{windowArguments.WindowId}].");
+							storage.UpdateValue(windowStorageKey, new WindowAttributes(window.Width, window.Height, window.Left, window.Top));
+							storage.Save();
+						});
 				}
 			}
 		}
