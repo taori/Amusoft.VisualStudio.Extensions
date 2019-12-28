@@ -1,21 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472</TargetFrameworks>
+    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
     <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="NLog" Version="4.5.11" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
+    <PackageReference Include="System.Reactive" Version="4.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Company.Desktop.Framework.Mvvm\Company.Desktop.Framework.Mvvm.csproj" />
     <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
     <ProjectReference Include="..\Company.Desktop.Model.Entities\Company.Desktop.Model.Entities.csproj" />
-    <ProjectReference Include="..\Company.Desktop.Model.Providers\Company.Desktop.Model.Providers.csproj" />
-    <ProjectReference Include="..\Company.Desktop.Shared\Company.Desktop.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Providers\" />
   </ItemGroup>
 
 </Project>

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Company.Desktop.Models.Abstraction\Company.Desktop.Models.Abstraction.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Abstraction\" />
+  </ItemGroup>
+
 </Project>

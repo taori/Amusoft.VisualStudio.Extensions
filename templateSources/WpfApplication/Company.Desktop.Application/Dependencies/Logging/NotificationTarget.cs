@@ -23,7 +23,7 @@ namespace Company.Desktop.Application.Dependencies.Logging
 
 		private IObservable<(string title, string message)> WhenErrorOccured => _whenErrorOccured;
 
-		public NotificationPosition Position { get; set; } = NotificationPosition.BottomLeft;
+		public NotificationPosition Position { get; set; } = NotificationPosition.BottomRight;
 
 		/// <inheritdoc />
 		protected override void Dispose(bool disposing)

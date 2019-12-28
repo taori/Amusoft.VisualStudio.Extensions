@@ -1,15 +1,14 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Company.Desktop.Framework.DataAccess;
 using Company.Desktop.Framework.DependencyInjection;
-using Company.Desktop.Models.Abstraction.Entities;
+using Company.Desktop.Model.Entities;
 
-namespace Company.Desktop.Models.Abstraction.Providers
+namespace Company.Desktop.Model.Providers.Abstraction
 {
 	[InheritedMefExport(typeof(ISampleDataProvider))]
 	public interface ISampleDataProvider : IDataProvider
 	{
-		Task<IEnumerable<ISampleData>> GetAllAsync(int count);
+		Task<IEnumerable<SampleData>> GetAllAsync(int count);
 	}
 }

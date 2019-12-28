@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Company.Desktop.Models.Abstraction.Entities;
-using Company.Desktop.Models.Abstraction.Providers;
-using Company.Desktop.Models.Entities;
+using Company.Desktop.Model.Entities;
+using Company.Desktop.Model.Providers.Abstraction;
 
-namespace Company.Desktop.Models.Providers
+namespace Company.Desktop.Model.Providers
 {
 	public class SampleDataProvider : ISampleDataProvider
 	{
 		/// <inheritdoc />
-		public Task<IEnumerable<ISampleData>> GetAllAsync(int count)
+		public Task<IEnumerable<SampleData>> GetAllAsync(int count)
 		{
 			var items = new List<SampleData>();
 			for (int i = 0; i < count; i++)
@@ -17,7 +16,7 @@ namespace Company.Desktop.Models.Providers
 				items.Add(new SampleData($"row {i} value 1", $"row {i} value 2"));
 			}
 
-			return Task.FromResult(items as IEnumerable<ISampleData>);
+			return Task.FromResult(items as IEnumerable<SampleData>);
 		}
 	}
 }

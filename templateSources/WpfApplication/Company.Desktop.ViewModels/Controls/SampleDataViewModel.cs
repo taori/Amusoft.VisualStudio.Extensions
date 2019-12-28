@@ -1,13 +1,13 @@
 ﻿using Company.Desktop.Framework.Mvvm.ViewModel;
-using Company.Desktop.Models.Abstraction.Entities;
+using Company.Desktop.Model.Entities;
 
 namespace Company.Desktop.ViewModels.Controls
 {
 	public class SampleDataViewModel : ViewModelBase
 	{
-		public ISampleData Data { get; }
+		public SampleData Data { get; }
 
-		public SampleDataViewModel(ISampleData data)
+		public SampleDataViewModel(SampleData data)
 		{
 			Data = data;
 		}

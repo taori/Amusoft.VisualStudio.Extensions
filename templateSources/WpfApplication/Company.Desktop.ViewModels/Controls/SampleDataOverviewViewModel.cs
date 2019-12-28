@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
-using Company.Desktop.Models.Abstraction.Providers;
+using Company.Desktop.Model.Providers.Abstraction;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.ViewModels.Controls

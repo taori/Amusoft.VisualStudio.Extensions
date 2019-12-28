@@ -1,8 +1,6 @@
-﻿using Company.Desktop.Models.Abstraction.Entities;
-
-namespace Company.Desktop.Models.Entities
+﻿namespace Company.Desktop.Model.Entities
 {
-	public class SampleData : ISampleData
+	public class SampleData
 	{
 		/// <inheritdoc />
 		public SampleData()
