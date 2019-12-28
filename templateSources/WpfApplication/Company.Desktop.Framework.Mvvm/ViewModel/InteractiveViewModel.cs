@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reactive.Disposables;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Interactivity;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {

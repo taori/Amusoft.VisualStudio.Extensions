@@ -7,17 +7,16 @@ using System.Windows.Input;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 using Company.Desktop.Framework.Extensions;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
-using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.Commands;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.Navigation;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using IBehavior = Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors.IBehavior;
 
 namespace Company.Desktop.ViewModels.Windows
 {

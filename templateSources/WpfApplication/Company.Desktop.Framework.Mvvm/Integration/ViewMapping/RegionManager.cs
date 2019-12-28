@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Extensions;
 using NLog;
 

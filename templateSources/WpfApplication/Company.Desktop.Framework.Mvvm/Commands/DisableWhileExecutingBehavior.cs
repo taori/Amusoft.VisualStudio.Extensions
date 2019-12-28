@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Company.Desktop.Framework.Mvvm.Abstraction.Commands;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Commands

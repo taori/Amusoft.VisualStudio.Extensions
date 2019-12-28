@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Company.Desktop.Framework.Mvvm.Abstraction.Commands;
 
 namespace Company.Desktop.Framework.Mvvm.Commands
 {

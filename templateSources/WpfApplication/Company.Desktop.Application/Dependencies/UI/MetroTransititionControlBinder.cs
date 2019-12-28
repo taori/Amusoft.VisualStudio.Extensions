@@ -1,6 +1,6 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.UI;
 using MahApps.Metro.Controls;
 
 namespace Company.Desktop.Application.Dependencies.UI

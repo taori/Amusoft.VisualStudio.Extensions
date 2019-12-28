@@ -2,8 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window

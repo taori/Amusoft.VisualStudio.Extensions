@@ -1,5 +1,5 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.Window
 {

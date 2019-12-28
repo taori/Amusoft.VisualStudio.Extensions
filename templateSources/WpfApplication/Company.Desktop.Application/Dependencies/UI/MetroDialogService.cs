@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Shared.Resources;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;

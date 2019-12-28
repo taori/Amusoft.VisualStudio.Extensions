@@ -3,7 +3,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Windows.Media;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
+using Company.Desktop.Framework.Mvvm.UI;
 using MahApps.Metro.Controls.Dialogs;
 
 namespace Company.Desktop.Application.Dependencies.UI

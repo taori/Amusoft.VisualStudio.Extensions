@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity

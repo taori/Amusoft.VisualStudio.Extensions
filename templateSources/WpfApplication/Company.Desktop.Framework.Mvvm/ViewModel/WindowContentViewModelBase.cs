@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {

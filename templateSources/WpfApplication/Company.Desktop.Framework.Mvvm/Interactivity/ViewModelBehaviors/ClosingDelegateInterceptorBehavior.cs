@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors

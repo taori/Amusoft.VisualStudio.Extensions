@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using NLog;
 

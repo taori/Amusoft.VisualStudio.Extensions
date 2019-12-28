@@ -21,7 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj" />
 	  <ProjectReference Include="..\Company.Desktop.Framework\Company.Desktop.Framework.csproj" />
 	</ItemGroup>
 

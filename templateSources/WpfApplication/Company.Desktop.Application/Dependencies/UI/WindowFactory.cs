@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Company.Desktop.Application.Views.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 
 namespace Company.Desktop.Application.Dependencies.UI

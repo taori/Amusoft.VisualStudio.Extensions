@@ -1,7 +1,6 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors

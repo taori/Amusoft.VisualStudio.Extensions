@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Company.Desktop.Application.Resources;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;

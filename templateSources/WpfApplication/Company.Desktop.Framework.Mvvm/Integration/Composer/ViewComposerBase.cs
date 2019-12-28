@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer

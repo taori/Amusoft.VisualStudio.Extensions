@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.Interactivity;
+using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.Model.Providers.Abstraction;
 using Microsoft.Extensions.DependencyInjection;

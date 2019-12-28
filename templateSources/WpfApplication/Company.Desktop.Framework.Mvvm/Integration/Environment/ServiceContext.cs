@@ -1,5 +1,4 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Environment
 {

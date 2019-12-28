@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Commands;
 
 namespace Company.Desktop.Framework.Mvvm.Commands
 {

@@ -22,8 +22,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Company.Desktop.Framework.Mvvm.Abstraction", "Company.Desktop.Framework.Mvvm.Abstraction\Company.Desktop.Framework.Mvvm.Abstraction.csproj", "{122C8203-6386-4715-BACF-EB8F7ED16055}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Company.Desktop.Model.Entities", "Company.Desktop.Model.Entities\Company.Desktop.Model.Entities.csproj", "{EFBF5E46-0074-4BF6-AFC4-6BFDEB2C3126}"
 EndProject
 Global
@@ -120,18 +118,6 @@ Global
 		{464C4565-B8BB-4132-B471-87CB8C757C34}.Release|x64.Build.0 = Release|x64
 		{464C4565-B8BB-4132-B471-87CB8C757C34}.Release|x86.ActiveCfg = Release|x86
 		{464C4565-B8BB-4132-B471-87CB8C757C34}.Release|x86.Build.0 = Release|x86
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|x64.Build.0 = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Debug|x86.Build.0 = Debug|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|Any CPU.Build.0 = Release|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|x64.ActiveCfg = Release|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|x64.Build.0 = Release|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|x86.ActiveCfg = Release|Any CPU
-		{122C8203-6386-4715-BACF-EB8F7ED16055}.Release|x86.Build.0 = Release|Any CPU
 		{EFBF5E46-0074-4BF6-AFC4-6BFDEB2C3126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFBF5E46-0074-4BF6-AFC4-6BFDEB2C3126}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFBF5E46-0074-4BF6-AFC4-6BFDEB2C3126}.Debug|x64.ActiveCfg = Debug|Any CPU

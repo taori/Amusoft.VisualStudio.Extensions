@@ -1,5 +1,4 @@
-﻿using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
 {

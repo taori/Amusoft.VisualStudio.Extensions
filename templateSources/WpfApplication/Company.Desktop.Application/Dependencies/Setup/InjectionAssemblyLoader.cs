@@ -3,7 +3,6 @@ using System.Reflection;
 using Company.Desktop.Framework.Controls;
 using Company.Desktop.Framework.DataAccess;
 using Company.Desktop.Framework.DependencyInjection;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Model.Entities;
 using Company.Desktop.Model.Providers;

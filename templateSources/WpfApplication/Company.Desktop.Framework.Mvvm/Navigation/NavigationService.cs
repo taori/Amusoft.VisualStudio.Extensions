@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
-using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Navigation

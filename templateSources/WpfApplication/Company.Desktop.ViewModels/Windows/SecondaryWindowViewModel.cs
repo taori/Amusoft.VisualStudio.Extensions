@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 

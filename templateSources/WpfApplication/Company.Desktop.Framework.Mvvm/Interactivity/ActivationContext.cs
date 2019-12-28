@@ -1,5 +1,4 @@
 ﻿using System;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity
 {

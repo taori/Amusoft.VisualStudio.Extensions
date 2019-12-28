@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
+using Company.Desktop.Framework.Mvvm.Interactivity;
+using Company.Desktop.Framework.Mvvm.Navigation;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Company.Desktop.Framework.Mvvm.Extensions

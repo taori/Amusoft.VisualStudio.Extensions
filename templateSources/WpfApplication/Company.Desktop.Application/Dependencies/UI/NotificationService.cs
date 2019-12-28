@@ -5,8 +5,8 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
-using INotification = Company.Desktop.Framework.Mvvm.Abstraction.UI.INotification;
+using Company.Desktop.Framework.Mvvm.UI;
+using INotification = Company.Desktop.Framework.Mvvm.UI.INotification;
 
 namespace Company.Desktop.Application.Dependencies.UI
 {

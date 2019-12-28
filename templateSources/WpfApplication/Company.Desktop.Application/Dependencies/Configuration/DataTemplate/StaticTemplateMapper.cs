@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
+using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 
 namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate
 {

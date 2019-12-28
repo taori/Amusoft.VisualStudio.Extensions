@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 
 namespace Company.Desktop.Framework.Mvvm.UI
 {

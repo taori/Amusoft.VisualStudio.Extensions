@@ -2,9 +2,8 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.Window;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks

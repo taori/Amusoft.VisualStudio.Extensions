@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
+using System.Windows;
 using Company.Desktop.Framework.Mvvm.Data;
 using Company.Desktop.Framework.Mvvm.Extensions;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
@@ -51,7 +51,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 						.Select(d => EventArgs.Empty)
 						.Merge(window.WhenLocationChanged().Select(d => EventArgs.Empty))
 						.Throttle(TimeSpan.FromMilliseconds(250))
-						.ObserveOn(Dispatcher.CurrentDispatcher)
+						.ObserveOn(Application.Current.Dispatcher)
 						.Subscribe(d =>
 						{
 							Log.Debug($"Updating window size information for [{windowArguments.WindowId}].");

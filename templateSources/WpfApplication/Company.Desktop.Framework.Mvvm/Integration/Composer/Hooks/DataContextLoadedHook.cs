@@ -1,8 +1,7 @@
 ﻿using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity;
-using Company.Desktop.Framework.Mvvm.Abstraction.ViewModel;
+using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
+using Company.Desktop.Framework.Mvvm.ViewModel;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 {

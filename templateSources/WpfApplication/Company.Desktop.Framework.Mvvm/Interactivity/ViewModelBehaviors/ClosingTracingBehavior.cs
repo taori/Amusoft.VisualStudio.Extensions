@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors

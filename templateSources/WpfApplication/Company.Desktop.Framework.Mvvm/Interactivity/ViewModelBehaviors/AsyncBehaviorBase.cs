@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using Company.Desktop.Framework.Mvvm.Abstraction.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 {

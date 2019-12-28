@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Company.Desktop.Framework.Extensions;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.ViewMapping;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping

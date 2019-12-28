@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
 
 namespace Company.Desktop.Application.Dependencies.Configuration.DataTemplate
 {

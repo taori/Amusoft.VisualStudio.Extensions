@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Composer;
 using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Integration.Composer

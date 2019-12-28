@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -8,8 +9,8 @@ using Company.Desktop.Application.Dependencies.Configuration;
 using Company.Desktop.Application.Dependencies.Logging;
 using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Framework.Extensions;
-using Company.Desktop.Framework.Mvvm.Abstraction.Integration.Environment;
-using Company.Desktop.Framework.Mvvm.Abstraction.Navigation;
+using Company.Desktop.Framework.Mvvm.Integration.Environment;
+using Company.Desktop.Framework.Mvvm.Navigation;
 using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,7 +59,6 @@ namespace Company.Desktop.Application
 					Log.Debug($"Executing {nameof(IConfigurationRunner)} \"{runner.GetType().FullName}\".");
 					runner.Execute();
 				}
-
 				var navigationService = DependencyContainer.ServiceProvider.GetService<INavigationService>();
 				navigationService.OpenWindowAsync(new DefaultWindowViewModel(new MainViewModel()), nameof(MainViewModel));
 
@@ -177,7 +177,7 @@ namespace Company.Desktop.Application
 			}
 			finally
 			{
-				Log.Error(exception, message);
+				Log.Error(exception.Expand());
 			}
 		}
 	}

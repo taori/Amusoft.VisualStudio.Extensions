@@ -5,7 +5,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Application.Resources;
-using Company.Desktop.Framework.Mvvm.Abstraction.UI;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.Shared.Extensions;
 using NLog;
