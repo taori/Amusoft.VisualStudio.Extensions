@@ -5,11 +5,14 @@ using NLog;
 
 namespace Company.Desktop.Framework.Mvvm.Commands
 {
-	public class DisableWhileExecutingBehavior : IBehavior
+	public class DisableWhileExecutingCommand : IAsyncCompositeCommand
 	{
-		private static readonly ILogger Log = LogManager.GetLogger(nameof(DisableWhileExecutingBehavior));
+		private static readonly ILogger Log = LogManager.GetLogger(nameof(DisableWhileExecutingCommand));
 
 		private long _executing;
+
+		/// <inheritdoc />
+		public int Order { get; set; }
 
 		/// <inheritdoc />
 		public bool CanExecute(object parameter)

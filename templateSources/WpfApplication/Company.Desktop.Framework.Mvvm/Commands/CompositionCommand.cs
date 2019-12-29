@@ -21,12 +21,12 @@ namespace Company.Desktop.Framework.Mvvm.Commands
 		/// <summary>
 		/// Command which contains a multitude of command behaviors, to allow for easy disable and callback mechanisms
 		/// </summary>
-		public CompositionCommand(params IBehavior[] behaviors)
+		public CompositionCommand(params IAsyncCompositeCommand[] behaviors)
 		{
 			Compositions.AddRange(behaviors);
 		}
 
-		public List<IBehavior> Compositions { get; } = new List<IBehavior>();
+		public List<IAsyncCompositeCommand> Compositions { get; } = new List<IAsyncCompositeCommand>();
 
 		/// <inheritdoc />
 		public bool CanExecute(object parameter)

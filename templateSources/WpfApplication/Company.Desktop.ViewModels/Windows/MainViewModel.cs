@@ -47,7 +47,7 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
-			var disableBehavior = new DisableWhileExecutingBehavior();
+			var disableBehavior = new DisableWhileExecutingCommand();
 			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
 				var navigation = ServiceProvider.GetRequiredService<INavigationService>();
@@ -125,8 +125,8 @@ namespace Company.Desktop.ViewModels.Windows
 				}
 			}))));
 
-			Commands.Add(new TestCommand("Test Composition", new CompositionCommand(disableBehavior, new TaskExecution(CommandHookCallback), new DisableWhileExecutingBehavior())));
-			Commands.Add(new TestCommand("Spawn error", new CompositionCommand(disableBehavior, new TaskExecution(SpawnErrorExecute), new DisableWhileExecutingBehavior())));
+			Commands.Add(new TestCommand("Test Composition", new CompositionCommand(disableBehavior, new TaskExecution(CommandHookCallback), new DisableWhileExecutingCommand())));
+			Commands.Add(new TestCommand("Spawn error", new CompositionCommand(disableBehavior, new TaskExecution(SpawnErrorExecute), new DisableWhileExecutingCommand())));
 
 			Commands.Add(new TestCommand("Run GC", new CompositionCommand(disableBehavior, new TaskExecution(parameter =>
 			{

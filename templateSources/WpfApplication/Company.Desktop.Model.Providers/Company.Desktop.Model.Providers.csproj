@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Company.Desktop.Model.Entities\Company.Desktop.Model.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Providers\" />
-  </ItemGroup>
-
 </Project>

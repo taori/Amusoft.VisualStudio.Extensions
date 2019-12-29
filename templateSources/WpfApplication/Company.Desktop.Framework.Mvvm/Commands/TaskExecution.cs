@@ -18,7 +18,7 @@ namespace Company.Desktop.Framework.Mvvm.Commands
 		}
 	}
 
-	public class TaskExecution<TParameter> : IBehavior
+	public class TaskExecution<TParameter> : IAsyncCompositeCommand
 	{
 		private readonly ExecuteHandler<TParameter> _execute;
 		private readonly CanExecuteHandler<TParameter> _canExecute;
@@ -35,6 +35,9 @@ namespace Company.Desktop.Framework.Mvvm.Commands
 		{
 			_execute = execute;
 		}
+
+		/// <inheritdoc />
+		public int Order { get; set; }
 
 		/// <inheritdoc />
 		public bool CanExecute(object parameter)

@@ -2,8 +2,9 @@
 
 namespace Company.Desktop.Framework.Mvvm.Commands
 {
-	public interface IBehavior
+	public interface IAsyncCompositeCommand
 	{
+		int Order { get; }
 		bool CanExecute(object parameter);
 		Task ExecuteAsync(object parameter);
 		Task AllExecutedAsync(object parameter);
