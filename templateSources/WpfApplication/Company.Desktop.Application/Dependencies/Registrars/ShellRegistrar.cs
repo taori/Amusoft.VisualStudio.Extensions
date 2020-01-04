@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Company.Desktop.Application.Dependencies.Configuration;
 using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
@@ -9,6 +10,7 @@ using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Navigation;
 using Company.Desktop.Framework.Mvvm.UI;
+using Company.Desktop.ViewModels.Services;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 
@@ -29,6 +31,7 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IDisplayCoordinatorFactory, DisplayCoordinatorFactory>(services);
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
+			Singleton<IApplicationSettings, ApplicationSettings>(services);
 
 			Transient<IServiceContext, ServiceContext>(services);
 			Transient<IViewModelWindowFactory, WindowFactory>(services);

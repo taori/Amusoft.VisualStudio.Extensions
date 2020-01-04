@@ -20,6 +20,24 @@
 		MaxWidth="{Binding Path=MaxWidth}" MaxHeight="{Binding Path=MaxHeight}"
         Height="{Binding Path=Height}" 
         Width="{Binding Path=Width}">
+	<mah:MetroWindow.LeftWindowCommands>
+		<mah:WindowCommands ItemsSource="{Binding Path=Content.LeftWindowCommands}">
+			<mah:WindowCommands.ItemTemplate>
+				<DataTemplate>
+					<mah:MetroContentControl Content="{Binding Path=.}"></mah:MetroContentControl>
+				</DataTemplate>
+			</mah:WindowCommands.ItemTemplate>
+		</mah:WindowCommands>
+	</mah:MetroWindow.LeftWindowCommands>
+	<mah:MetroWindow.RightWindowCommands>
+		<mah:WindowCommands ItemsSource="{Binding Path=Content.RightWindowCommands}">
+			<mah:WindowCommands.ItemTemplate>
+				<DataTemplate>
+					<mah:MetroContentControl Content="{Binding Path=.}"></mah:MetroContentControl>
+				</DataTemplate>
+			</mah:WindowCommands.ItemTemplate>
+		</mah:WindowCommands>
+	</mah:MetroWindow.RightWindowCommands>
 	<Grid>
 		<framework:OverlayPanel IsOverlayVisible="{Binding Path=LoadingState.IsBusy}">
 			<framework:OverlayPanel.Overlay>

@@ -11,6 +11,9 @@ namespace Company.Desktop.Application.Dependencies.Configuration
 
 		private static readonly ApplicationSettings Default = new ApplicationSettings();
 
+		/// <summary>
+		/// Required for DI constructor. Do not use.
+		/// </summary>
 		public ApplicationSettings() { }
 
 		public ApplicationSettings(ISettingsStorage storage)

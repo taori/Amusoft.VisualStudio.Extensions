@@ -47,6 +47,7 @@ namespace Company.Desktop.ViewModels.Windows
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
+			this.RightWindowCommands.Add(new WindowTextCommand(new TaskCommand(OpenSettingsExecute), "Settings"));
 			var disableBehavior = new DisableWhileExecutingCommand();
 			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
 			{
@@ -135,6 +136,12 @@ namespace Company.Desktop.ViewModels.Windows
 			}))));
 
 			return Task.CompletedTask;
+		}
+
+		private async Task OpenSettingsExecute(object arg)
+		{
+			var navigationService = this.ServiceProvider.GetRequiredService<INavigationService>();
+			await navigationService.OpenWindowAsync(new DefaultWindowViewModel(new SettingsViewModel()), null);
 		}
 
 		private Task SpawnErrorExecute(object parameter)
