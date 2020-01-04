@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 
 namespace Company.Desktop.Framework.Mvvm.ViewModel
@@ -7,7 +8,13 @@ namespace Company.Desktop.Framework.Mvvm.ViewModel
 	public abstract class WindowContentViewModelBase : ContentViewModel, IWindowContentViewModel, IWindowSetter
 	{
 		private WeakReference<IWindowViewModel> _windowReference;
-		
+
+		/// <inheritdoc />
+		public ObservableCollection<IWindowCommand> LeftWindowCommands { get; } = new ObservableCollection<IWindowCommand>();
+
+		/// <inheritdoc />
+		public ObservableCollection<IWindowCommand> RightWindowCommands { get; } = new ObservableCollection<IWindowCommand>();
+
 		/// <inheritdoc />
 		public override IEnumerable<IBehavior> GetDefaultBehaviors()
 		{

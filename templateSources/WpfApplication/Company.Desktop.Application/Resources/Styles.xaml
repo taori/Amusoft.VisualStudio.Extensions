@@ -3,7 +3,8 @@
                     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:framework="http://schemas.localcontrols.com/winfx/2006/xaml/presentation"
                     xmlns:aui="http://schemas.amusoft.ui.wpf.com/winfx/2006/xaml/presentation"
-                    xmlns:ui="clr-namespace:Company.Desktop.Framework.Mvvm.UI;assembly=Company.Desktop.Framework.Mvvm">
+                    xmlns:ui="clr-namespace:Company.Desktop.Framework.Mvvm.UI;assembly=Company.Desktop.Framework.Mvvm"
+                    xmlns:commands="clr-namespace:Company.Desktop.Framework.Mvvm.Commands;assembly=Company.Desktop.Framework.Mvvm">
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="pack://application:,,,/Amusoft.UI.WPF;component/Themes/Generic.xaml" />
 	</ResourceDictionary.MergedDictionaries>
@@ -11,6 +12,16 @@
 	<Style TargetType="{x:Type mah:MetroWindow}" x:Key="DefaultWindowStyle">
 		<Setter Property="GlowBrush" Value="{DynamicResource AccentColorBrush}" />
 		<Setter Property="TitleCharacterCasing" Value="Normal" />
+	</Style>
+
+	<Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroButton}" x:Key="DangerButton">
+		<Setter Property="Foreground" Value="{StaticResource ValidationSummaryColor1}"></Setter>
+	</Style>
+
+	<Style TargetType="{x:Type mah:MetroTabItem}" BasedOn="{StaticResource MetroTabItem}" x:Key="DefaultMetroTabItem">
+		<Setter Property="mah:ControlsHelper.HeaderFontSize" Value="18" />
+	</Style>
+	<Style TargetType="{x:Type mah:MetroTabItem}" BasedOn="{StaticResource DefaultMetroTabItem}">
 	</Style>
 
 	<Style TargetType="{x:Type aui:NotificationDisplay}" BasedOn="{StaticResource DefaultNotificationDisplay}">
@@ -22,5 +33,17 @@
 			<TextBlock Text="{Binding Path=Title}" Foreground="White" FontSize="17"/>
 			<TextBlock Text="{Binding Path=Description}" Foreground="#BBBBBB" FontSize="13"/>
 		</StackPanel>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type commands:WindowTextCommand}">
+		<Button Content="{Binding Path=Text}" Command="{Binding Path=Command}"></Button>
+	</DataTemplate>
+
+	<DataTemplate DataType="{x:Type commands:WindowImageCommand}">
+		<Button Command="{Binding Path=Command}">
+			<Button.Content>
+				<Image Source="{Binding Path=ImageSource}"></Image>
+			</Button.Content>
+		</Button>
 	</DataTemplate>
 </ResourceDictionary>
