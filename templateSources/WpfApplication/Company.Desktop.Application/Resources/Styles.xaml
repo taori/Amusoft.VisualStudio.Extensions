@@ -46,4 +46,17 @@
 			</Button.Content>
 		</Button>
 	</DataTemplate>
+
+	<Style TargetType="{x:Type framework:ContentPanel}">
+		<Setter Property="Padding" Value="10"></Setter>
+	</Style>
+
+	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+		<Setter Property="mah:TextBoxHelper.UseFloatingWatermark" Value="True"/>
+		<Setter Property="mah:TextBoxHelper.AutoWatermark" Value="True"/>
+	</Style>
+
+	<Style x:Key="DefaultToolbarPanelStyle" TargetType="framework:ToolbarPanel">
+		<Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+	</Style>
 </ResourceDictionary>

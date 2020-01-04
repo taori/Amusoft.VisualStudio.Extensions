@@ -44,24 +44,31 @@ namespace Company.Desktop.Application.Dependencies
 				if (_values.TryGetValue(key, out var extracted))
 				{
 					Log.Debug($"Found a value for {key}.");
+
 					if (extracted is T typed)
 					{
 						Log.Debug($"Value matches expected type [{typeof(T).FullName}].");
 						value = typed;
 						return true;
 					}
+
+					if (extracted is JArray jArray)
+					{
+						Log.Debug("converting jArray to type [{typeof(T).FullName}].");
+						value = jArray.ToObject<T>();
+						return true;
+					}
+
 					if (extracted is JObject jObject && jObject.ToObject<T>() is T jTyped)
 					{
 						Log.Debug($"jObject matches expected type [{typeof(T).FullName}].");
 						value = jTyped;
 						return true;
 					}
-					else
-					{
-						Log.Debug($"Type is [{extracted.GetType().FullName}] instead of [{typeof(T).FullName}].");
-						value = default(T);
-						return false;
-					}
+
+					Log.Debug($"Type is [{extracted.GetType().FullName}] instead of [{typeof(T).FullName}].");
+					value = default(T);
+					return false;
 				}
 			}
 			catch (Exception e)
