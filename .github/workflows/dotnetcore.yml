@@ -12,8 +12,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: dotnet build template sources
-      run: |
-        dotnet build templateSources/WindowsService/WindowsService.sln --configuration Release
-        dotnet build templateSources/EFDataLayer/EFQuickStart.sln --configuration Release
-        dotnet build templateSources/WpfApplication/Company.Desktop.Application.sln --configuration Release
+    - name: dotnet build WindowsService
+      run: dotnet build templateSources/WindowsService/WindowsService.sln --configuration Release
+    - name: dotnet build EFDataLayer
+      run: dotnet build templateSources/EFDataLayer/EFQuickStart.sln --configuration Release
+    - name: dotnet build WpfApplication
+      run: dotnet build templateSources/WpfApplication/Company.Desktop.Application.sln --configuration Release
+        
