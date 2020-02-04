@@ -13,4 +13,7 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: dotnet build template sources
-      run: dotnet build templateSources/**/*.sln --configuration Release
+      run: |
+        dotnet build templateSources/WindowsService/*.sln --configuration Release
+        dotnet build templateSources/EFDataLayer/*.sln --configuration Release
+        dotnet build templateSources/WpfApplication/*.sln --configuration Release
