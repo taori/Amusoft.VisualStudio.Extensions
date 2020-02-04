@@ -1,6 +1,11 @@
 name: Templates integrity
-on: [push]
-
+on: 
+  [push]:
+    paths: 
+      - src/*
+      - tests/*
+      - templateSources/*
+      - .github/workflows/*
 jobs:
   build:
 
