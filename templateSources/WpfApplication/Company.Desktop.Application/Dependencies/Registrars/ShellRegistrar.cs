@@ -32,6 +32,7 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
+			Singleton<IViewModelComposer, ViewModelComposer>(services);
 
 			Transient<IServiceContext, ServiceContext>(services);
 			Transient<IViewModelWindowFactory, WindowFactory>(services);

@@ -8,6 +8,7 @@ using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Commands;
+using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Navigation;
@@ -44,9 +45,22 @@ namespace Company.Desktop.ViewModels.Windows
 			}
 		}
 
+		public class TestViewModel : ViewModelBase
+		{
+			private readonly INavigationService _navigationService;
+
+			public TestViewModel(INavigationService navigationService)
+			{
+				_navigationService = navigationService;
+			}
+		}
+
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
+			var composer = ServiceProvider.GetRequiredService<IViewModelComposer>();
+			var testViewModel = composer.Compose<TestViewModel>();
+			var scopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 			this.RightWindowCommands.Add(new WindowTextCommand(new TaskCommand(OpenSettingsExecute), "Settings"));
 			var disableBehavior = new DisableWhileExecutingCommand();
 			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>
