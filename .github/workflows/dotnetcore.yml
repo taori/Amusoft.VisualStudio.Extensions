@@ -1,16 +1,16 @@
 name: Templates integrity
 on: 
-  [push]:
+  push:    
     paths: 
       - src/*
       - tests/*
       - templateSources/*
       - .github/workflows/*
-    
-jobs:
-  build:
 
-    runs-on: [windows-latest]
+jobs:  
+  build:
+    runs-on: 
+      [windows-latest]
 
     steps:
     - uses: actions/checkout@v2
