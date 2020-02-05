@@ -6,6 +6,7 @@ on:
       - tests/*
       - templateSources/*
       - .github/workflows/*
+    
 jobs:
   build:
 
