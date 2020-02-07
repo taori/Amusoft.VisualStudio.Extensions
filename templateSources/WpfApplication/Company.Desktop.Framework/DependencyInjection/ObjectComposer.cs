@@ -2,23 +2,13 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Company.Desktop.Framework.Mvvm.Integration.Composer
+namespace Company.Desktop.Framework.DependencyInjection
 {
-	public interface IViewModelComposer
-	{
-		T Compose<T>()
-			where T : class;
-	}
-
-	public class ComposerImportAttribute : Attribute
-	{
-
-	}
-	public class ViewModelComposer : IViewModelComposer
+	public class ObjectComposer : IObjectComposer
 	{
 		private readonly IServiceProvider _serviceProvider;
 
-		public ViewModelComposer(IServiceProvider serviceProvider)
+		public ObjectComposer(IServiceProvider serviceProvider)
 		{
 			_serviceProvider = serviceProvider;
 		}
@@ -29,6 +19,9 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		{
 			var constructor = GetConstructor<T>();
 			var composed = constructor.Invoke(GetParameterInstances(constructor));
+			if (composed is ICompositionCompleted compositionCompleted)
+				compositionCompleted.Complete();
+
 			return composed as T;
 		}
 
@@ -54,7 +47,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 				{
 					var mapping = constructors.Select(constructor =>
 						(
-							attribute: constructor.GetCustomAttribute<ComposerImportAttribute>(),
+							attribute: CustomAttributeExtensions.GetCustomAttribute<ComposerImportAttribute>((MemberInfo) constructor),
 							constructor
 						)
 					);

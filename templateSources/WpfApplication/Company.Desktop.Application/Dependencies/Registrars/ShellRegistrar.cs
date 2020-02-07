@@ -32,7 +32,8 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
-			Singleton<IViewModelComposer, ViewModelComposer>(services);
+
+			Scoped<IObjectComposer, ObjectComposer>(services);
 
 			Transient<IServiceContext, ServiceContext>(services);
 			Transient<IViewModelWindowFactory, WindowFactory>(services);
@@ -44,6 +45,13 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Log.Debug($"Registering [Singleton] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
 			services.AddSingleton<TService, TImplementation>();
 		}
+
+		private void Scoped<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
+		{
+			Log.Debug($"Registering [Scoped] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
+			services.AddScoped<TService, TImplementation>();
+		}
+
 		private void Transient<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
 		{
 			Log.Debug($"Registering [Transient] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
