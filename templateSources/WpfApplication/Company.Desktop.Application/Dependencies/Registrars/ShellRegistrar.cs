@@ -32,10 +32,8 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
+			Singleton<IObjectComposer, ObjectComposer>(services);
 
-			Scoped<IObjectComposer, ObjectComposer>(services);
-
-			Transient<IServiceContext, ServiceContext>(services);
 			Transient<IViewModelWindowFactory, WindowFactory>(services);
 			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
 		}

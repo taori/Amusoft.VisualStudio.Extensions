@@ -121,7 +121,7 @@ namespace Company.Desktop.Application.Dependencies.Logging
 					.CloseOnSelect(false);
 
 				if (_notificationService == null)
-					_notificationService = App.DependencyContainer.ServiceProvider.GetService(typeof(INotificationService)) as NotificationService;
+					_notificationService = DependencyContainer.Instance.ServiceProvider.GetService(typeof(INotificationService)) as NotificationService;
 				
 				_notificationService?.Display(notificationBuilder.Notification);
 			}
@@ -141,7 +141,7 @@ namespace Company.Desktop.Application.Dependencies.Logging
 					.CloseOnSelect(false);
 
 				if (_notificationService == null)
-					_notificationService = App.DependencyContainer.ServiceProvider.GetService(typeof(INotificationService)) as NotificationService;
+					_notificationService = DependencyContainer.Instance.ServiceProvider.GetService(typeof(INotificationService)) as NotificationService;
 
 				_notificationService?.Display(notificationBuilder.Notification);
 			}

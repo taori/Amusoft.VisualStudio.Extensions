@@ -25,12 +25,9 @@ namespace Company.Desktop.Application
 		{
 			LogConfiguration.RegisterTargets();
 			Log = LogManager.GetLogger(nameof(App));
-			DependencyContainer = new DependencyContainer();
 		}
 		
 		private static ILogger Log { get; }
-
-		public static readonly DependencyContainer DependencyContainer;
 
 		private static Mutex ApplicationMutex;
 
@@ -42,7 +39,7 @@ namespace Company.Desktop.Application
 			{
 				AttachAllExceptionHandlers();
 
-				DependencyContainer.Configure();
+				DependencyContainer.Instance.Configure();
 				ShutdownMode = ShutdownMode.OnMainWindowClose;
 
 				ApplicationMutex = new Mutex(false, typeof(App).FullName, out var mutexCreated);
@@ -53,13 +50,13 @@ namespace Company.Desktop.Application
 					Current.Shutdown(0);
 				}
 
-				var runners = DependencyContainer.ServiceProvider.GetServices<IConfigurationRunner>();
+				var runners = DependencyContainer.Instance.ServiceProvider.GetServices<IConfigurationRunner>();
 				foreach (var runner in runners)
 				{
 					Log.Debug($"Executing {nameof(IConfigurationRunner)} \"{runner.GetType().FullName}\".");
 					runner.Execute();
 				}
-				var navigationService = DependencyContainer.ServiceProvider.GetService<INavigationService>();
+				var navigationService = DependencyContainer.Instance.ServiceProvider.GetService<INavigationService>();
 				navigationService.OpenWindowAsync(new DefaultWindowViewModel(new MainViewModel()), nameof(MainViewModel));
 
 				base.OnStartup(e);

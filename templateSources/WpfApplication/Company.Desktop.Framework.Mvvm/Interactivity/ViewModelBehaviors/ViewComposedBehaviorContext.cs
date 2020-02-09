@@ -8,12 +8,12 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 	public class ViewComposedBehaviorContext : IViewComposedBehaviorContext
 	{
 		public IViewCompositionContext CompositionContext { get; }
-		public IServiceContext ServiceContext { get; }
+		public IServiceProvider ServiceProvider { get; }
 
-		public ViewComposedBehaviorContext([NotNull] IViewCompositionContext compositionContext, [NotNull] IServiceContext serviceContext)
+		public ViewComposedBehaviorContext([NotNull] IViewCompositionContext compositionContext, [NotNull] IServiceProvider serviceContext)
 		{
 			CompositionContext = compositionContext ?? throw new ArgumentNullException(nameof(compositionContext));
-			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
+			ServiceProvider = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
 		}
 	}
 }

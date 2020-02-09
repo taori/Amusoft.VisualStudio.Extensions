@@ -24,7 +24,7 @@ namespace Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors
 			if(context.CompositionContext.CoordinationArguments is WindowArguments windowArguments)
 			{
 				var windowStorageKey = $"{nameof(WindowArguments)}.{windowArguments.WindowId}";
-				if (context.ServiceContext.ServiceProvider.GetService<ISettingsStorage>() is ISettingsStorage storage)
+				if (context.ServiceProvider.GetService<ISettingsStorage>() is ISettingsStorage storage)
 				{
 					if (storage.TryGetValue(windowStorageKey, out WindowAttributes value))
 					{

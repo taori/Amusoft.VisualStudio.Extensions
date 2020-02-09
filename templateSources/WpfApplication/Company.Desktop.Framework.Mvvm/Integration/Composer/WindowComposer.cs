@@ -19,7 +19,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(WindowComposer));
 
 		/// <inheritdoc />
-		public WindowComposer(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner) : base(serviceContext, composerHooks, behaviorRunner)
+		public WindowComposer(IServiceProvider serviceProvider, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner) : base(serviceProvider, composerHooks, behaviorRunner)
 		{
 		}
 
@@ -85,7 +85,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						if (windowViewModel is IWindowListener listener)
 							listener.NotifyClosed();
 
-						await BehaviorRunner.ExecuteAsync(windowViewModel as IBehaviorHost, new WindowClosedContext(windowViewModel, ServiceContext.ServiceProvider, context));
+						await BehaviorRunner.ExecuteAsync(windowViewModel as IBehaviorHost, new WindowClosedContext(windowViewModel, ServiceProvider, context));
 					});
 				}
 			}

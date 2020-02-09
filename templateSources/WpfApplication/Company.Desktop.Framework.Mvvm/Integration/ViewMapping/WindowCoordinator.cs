@@ -18,15 +18,15 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 		public IWindowManager WindowManager { get; }
 		public IEnumerable<IViewModelWindowFactory> WindowFactories { get; }
 		public IViewComposerFactory ComposerFactory { get; }
-		public IServiceContext ServiceContext { get; }
+		public IServiceProvider ServiceProvider { get; }
 		public IBehaviorRunner BehaviorRunner { get; }
 
-		public WindowCoordinator(IWindowManager windowManager, IEnumerable<IViewModelWindowFactory> windowFactories, IViewComposerFactory composerFactory, IServiceContext serviceContext, [NotNull] IBehaviorRunner behaviorRunner)
+		public WindowCoordinator(IWindowManager windowManager, IEnumerable<IViewModelWindowFactory> windowFactories, IViewComposerFactory composerFactory, IServiceProvider serviceContext, [NotNull] IBehaviorRunner behaviorRunner)
 		{
 			WindowManager = windowManager ?? throw new ArgumentNullException(nameof(windowManager));
 			WindowFactories = windowFactories ?? throw new ArgumentNullException(nameof(windowFactories));
 			ComposerFactory = composerFactory ?? throw new ArgumentNullException(nameof(composerFactory));
-			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
+			ServiceProvider = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
 			BehaviorRunner = behaviorRunner ?? throw new ArgumentNullException(nameof(behaviorRunner));
 		}
 
@@ -72,7 +72,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 
 				if (window.DataContext is IBehaviorHost interactive)
 				{
-					var context = new ContentChangingBehaviorContext(ServiceContext.ServiceProvider, window.DataContext, dataContext);
+					var context = new ContentChangingBehaviorContext(ServiceProvider, window.DataContext, dataContext);
 					await BehaviorRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{

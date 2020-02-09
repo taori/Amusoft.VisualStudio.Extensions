@@ -18,6 +18,8 @@ using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog;
 using IBehavior = Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors.IBehavior;
 
 namespace Company.Desktop.ViewModels.Windows
@@ -49,10 +51,14 @@ namespace Company.Desktop.ViewModels.Windows
 		public class TestViewModel : ViewModelBase
 		{
 			private readonly INavigationService _navigationService;
+			private readonly ILogger<TestViewModel> _logger;
+			private readonly IServiceProvider _serviceProvider;
 
-			public TestViewModel(INavigationService navigationService)
+			public TestViewModel(INavigationService navigationService, ILogger<TestViewModel> logger, IServiceProvider serviceProvider)
 			{
 				_navigationService = navigationService;
+				_logger = logger;
+				_serviceProvider = serviceProvider;
 			}
 		}
 
