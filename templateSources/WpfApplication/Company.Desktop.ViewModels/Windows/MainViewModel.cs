@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -10,6 +12,7 @@ using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Commands;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.Integration.Construction;
 using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Navigation;
@@ -48,7 +51,7 @@ namespace Company.Desktop.ViewModels.Windows
 			}
 		}
 
-		public class TestViewModel : ViewModelBase
+		public class TestViewModel : ViewModelBase, IParameter<int>
 		{
 			private readonly INavigationService _navigationService;
 			private readonly ILogger<TestViewModel> _logger;
@@ -60,13 +63,21 @@ namespace Company.Desktop.ViewModels.Windows
 				_logger = logger;
 				_serviceProvider = serviceProvider;
 			}
+			
+			/// <inheritdoc />
+			public void Using(int parameter1)
+			{
+				
+			}
 		}
+
 
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
 			var composer = ServiceProvider.GetRequiredService<IObjectComposer>();
-			var testViewModel = composer.Compose<TestViewModel>();
+			var testViewModel = composer.Compose<TestViewModel>()
+				.WithParameters(300);
 			var scopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 			var bla = new[]
 			{
