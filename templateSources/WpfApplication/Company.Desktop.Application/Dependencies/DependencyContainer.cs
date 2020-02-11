@@ -48,9 +48,12 @@ namespace Company.Desktop.Application.Dependencies
 
 		private void ManualRegisters(IServiceCollection serviceCollection)
 		{
-			// serviceCollection.AddSingleton(serviceCollection);
-			serviceCollection.AddSingleton<IInjectionAssemblyLoader, InjectionAssemblyLoader>();
 			serviceCollection.AddScoped<IServiceProviderFactory<IServiceCollection>, DefaultServiceProviderFactory>();
+
+			serviceCollection.AddSingleton<IInjectionAssemblyLoader, InjectionAssemblyLoader>();
+			serviceCollection.AddSingleton<IServiceCollectionFactory>(provider => new ServiceCollectionFactory(serviceCollection));
+			serviceCollection.AddSingleton<IObjectComposer, ObjectComposer>();
+			serviceCollection.AddSingleton<INestedObjectComposer, NestedObjectComposer>();
 
 			serviceCollection.AddLogging(configure =>
 			{

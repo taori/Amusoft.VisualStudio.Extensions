@@ -56,12 +56,14 @@ namespace Company.Desktop.ViewModels.Windows
 			private readonly INavigationService _navigationService;
 			private readonly ILogger<TestViewModel> _logger;
 			private readonly IServiceProvider _serviceProvider;
+			private readonly ITestService _testService;
 
-			public TestViewModel(INavigationService navigationService, ILogger<TestViewModel> logger, IServiceProvider serviceProvider)
+			public TestViewModel(INavigationService navigationService, ILogger<TestViewModel> logger, IServiceProvider serviceProvider, ITestService testService)
 			{
 				_navigationService = navigationService;
 				_logger = logger;
 				_serviceProvider = serviceProvider;
+				_testService = testService;
 			}
 			
 			/// <inheritdoc />
@@ -71,20 +73,25 @@ namespace Company.Desktop.ViewModels.Windows
 			}
 		}
 
+		public interface ITestService
+		{
+			
+		}
+
+		public class TestImplementation : ITestService
+		{
+			
+		}
+
 
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
-			var composer = ServiceProvider.GetRequiredService<IObjectComposer>();
-			var testViewModel = composer.Compose<TestViewModel>()
-				.WithParameters(300);
-			var scopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
-			var bla = new[]
-			{
-				object.ReferenceEquals(
-					scopeFactory.CreateScope().ServiceProvider.GetRequiredService<IObjectComposer>(), 
-					scopeFactory.CreateScope().ServiceProvider.GetRequiredService<IObjectComposer>()),
-			};
+			var nestedComposer = ServiceProvider.GetRequiredService<INestedObjectComposer>();
+			var nestedCompose = nestedComposer
+					.Compose<TestViewModel>(collection => collection.AddTransient<ITestService, TestImplementation>())
+					.WithParameters(300);
+
 			this.RightWindowCommands.Add(new WindowTextCommand(new TaskCommand(OpenSettingsExecute), "Settings"));
 			var disableBehavior = new DisableWhileExecutingCommand();
 			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>

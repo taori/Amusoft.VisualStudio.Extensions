@@ -4,6 +4,7 @@ using Company.Desktop.Application.Dependencies.Configuration;
 using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
+using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
@@ -12,6 +13,7 @@ using Company.Desktop.Framework.Mvvm.Navigation;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.ViewModels.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog;
 
 namespace Company.Desktop.Application.Dependencies.Registrars
@@ -32,7 +34,6 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
-			Singleton<IObjectComposer, ObjectComposer>(services);
 
 			Transient<IViewModelWindowFactory, WindowFactory>(services);
 			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
