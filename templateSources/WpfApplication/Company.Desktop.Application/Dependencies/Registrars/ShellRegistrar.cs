@@ -34,6 +34,7 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
+			Singleton<ITabControllerManager, TabManager>(services);
 
 			Transient<IViewModelWindowFactory, WindowFactory>(services);
 			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
