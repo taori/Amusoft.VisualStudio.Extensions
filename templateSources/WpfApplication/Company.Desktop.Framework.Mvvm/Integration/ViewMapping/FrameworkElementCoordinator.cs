@@ -16,14 +16,14 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 
 		public IRegionManager RegionManager { get; }
 		public IViewComposerFactory ComposerFactory { get; }
-		public IServiceContext ServiceContext { get; }
+		public IServiceProvider ServiceProvider { get; }
 		public IBehaviorRunner BehaviorRunner { get; }
 
-		public FrameworkElementCoordinator(IRegionManager regionManager, IViewComposerFactory composerFactory, IServiceContext serviceContext, [NotNull] IBehaviorRunner behaviorRunner)
+		public FrameworkElementCoordinator(IRegionManager regionManager, IViewComposerFactory composerFactory, IServiceProvider serviceContext, [NotNull] IBehaviorRunner behaviorRunner)
 		{
 			RegionManager = regionManager ?? throw new ArgumentNullException(nameof(regionManager));
 			ComposerFactory = composerFactory ?? throw new ArgumentNullException(nameof(composerFactory));
-			ServiceContext = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
+			ServiceProvider = serviceContext ?? throw new ArgumentNullException(nameof(serviceContext));
 			BehaviorRunner = behaviorRunner ?? throw new ArgumentNullException(nameof(behaviorRunner));
 		}
 
@@ -45,7 +45,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.ViewMapping
 
 				if (control.DataContext is IBehaviorHost interactive)
 				{
-					var context = new ContentChangingBehaviorContext(ServiceContext.ServiceProvider, control.DataContext, dataContext);
+					var context = new ContentChangingBehaviorContext(ServiceProvider, control.DataContext, dataContext);
 					await BehaviorRunner.ExecuteAsync(interactive, context);
 					if (context.Cancelled)
 					{

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,11 +16,11 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 		public IEnumerable<IViewContextBinder> ViewContextBinder { get; }
 
 		/// <inheritdoc />
-		public FrameworkElementComposer(IServiceContext serviceContext, 
+		public FrameworkElementComposer(IServiceProvider serviceProvider, 
 			IEnumerable<IViewComposerHook> composerHooks, 
 			IEnumerable<IViewContextBinder> viewContextBinder, 
 			IBehaviorRunner behaviorRunner) 
-			: base(serviceContext, composerHooks, behaviorRunner)
+			: base(serviceProvider, composerHooks, behaviorRunner)
 		{
 			ViewContextBinder = viewContextBinder;
 		}

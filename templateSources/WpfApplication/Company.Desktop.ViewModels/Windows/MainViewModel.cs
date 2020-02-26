@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Amusoft.UI.WPF.Adorners;
 using Amusoft.UI.WPF.Notifications;
+using Company.Desktop.Framework.DependencyInjection;
 using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Commands;
+using Company.Desktop.Framework.Mvvm.Integration.Composer;
+using Company.Desktop.Framework.Mvvm.Integration.Construction;
 using Company.Desktop.Framework.Mvvm.Interactivity;
 using Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors;
 using Company.Desktop.Framework.Mvvm.Navigation;
@@ -16,6 +21,8 @@ using Company.Desktop.Framework.Mvvm.ViewModel;
 using Company.Desktop.ViewModels.Common;
 using Company.Desktop.ViewModels.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog;
 using IBehavior = Company.Desktop.Framework.Mvvm.Interactivity.ViewModelBehaviors.IBehavior;
 
 namespace Company.Desktop.ViewModels.Windows
@@ -44,9 +51,47 @@ namespace Company.Desktop.ViewModels.Windows
 			}
 		}
 
+		public class TestViewModel : ViewModelBase, IParameter<int>
+		{
+			private readonly INavigationService _navigationService;
+			private readonly ILogger<TestViewModel> _logger;
+			private readonly IServiceProvider _serviceProvider;
+			private readonly ITestService _testService;
+
+			public TestViewModel(INavigationService navigationService, ILogger<TestViewModel> logger, IServiceProvider serviceProvider, ITestService testService)
+			{
+				_navigationService = navigationService;
+				_logger = logger;
+				_serviceProvider = serviceProvider;
+				_testService = testService;
+			}
+			
+			/// <inheritdoc />
+			public void Using(int parameter1)
+			{
+				
+			}
+		}
+
+		public interface ITestService
+		{
+			
+		}
+
+		public class TestImplementation : ITestService
+		{
+			
+		}
+
+
 		/// <inheritdoc />
 		protected override Task OnActivateAsync(IActivationContext context)
 		{
+			var nestedComposer = ServiceProvider.GetRequiredService<INestedObjectComposer>();
+			var nestedCompose = nestedComposer
+					.Compose<TestViewModel>(collection => collection.AddTransient<ITestService, TestImplementation>())
+					.WithParameters(300);
+
 			this.RightWindowCommands.Add(new WindowTextCommand(new TaskCommand(OpenSettingsExecute), "Settings"));
 			var disableBehavior = new DisableWhileExecutingCommand();
 			Commands.Add(new TestCommand("Open Window", new CompositionCommand(disableBehavior, new TaskExecution(async (o) =>

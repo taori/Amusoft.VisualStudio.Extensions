@@ -29,13 +29,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 		private static readonly ILogger Log = LogManager.GetLogger(nameof(ViewComposerBase));
 
-		public IServiceContext ServiceContext { get; }
+		public IServiceProvider ServiceProvider { get; }
 		public IEnumerable<IViewComposerHook> ComposerHooks { get; }
 		public IBehaviorRunner BehaviorRunner { get; }
 
-		protected ViewComposerBase(IServiceContext serviceContext, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner)
+		protected ViewComposerBase(IServiceProvider serviceProvider, IEnumerable<IViewComposerHook> composerHooks, IBehaviorRunner behaviorRunner)
 		{
-			ServiceContext = serviceContext;
+			ServiceProvider = serviceProvider;
 			ComposerHooks = composerHooks;
 			BehaviorRunner = behaviorRunner;
 		}
@@ -58,13 +58,13 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 					if (element.DataContext is IServiceProviderHolder holder)
 					{
 						Log.Debug($"ServiceProvider set through {nameof(IServiceProviderHolder)}.");
-						holder.ServiceProvider = ServiceContext.ServiceProvider;
+						holder.ServiceProvider = ServiceProvider;
 					}
 
 					if (element.DataContext is IWindowViewModel windowViewModel)
 					{
 						if (windowViewModel.Content is IServiceProviderHolder subHolder)
-							subHolder.ServiceProvider = ServiceContext.ServiceProvider;
+							subHolder.ServiceProvider = ServiceProvider;
 					}
 				
 					if (element.DataContext is IDefaultBehaviorProvider behaviourProvider && element.DataContext is IBehaviorHost interactiveBehaviour)
@@ -82,7 +82,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 						hook.Execute(element, element.DataContext);
 					}
 
-					await BehaviorRunner.ExecuteAsync(element.DataContext as IBehaviorHost, new ActivationBehaviorContext(element.DataContext, ServiceContext.ServiceProvider));
+					await BehaviorRunner.ExecuteAsync(element.DataContext as IBehaviorHost, new ActivationBehaviorContext(element.DataContext, ServiceProvider));
 				
 					var coordinationArguments = GetCoordinationArguments(element);
 
@@ -122,7 +122,7 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer
 
 				Log.Debug($"Finalizing composition.");
 				await FinalizeCompositionAsync(context);
-				await BehaviorRunner.ExecuteAsync(context.DataContext as IBehaviorHost, new ViewComposedBehaviorContext(context, ServiceContext));
+				await BehaviorRunner.ExecuteAsync(context.DataContext as IBehaviorHost, new ViewComposedBehaviorContext(context, ServiceProvider));
 				await DataContextLoadedCompletion.Task;
 				
 				return true;

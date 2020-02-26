@@ -10,11 +10,11 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 {
 	public class WindowClosingHook : IViewComposerHook
 	{
-		public IServiceContext ServiceContext { get; }
+		public IServiceProvider ServiceProvider { get; }
 
-		public WindowClosingHook(IServiceContext serviceContext)
+		public WindowClosingHook(IServiceProvider serviceProvider)
 		{
-			ServiceContext = serviceContext;
+			ServiceProvider = serviceProvider;
 		}
 
 		/// <inheritdoc />
@@ -33,9 +33,9 @@ namespace Company.Desktop.Framework.Mvvm.Integration.Composer.Hooks
 					else
 					{
 						var deactivationSession = new WindowDeactivatorSession(args);
-						if (await deactivationSession.IsCancelledAsync(dataContext as IDeactivate, ServiceContext.ServiceProvider))
+						if (await deactivationSession.IsCancelledAsync(dataContext as IDeactivate, ServiceProvider))
 							return;
-						if (await deactivationSession.IsCancelledAsync(dataContext as IBehaviorHost, ServiceContext.ServiceProvider))
+						if (await deactivationSession.IsCancelledAsync(dataContext as IBehaviorHost, ServiceProvider))
 							return;
 
 						WindowDeactivatorSession.SetCloseChecksPassed(sender as DependencyObject, true);

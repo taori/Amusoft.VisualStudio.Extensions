@@ -4,6 +4,7 @@ using Company.Desktop.Application.Dependencies.Configuration;
 using Company.Desktop.Application.Dependencies.Setup;
 using Company.Desktop.Application.Dependencies.UI;
 using Company.Desktop.Framework.DependencyInjection;
+using Company.Desktop.Framework.Extensions;
 using Company.Desktop.Framework.Mvvm.Integration.Composer;
 using Company.Desktop.Framework.Mvvm.Integration.Environment;
 using Company.Desktop.Framework.Mvvm.Integration.ViewMapping;
@@ -12,6 +13,7 @@ using Company.Desktop.Framework.Mvvm.Navigation;
 using Company.Desktop.Framework.Mvvm.UI;
 using Company.Desktop.ViewModels.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using NLog;
 
 namespace Company.Desktop.Application.Dependencies.Registrars
@@ -32,8 +34,8 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Singleton<IBehaviorRunner, BehaviorRunner>(services);
 			Singleton<ISettingsStorage, SettingsStorage>(services);
 			Singleton<IApplicationSettings, ApplicationSettings>(services);
+			Singleton<ITabControllerManager, TabManager>(services);
 
-			Transient<IServiceContext, ServiceContext>(services);
 			Transient<IViewModelWindowFactory, WindowFactory>(services);
 			services.AddTransient<IRegexDataTemplatePatternProvider>(CreateDefaultConventionPattern);
 		}
@@ -43,6 +45,13 @@ namespace Company.Desktop.Application.Dependencies.Registrars
 			Log.Debug($"Registering [Singleton] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
 			services.AddSingleton<TService, TImplementation>();
 		}
+
+		private void Scoped<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
+		{
+			Log.Debug($"Registering [Scoped] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
+			services.AddScoped<TService, TImplementation>();
+		}
+
 		private void Transient<TService, TImplementation>(IServiceCollection services) where TService : class where TImplementation : class, TService
 		{
 			Log.Debug($"Registering [Transient] [{typeof(TImplementation)}] -> [{typeof(TService)}].");
